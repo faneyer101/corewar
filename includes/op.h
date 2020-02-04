@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/02/04 18:03:39 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/04 20:42:06 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@
 #define COMMENT_CHAR			'#'
 //commentaire alternatif rajouter par RickY. A valider si on laisse ou pas
 #define ALT_COMMENT_CHAR		';'
-//Symbole de l
+//Symbole d'appel de labbel/etiquette
 #define LABEL_CHAR				':'
-//SUPOSITION: debut de labbel
+//Symbole qui definie le l'argument direct. Si il n'est pas present c'est indirect
 #define DIRECT_CHAR				'%'
-//SUPOSITION: separateur arguments
+//Separateur arguments
 #define SEPARATOR_CHAR			','
 
 //caractere que peu contenir une etiquette
