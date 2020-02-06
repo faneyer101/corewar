@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+      #
+#    By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/07/27 18:49:19 by nsalle       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/06 07:13:16 by faneyer     ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/06 12:29:45 by faneyer     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -16,7 +16,10 @@ NAME	= 	asm
 CC 		= 	gcc
 CFLAGS 	+= 	-Wextra -Werror -Wall -g -flto -O3 -march=native -flto -ffast-math 
 
-SRC 	= 	srcs/asm/parser.c				\
+SRC 	= 	srcs/asm/startasm.c				\
+			srcs/asm/parsing.c				\
+			srcs/asm/writefile.c			\
+		#	srcs/asm/testing.c				\
 
 OBJ		=	$(SRC:.c=.o)
 
