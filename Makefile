@@ -6,12 +6,12 @@
 #    By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/07/27 18:49:19 by nsalle       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/04 12:16:18 by faneyer     ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/06 07:13:16 by faneyer     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
-NAME	= 	corewar
+NAME	= 	asm
 
 CC 		= 	gcc
 CFLAGS 	+= 	-Wextra -Werror -Wall -g -flto -O3 -march=native -flto -ffast-math 
@@ -32,7 +32,7 @@ all: LFTC $(NAME)
 LFTC:
 	@$(MAKE) -C $(LFTDIR)
 
-$(NAME): $(OBJ) includes/cp.h $(LFTDIR)/libft.a
+$(NAME): $(OBJ) includes/corewar.h $(LFTDIR)/libft.a
 	@$(CC) $(CFLAGS) $(INC) $(LFT) $(OBJ) -o $(NAME)
 	@printf "\n|-> \033[32m$(NAME) compiled\033[0m\n\n"
 
