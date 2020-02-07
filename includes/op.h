@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2013/10/04 11:33:27 by zaz          #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/06 14:04:38 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/07 17:46:23 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,13 +20,14 @@
 //Chaque instructions se termine au saut de lignes
 
 
-
+#ifndef OP_H
+#define OP_H
 //
 #define IND_SIZE				2
 //Taille en octets de l'argument T_REG
-#define REG_SIZE				4
+#define REG_SIZE				1
 //
-#define DIR_SIZE				REG_SIZE
+#define DIR_SIZE				4
 
 
 //
@@ -110,3 +111,19 @@ typedef struct			s_header
 	unsigned int		prog_size;
 	char				comment[COMMENT_LENGTH + 1];
 }						t_header;
+
+typedef struct      	s_op
+{
+	char				name[8];
+	int					nb_arg;
+	char				args[3];
+	int					numop;
+	int					cycle;
+	char				descr[64];
+	int					octet;
+	int					size_octet_dir;
+}                   	t_op;
+
+void					init_op_tab(t_op *tab_op[17]);
+
+#endif

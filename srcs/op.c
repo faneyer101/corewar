@@ -6,13 +6,14 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2013/10/04 11:43:01 by zaz          #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/06 18:08:35 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/07 17:43:39 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
-#include "../includes/corewar.h"
 
-t_op    op_tab[17] =
+#include "../includes/op.h"
+
+t_op	g_op_tab[17] =
 {
 	//{name op, nb d'args, args, num d'op, temps cycle, comment, octet codage 0=false|1=true, nb d'octet direct 0=4|1=2}
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
@@ -37,5 +38,17 @@ t_op    op_tab[17] =
 		"long load index", 1, 1},
 	{"lfork", 1, {T_DIR}, 15, 1000, "long fork", 0, 1},
 	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0},
-	{0, 0, {0}, 0, 0, 0, 0, 0}
+	{{0}, 0, {0}, 0, 0, {0}, 0, 0}
 };
+
+void	init_op_tab(t_op tab_op[0][17])
+{
+	int 	i;
+
+	i = 0;
+	while (i < 17)
+	{
+		tab_op[0][i] = g_op_tab[i];
+		i++;
+	}
+}
