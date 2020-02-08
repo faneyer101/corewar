@@ -19,6 +19,8 @@ CFLAGS 	+= 	-Wextra -Werror -Wall -g -flto -O3 -march=native -flto -ffast-math
 SRC 	= 	srcs/asm/startasm.c				\
 			srcs/asm/parsing.c				\
 			srcs/asm/writefile.c			\
+			srcs/op.c						\
+			srcs/asm/toolsparsing.c			\
 		#	srcs/asm/testing.c				\
 
 OBJ		=	$(SRC:.c=.o)
@@ -35,7 +37,7 @@ all: LFTC $(NAME)
 LFTC:
 	@$(MAKE) -C $(LFTDIR)
 
-$(NAME): $(OBJ) includes/corewar.h $(LFTDIR)/libft.a
+$(NAME): $(OBJ) includes/asm.h includes/op.h $(LFTDIR)/libft.a
 	@$(CC) $(CFLAGS) $(INC) $(LFT) $(OBJ) -o $(NAME)
 	@printf "\n|-> \033[32m$(NAME) compiled\033[0m\n\n"
 
