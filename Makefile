@@ -6,7 +6,7 @@
 #    By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/07/27 18:49:19 by nsalle       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/06 12:29:45 by faneyer     ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/09 13:10:00 by faneyer     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -16,12 +16,17 @@ NAME	= 	asm
 CC 		= 	gcc
 CFLAGS 	+= 	-Wextra -Werror -Wall -g -flto -O3 -march=native -flto -ffast-math 
 
-SRC 	= 	srcs/asm/startasm.c				\
-			srcs/asm/parsing.c				\
+SRC		=	srcs/op.c						\
+		 	srcs/asm/startasm.c				\
+			srcs/asm/parser/parsing.c		\
+			srcs/asm/parser/toolsparsing.c	\
 			srcs/asm/writefile.c			\
-			srcs/op.c						\
-			srcs/asm/toolsparsing.c			\
-		#	srcs/asm/testing.c				\
+			srcs/asm/free.c					\
+			srcs/asm/lexer/main_lexer.c		\
+			srcs/asm/lexer/token.c			\
+			srcs/asm/lexer/gestion_token.c	\
+			srcs/asm/print/print_error.c	\
+			srcs/asm/print/print_token.c	\
 
 OBJ		=	$(SRC:.c=.o)
 
