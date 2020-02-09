@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/08 21:13:26 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 00:04:52 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/10 00:07:58 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,7 +87,7 @@ int	main_lexer(t_asm *master, int i)
 {	
 	t_token	token;
 
-	printf("%d|%d|%s|\n", i, master->numline, master->split_read[i]);
+	//printf("%d|%d|%s|\n", i, master->numline, master->split_read[i]);
 	init_token(&token, master);
 	if (master->split_read[i] == NULL) // a gerer pour compter le nombre de ligne or stack
 		return (0);
