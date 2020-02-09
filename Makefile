@@ -6,7 +6,7 @@
 #    By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/07/27 18:49:19 by nsalle       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/09 13:10:00 by faneyer     ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/09 22:44:51 by faneyer     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -28,7 +28,8 @@ SRC		=	srcs/op.c						\
 			srcs/asm/print/print_error.c	\
 			srcs/asm/print/print_token.c	\
 
-OBJ		=	$(SRC:.c=.o)
+OBJ		=	$(SRC:.c=.o)	# gerer la compilation des .o autrement pour inclure plusieurs header
+							# car je pense qu'il ne recompile pas avec op.h
 
 INC		=	-I./$(LFTDIR) -I.
 

@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 04:48:01 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/09 12:50:36 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/10 00:02:52 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,11 +39,13 @@ void    header_string(t_asm *master, char *header, t_token *token)
 {
     int start;
 
-    token->index = 0;
-    push_token(master, &header[token->index], 1, 'D');
+    token->index = 1;
+    push_token(master, &header[0], 1, 'D');
     start = 1;
-    while (header[++token->index] != '"')
-        ;
+    while (header[token->index] && header[token->index] != '"')
+        token->index++;
+	if (header[token->index] == '\0')
+		printf_error_lexer(master, "File Bad Syntax header");
     push_token(master, &header[start], token->index - start, 'S');
     push_token(master, &header[token->index], 1, 'D');
     while (header[++token->index])
@@ -60,12 +62,24 @@ void    header_string(t_asm *master, char *header, t_token *token)
     }
 }
 
+int		cheak_header(char *str)
+{
+	if (*str)
+	{
+		if (ft_strncmp(str, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)) == 0)
+			return (TRUE);
+		if (ft_strncmp(str, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)) == 0)
+			return (TRUE);
+	}
+		return (FALSE);
+}
+
 void    create_token_for_header(t_asm *master, char *header, t_token *token)
 {
-    if (header[token->index + 1] != NAME_CMD_STRING[1] && header[token->index + 1] != COMMENT_CMD_STRING[1])
-		printf_error_lexer(master, "File Bad Syntax header");
+    if (cheak_header(header) == FALSE)
+		printf_error_lexer(master, "File Bad Syntax header name or comment");
     push_token(master, &header[token->index], 1, 'D');
-    if (header[token->index + 1] == 'n')
+    if (header[token->index + 1] == NAME_CMD_STRING[1])
     {
         push_token(master, &header[token->index + 1], ft_strlen(NAME_CMD_STRING) - 1, 'S');
         token->index += ft_strlen(NAME_CMD_STRING);
@@ -83,10 +97,8 @@ void    create_token_for_header(t_asm *master, char *header, t_token *token)
         header_string(master, &header[token->index], token);
 }
 
-void	token_champion_param(t_asm *master, char *code, t_token *token)
+void	token_champion_param(t_asm *master, char *code, t_token *token, int start)
 {
-	int	start;
-
 	while (code[token->index++])
 	{
 		if (delimiter(code[token->index], "s"))
@@ -99,7 +111,8 @@ void	token_champion_param(t_asm *master, char *code, t_token *token)
         	push_token(master, &code[start], token->index - start, 'S');
 			if (delimiter(code[token->index], "d"))
 	        	push_token(master, &code[token->index], 1, 'D');
-			token->index--;
+			if (delimiter(code[token->index], "a"))
+			    printf_error_lexer(master, "File Bad Syntax setting commande champion");
 		}
 		else if (delimiter(code[token->index], "d"))
         	push_token(master, &code[token->index], 1, 'D');
@@ -140,5 +153,5 @@ void    create_token_champion(t_asm *master, char *code, t_token *token)
 	    printf_error_lexer(master, "File Bad Syntax setting labbel champion");
 	if (delimiter(code[token->index], "d"))
         push_token(master, &code[token->index], 1, 'D');
-	token_champion_param(master, code, token);
+	token_champion_param(master, code, token, 0);
 }
