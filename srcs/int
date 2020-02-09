@@ -1,7 +1,0 @@
-#include <stdio.h>
-
-int main()
-{
-	printf("int = %u\n", sizeof(int));
-	retirn (0);
-}

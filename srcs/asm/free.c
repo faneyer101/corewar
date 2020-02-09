@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   toolsparsing.c                                   .::    .:/ .      .::   */
+/*   free.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/02/07 09:19:03 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/07 20:57:04 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Created: 2020/02/09 04:45:56 by faneyer      #+#   ##    ##    #+#       */
+/*   Updated: 2020/02/09 12:57:01 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/asm.h"
 
-void    search_comment_char(char *line, int i)
+void    free_list_lexer(t_asm *master)
 {
-    while (line[i] != '\0' && line[i] != COMMENT_CHAR)
-        i++;
-    if (line[i] != '\0' && line[i] == COMMENT_CHAR)
-        line[i] = '\0';
+    t_lexer *next_list;
+
+	next_list = master->lexer->next;
+	while (master->lexer != NULL)
+	{
+		free(master->lexer->data);
+		master->lexer->next = NULL;
+		free(master->lexer);
+		master->lexer = next_list;
+		if (next_list != NULL)
+			next_list = next_list->next;
+		else
+			next_list = NULL;
+	}
 }
 
-void	free_split(t_asm *master)
+void	free_split(t_asm *master, int i)
 {
-	int	i;
-
-	i = 0;
 	while (master->split_read[i])
 	{
 		ft_strdel(&master->split_read[i]);

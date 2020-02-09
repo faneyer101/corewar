@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/07 20:57:01 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/09 13:25:25 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,9 +19,9 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 #include<stdio.h> //////////// A EFFACER !!!!!!!!!!!!!!!!!!!!
-/////gestion de read sans gnl et controler le retour de read en comparant avec
-// ft_strlen sur buff
 
+# define FALSE	0
+# define TRUE	1
 
 typedef struct              s_list_label
 {
@@ -37,26 +37,61 @@ typedef struct              s_champion
     t_list_label            *label;
 }                           t_champion;
 
+typedef struct				s_lexer
+{
+	char					delimiter;
+	char					string;
+	char					digit;
+	int						numline;
+	char					*data;
+	struct s_lexer			*next;
+}							t_lexer;
+
+typedef struct              s_token
+{
+	int						index;
+}							t_token;
+
+typedef struct 				s_parser
+{
+	int						test;
+}							t_parser;
+
 typedef struct              s_asm
 {
+	char					name;
+	char					comment;
     char                    *buff_read;
 	char					**split_read;
+	int						numline;
+	t_lexer					*lexer;
     t_champion              champion;
     t_header                header;
     t_op                    tab_op[17];
 }                           t_asm;
 
-void						search_comment_char(char *line, int i);
-int                         start_parsing(t_asm *master);
+int 	                    main_lexer(t_asm *master, int i);
+int							delimiter(char c, char *analyse);
+void    					create_token_for_header(t_asm *master, char *header, t_token *token);
+void    					create_token_comment(t_asm *master, char *comment, t_token *token);
+void    					create_token_champion(t_asm *master, char *code, t_token *token);
+void	                    push_token(t_asm *master, char *str, int size, char type);
+void                        printf_error_lexer(t_asm *master, char *str_error);
+void                        print_error_before_read(char *msg_error, int fd, char *buff, char *line);
+
+int                         main_parser(t_asm *master);
+
+
+void    					free_list_lexer(t_asm *master);
+void						free_split(t_asm *master, int i);
+
 int                         init_write_file(t_asm *master, char *name);
-void						free_split(t_asm *master);
-
-
 
 /*
 **  Fonction de debugs // d'affichages
 */
 
+void                        print_token(t_asm *master);
 //int    print_ret_parsing(t_asm *master);
 
 #endif

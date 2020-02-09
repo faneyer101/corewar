@@ -41,14 +41,14 @@ t_op	g_op_tab[17] =
 	{{0}, 0, {0}, 0, 0, {0}, 0, 0}
 };
 
-void	init_op_tab(t_op tab_op[0][17])
+void	init_op_tab(t_op *tab_op[17])
 {
 	int 	i;
 
 	i = 0;
 	while (i < 17)
 	{
-		tab_op[0][i] = g_op_tab[i];
+		tab_op[i] = &g_op_tab[i];
 		i++;
 	}
 }
