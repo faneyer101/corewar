@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2013/10/04 11:33:27 by zaz          #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/09 23:52:56 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/10 05:30:49 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,7 +65,7 @@
 
 //ligne vide ou juste .name c'est error
 //definie la ligne avec le nom du champion. ==> .name "Batman" ou .name ""
-#define NAME_CMD_STRING			".test"			
+#define NAME_CMD_STRING			".name"			
 //je pense commentaire sur le champion gestion identique que .name
 #define COMMENT_CMD_STRING		".comment"
 

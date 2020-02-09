@@ -6,13 +6,12 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/08 21:13:26 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 00:07:58 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/10 06:10:42 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../../includes/asm.h"
-#include "../../../includes/op.h"
 
 int		cmp_header_oph(char c, int i, char bole)
 {
@@ -36,10 +35,23 @@ int		cmp_header_oph(char c, int i, char bole)
 	return (TRUE);
 }
 
+int		cmp_label_chars(char c, int i)
+{
+	while (LABEL_CHARS[i])
+	{
+		if (LABEL_CHARS[i] == c)
+			return (TRUE);
+		i++;
+	}
+	return (FALSE);
+}
+
+
 int		delimiter(char c, char *analyse)
 {
 	if (c != '\0')
 	{
+//		printf("DELIMITEUR |%c|%s|\n", c, analyse);
 		if (ft_strchr(analyse, 'd'))
 			if (c == LABEL_CHAR || c == DIRECT_CHAR || c == SEPARATOR_CHAR || c == '-')
 				return (TRUE);
@@ -50,13 +62,17 @@ int		delimiter(char c, char *analyse)
 			if (c == '"')
 				return (TRUE);
 		if (ft_strchr(analyse, '_'))
-			if (c == '_')
+			if (c == '_' || ft_isdigit(c) != 0|| ft_isalpha(c) != 0)
 				return (TRUE);
 		if (ft_strchr(analyse, '#'))
 			if (c == COMMENT_CHAR || c == ALT_COMMENT_CHAR)
 				return (TRUE);
 		if (ft_strchr(analyse, 'a'))
 			if (ft_isprint(c) && delimiter(c, "ds._#""") == 0)
+				return (TRUE);
+		
+		if (ft_strchr(analyse, 'L'))
+			if (cmp_label_chars(c, 0))
 				return (TRUE);
 		/*		GESTION HEADER 					*/		
 		if (ft_strcmp("nc", analyse) == 0)
@@ -79,30 +95,31 @@ int		delimiter(char c, char *analyse)
 
 void	init_token(t_token *token, t_asm *master)
 {
-	token->index = -1;
+	token->index = 0;
 	master->numline++;
 }
-
+/*voire pour l'histoire du decalage d'un char dans les commandes. Peu etre du a l'emploie du meme token->index */
 int	main_lexer(t_asm *master, int i)
 {	
 	t_token	token;
 
-	//printf("%d|%d|%s|\n", i, master->numline, master->split_read[i]);
 	init_token(&token, master);
 	if (master->split_read[i] == NULL) // a gerer pour compter le nombre de ligne or stack
 		return (0);
-	while (master->split_read[i][++token.index])
-		if (delimiter(master->split_read[i][token.index], "s"))
-			continue;
-		else
-			break;
-	if (delimiter(master->split_read[i][token.index], "nc") && cheak_header(master->split_read[i]))
-		create_token_for_header(master, master->split_read[i], &token);
-	else if (delimiter(master->split_read[i][token.index], "#"))
+	while (delimiter(master->split_read[i][token.index], "s"))
+			token.index++;
+	printf("%d|%d|%d|%s|\n", i, token.index, master->numline, master->split_read[i]);
+	if (delimiter(master->split_read[i][token.index], "#"))
 		create_token_comment(master, master->split_read[i], &token);
-	else if (ft_isdigit(master->split_read[i][token.index]) || ft_isalpha(master->split_read[i][token.index]) ||
-			delimiter(master->split_read[i][token.index], "_"))
+	else if (delimiter(master->split_read[i][token.index], "nc") || cheak_header(master->split_read[i]))
+	{
+		printf("%d|%d|%s|\n", i, master->numline, master->split_read[i]);
+		create_token_for_header(master, master->split_read[i], &token);
+	}
+	else if (ft_isalpha(master->split_read[i][token.index]) || delimiter(master->split_read[i][token.index], "Ld"))
+	{
 		create_token_champion(master, master->split_read[i], &token);
+	}
 	else if (master->split_read[i][token.index] != '\0')
 		printf_error_lexer(master, "Bad syntax");
 	return (main_lexer(master, i + 1));

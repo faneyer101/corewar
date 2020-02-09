@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/09 23:48:57 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/10 02:49:53 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,6 +73,7 @@ typedef struct              s_asm
 int 	                    main_lexer(t_asm *master, int i);
 int							delimiter(char c, char *analyse);
 int							cheak_header(char *str);
+int							cmp_label_chars(char c, int i);
 void    					create_token_for_header(t_asm *master, char *header, t_token *token);
 void    					create_token_comment(t_asm *master, char *comment, t_token *token);
 void    					create_token_champion(t_asm *master, char *code, t_token *token);
