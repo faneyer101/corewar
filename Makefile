@@ -3,15 +3,16 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+      #
+#    By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/07/27 18:49:19 by nsalle       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/10 00:49:37 by faneyer     ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/10 13:05:06 by nsalle      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 NAME	= 	asm
+NAME_VM	=	corewar
 
 CC 		= 	gcc
 CFLAGS 	+= 	-Wextra -Werror -Wall -g -flto -O3 -march=native -flto -ffast-math 
@@ -31,6 +32,12 @@ SRC		=	srcs/op.c							\
 OBJ		=	$(SRC:.c=.o)	# gerer la compilation des .o autrement pour inclure plusieurs header
 							# car je pense qu'il ne recompile pas avec op.h
 
+
+SRC_VM	=	srcs/vm/main.c					\
+			srcs/vm/all_checks.c
+
+OBJ_VM	=	$(SRC_VM:.c=.o)
+
 INC		=	-I./$(LFTDIR) -I.
 
 LFTDIR	=	libft_nsalle
@@ -46,6 +53,10 @@ LFTC:
 $(NAME): $(OBJ) includes/asm.h includes/op.h $(LFTDIR)/libft.a
 	@$(CC) $(CFLAGS) $(INC) $(LFT) $(OBJ) -o $(NAME)
 	@printf "\n|-> \033[32m$(NAME) compiled\033[0m\n\n"
+
+$(NAME_VM): $(OBJ_VM) includes/asm.h includes/op.h $(LFTDIR)/libft.a
+	@$(CC) $(CFLAGS) $(INC) $(LFT) $(OBJ_VM) -o $(NAME_VM)
+	@printf "\n|-> \033[32mVM compiled\033[0m\n\n"
 
 clean:
 	@$(MAKE) -C $(LFTDIR) $@
