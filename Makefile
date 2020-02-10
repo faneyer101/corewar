@@ -6,7 +6,7 @@
 #    By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/07/27 18:49:19 by nsalle       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/10 13:05:06 by nsalle      ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/10 13:10:53 by nsalle      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -45,7 +45,7 @@ LFT		=	-L $(LFTDIR) -lft
 
 RM		=	/bin/rm
 
-all: LFTC $(NAME)
+all: LFTC $(NAME) $(NAME_VM)
 
 LFTC:
 	@$(MAKE) -C $(LFTDIR)
