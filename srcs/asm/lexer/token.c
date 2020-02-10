@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 01:47:54 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/09 11:52:22 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/10 08:06:05 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,6 +19,7 @@ static t_lexer	*ft_create_elem(t_asm *master, char *s, int i[2], char type)
 
 	if (!(box = (t_lexer*)malloc(sizeof(t_lexer))))
 		return (NULL);
+	ft_bzero(box, sizeof(t_lexer));
     if (i[0] > 0)
         box->digit = '1';
 	else if (type == 'S')
@@ -42,18 +43,18 @@ void	push_token(t_asm *master, char *str, int size, char type)
     int i[2];
 
     digit = -1;
+	i[0] = 1;
     while (str[++digit])
-        if (ft_isdigit(str[digit]) == 0)
+	    if (ft_isdigit(str[digit]) == 0)
         {
-            digit = 0;
+            i[0] = 0;
             break;
-        }
+		}
 	list = master->lexer;
 	if (list)
 	{
 		while (list->next != NULL)
 			list = list->next;
-        i[0] = digit;
         i[1] = size;
 		if (!(list->next = ft_create_elem(master, str, i, type)))
             printf_error_lexer(master, "Crash allocate for memory\n");

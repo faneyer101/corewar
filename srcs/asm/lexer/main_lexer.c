@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/08 21:13:26 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 06:10:42 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/10 08:23:27 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,17 +58,17 @@ int		delimiter(char c, char *analyse)
 		if (ft_strchr(analyse, 's'))
 			if (ft_isspace(c))
 				return (TRUE);
-		if (ft_strchr(analyse, '"'))
+		if (ft_strchr(analyse, '*'))
 			if (c == '"')
 				return (TRUE);
-		if (ft_strchr(analyse, '_'))
-			if (c == '_' || ft_isdigit(c) != 0|| ft_isalpha(c) != 0)
+		if (ft_strchr(analyse, 'N'))
+			if (ft_isdigit(c) != 0|| ft_isalpha(c) != 0)
 				return (TRUE);
 		if (ft_strchr(analyse, '#'))
 			if (c == COMMENT_CHAR || c == ALT_COMMENT_CHAR)
 				return (TRUE);
 		if (ft_strchr(analyse, 'a'))
-			if (ft_isprint(c) && delimiter(c, "ds._#""") == 0)
+			if (ft_isprint(c) && delimiter(c, "dsL#*") == 0)
 				return (TRUE);
 		
 		if (ft_strchr(analyse, 'L'))
@@ -104,14 +104,14 @@ int	main_lexer(t_asm *master, int i)
 	t_token	token;
 
 	init_token(&token, master);
+	ft_printf("{RED}%d|%d|%d|%s|{END}\n", i, token.index, master->numline, master->split_read[i]);
 	if (master->split_read[i] == NULL) // a gerer pour compter le nombre de ligne or stack
 		return (0);
 	while (delimiter(master->split_read[i][token.index], "s"))
 			token.index++;
-	printf("%d|%d|%d|%s|\n", i, token.index, master->numline, master->split_read[i]);
 	if (delimiter(master->split_read[i][token.index], "#"))
 		create_token_comment(master, master->split_read[i], &token);
-	else if (delimiter(master->split_read[i][token.index], "nc") || cheak_header(master->split_read[i]))
+	else if (/*delimiter(master->split_read[i][token.index], "nc") ||*/ cheak_header(master->split_read[i]))
 	{
 		printf("%d|%d|%s|\n", i, master->numline, master->split_read[i]);
 		create_token_for_header(master, master->split_read[i], &token);

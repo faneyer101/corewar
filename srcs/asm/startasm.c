@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 03:15:34 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/10 08:03:30 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,6 @@ void	create_string_for_parser_lexer(int fd, t_asm *master, char **av)
 		print_error_before_read("file don't exist\n", fd, master->buff_read, line);
 	if (read_file(master, fd, line, 1) == -1)
 		print_error_before_read("problem for read\n", fd, master->buff_read, line);
-		//printf("%s", master->buff_read);
 	if (!(master->split_read = ft_strsplit(master->buff_read, '\n')))
 	{
 		ft_strdel(&master->buff_read);
@@ -81,7 +80,7 @@ void	verif_file(char *file)
 		i++;
 	if (file[i - 2] != '.' || file[i - 1] != 's')
 	{
-		ft_printf("bad extension file. need file with extension .s\n");
+		ft_printf("bad extension file. Need file with extension .s\n");
 		exit(0);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2013/10/04 11:33:27 by zaz          #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 05:30:49 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/10 08:28:23 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,24 +50,24 @@
 #define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
 //commentaire tout ce qui suit jusqu'au \n on ignore
-#define COMMENT_CHAR			'#'
+#define COMMENT_CHAR			'#'	//voir pour le gerer vide
 //commentaire alternatif rajouter par RickY. A valider si on laisse ou pas
-#define ALT_COMMENT_CHAR		';'
+#define ALT_COMMENT_CHAR		';'	//voir pour le gerer vide
 //Symbole d'appel de labbel/etiquette
-#define LABEL_CHAR				':'
+#define LABEL_CHAR				':'	//voir pour le gerer vide
 //Symbole qui definie le l'argument direct. Si il n'est pas present c'est indirect
-#define DIRECT_CHAR				'%'
+#define DIRECT_CHAR				'%'	//voir pour le gerer vide
 //Separateur arguments
-#define SEPARATOR_CHAR			','
+#define SEPARATOR_CHAR			','	//voir pour le gerer vide
 
 //caractere que peu contenir une etiquette
-#define LABEL_CHARS				"abcdefghijklmnopqrstuvwxyz_0123456789"
+#define LABEL_CHARS				"abcdefghijklmnopqrstuvwxyz_0123456789"	//voir pour le gerer vide
 
 //ligne vide ou juste .name c'est error
 //definie la ligne avec le nom du champion. ==> .name "Batman" ou .name ""
-#define NAME_CMD_STRING			".name"			
+#define NAME_CMD_STRING			".name"		//voir pour le gerer vide	
 //je pense commentaire sur le champion gestion identique que .name
-#define COMMENT_CMD_STRING		".comment"
+#define COMMENT_CMD_STRING		".comment"	//voir pour le gerer vide
 
 
 
