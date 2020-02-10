@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   vm.h                                             .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/02/09 21:45:58 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 15:50:38 by nsalle      ###    #+. /#+    ###.fr     */
+/*   Created: 2020/02/10 12:13:30 by nsalle       #+#   ##    ##    #+#       */
+/*   Updated: 2020/02/10 15:45:38 by nsalle      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#ifndef	VM_H
+# define VM_H
+# include "op.h"
+# include "../libft_nsalle/libft.h"
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
-
-#include "../../includes/vm.h"
-
-void    vm_init(t_vm *vm)
+typedef struct      	s_vm
 {
-    vm->nb_player = 0;
-}
+	int					nb_player;
+}                   	t_vm;
 
-int     main(int argc, char **argv)
-{
-    t_vm    vm;
+void    all_checks(int argc, char **av, t_vm *vm);
 
-    vm_init(&vm);
-    all_checks(argc, argv, &vm);
-    ft_printf("\nWe have %d champions today\n\n", vm.nb_player);
-
-}
+#endif
