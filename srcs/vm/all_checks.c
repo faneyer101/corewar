@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/10 12:03:05 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 16:11:31 by nsalle      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 16:36:47 by nsalle      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -99,6 +99,7 @@ void	check_magic(char **av, t_vm *vm)
 		vm->players[ip].size = get_size(vm, ip);
 		read(vm->players[ip].fd, vm->players[ip].comment, COMMENT_LENGTH);
 		check_nullbytes(vm, ip);
+		check_realsize(vm, ip);
 		ip++;
 		i++;
 	}

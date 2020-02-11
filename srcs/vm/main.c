@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 21:45:58 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 15:38:52 by nsalle      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 16:42:55 by nsalle      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,8 +36,8 @@ void	introducing(t_vm *vm)
 	int	i;
 
 	i = 0;
-	ft_printf("\nWe have %d champions today\n\n", vm->nb_player);
-	ft_printf("Dump after %d cycles\n", vm->dump);
+	//ft_printf("\nWe have %d champions today\n\n", vm->nb_player);
+	//ft_printf("Dump after %d cycles\n", vm->dump);
 	ft_printf("Introducing contestants...\n");
 	while (i < vm->nb_player)
 	{
