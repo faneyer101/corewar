@@ -6,7 +6,7 @@
 #    By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/07/27 18:49:19 by nsalle       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/11 05:08:19 by faneyer     ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/11 05:43:57 by faneyer     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -19,9 +19,9 @@ CFLAGS 			+= 	-Wextra -Werror -Wall
 CFLAGS_OPTI		+=	-flto -O3 -march=native -flto -ffast-math
 CFLAGS_DEBUG	+=	-g -fsanitize=address
 
-#	SOURCE ASM DANS ./config_makefile/config_asm.mak
+#	SOURCE ASM
 include ./config_makefile/config_asm.mak
-#	SOURCE VM DANS ./config_makefile/config_vm.mak
+#	SOURCE VM
 include ./config_makefile/config_vm.mak
 
 #	DOSSIER OU SON STOCKER LES SOURCES				
@@ -46,12 +46,6 @@ LFT				=	-L $(LFTDIR) -lft
 
 RM				=	/bin/rm
 
-#	CREATION DES DOSSIERS OBJS POUR VM ET COMPILATION DES .o
-$(OBJDIR_VM)%.o: $(SRCDIR)%.c $(INCDIR)vm.h $(INCDIR)op.h $(LFTDIR)libft.a
-	@mkdir -p $(OBJDIR_VM)
-	@mkdir -p $(OBJDIR_VM)/vm
-	$(CC) $(CFLAGS) $(INCLUDE) $(INC_LFT) -o $@ -c $<
-
 #	CREATION DES DOSSIERS OBJS POUR ASM ET COMPILATION DES .o
 $(OBJDIR_ASM)%.o: $(SRCDIR)%.c $(INCDIR)asm.h $(INCDIR)op.h $(LFTDIR)libft.a
 	@mkdir -p $(OBJDIR_ASM)
@@ -60,6 +54,12 @@ $(OBJDIR_ASM)%.o: $(SRCDIR)%.c $(INCDIR)asm.h $(INCDIR)op.h $(LFTDIR)libft.a
 	@mkdir -p $(OBJDIR_ASM)/asm/parser
 	@mkdir -p $(OBJDIR_ASM)/asm/print
 	@mkdir -p $(OBJDIR_ASM)/asm/interpreteur
+	$(CC) $(CFLAGS) $(INCLUDE) $(INC_LFT) -o $@ -c $<
+
+#	CREATION DES DOSSIERS OBJS POUR VM ET COMPILATION DES .o
+$(OBJDIR_VM)%.o: $(SRCDIR)%.c $(INCDIR)vm.h $(INCDIR)op.h $(LFTDIR)libft.a
+	@mkdir -p $(OBJDIR_VM)
+	@mkdir -p $(OBJDIR_VM)/vm
 	$(CC) $(CFLAGS) $(INCLUDE) $(INC_LFT) -o $@ -c $<
 
 all: LFTC $(NAME_ASM) $(NAME_VM)
@@ -90,7 +90,7 @@ exec: LFTC $(OBJ_ASM) $(NAME_ASM)
 #	EXE AVEC FLAG DE DEBUG
 dexec: debug
 	./asm zork.s
-#######################################	FIN REGLES ASM
+#######################################	FIN DE REGLE ASM
 
 #	COMPILER JUSTE VM
 VM: LFTC $(NAME_VM)
@@ -100,9 +100,8 @@ LFTC:
 
 clean:
 	@$(MAKE) -C $(LFTDIR) $@
-	@$(RM) -rf $(OBJDIR_VM)
-	@$(RM) -rf $(OBJDIR_ASM)
-	@printf "|-> \033[31mfichiers .o $(NAME_VM) and $(NAME_ASM) deleted\033[0m\n"
+	@$(RM) -rf $(OBJDIR)
+	@printf "|-> \033[31mfile .o de $(NAME_VM) and $(NAME_ASM) deleted\033[0m\n"
 
 fclean: clean
 	@$(MAKE) -C $(LFTDIR) $@
