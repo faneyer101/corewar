@@ -163,6 +163,7 @@ $(NAME): $(OBJ)
 
 clean:
 	@$(RM) -rf $(OBJDIR)
+	@printf "|-> \033[31mfichier .o $(NAME) deleted\033[0m\n"
 
 fclean: clean
 	@$(RM) -f $(NAME)
