@@ -6,7 +6,7 @@
 #    By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/07/27 18:49:19 by nsalle       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/11 05:49:49 by faneyer     ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/11 06:38:50 by faneyer     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -79,16 +79,16 @@ $(NAME_VM): $(OBJ_VM)
 ASM: LFTC $(NAME_ASM)
 
 #	COMPILATION AVEC FLAGS FSANITIZE
-debug: LFTC $(OBJ_ASM) $(INCDIR)asm.h $(INCDIR)op.h $(LFTDIR)libft.a
+ASMdebug: LFTC $(OBJ_ASM) $(INCDIR)asm.h $(INCDIR)op.h $(LFTDIR)libft.a
 	$(CC) $(CFLAGS) $(CFLAGS_DEBUG) -o asm $(OBJ_ASM) $(LFT)
 	@printf "\n|-> \033[32m$(NAME_ASM) complete avec flags fsanitize\033[0m\n"
 
 #	EXE EN NORMAL
-exec: LFTC $(OBJ_ASM) $(NAME_ASM)
+ASMexec: LFTC $(OBJ_ASM) $(NAME_ASM)
 	./asm zork.s
 
 #	EXE AVEC FLAG DE DEBUG
-dexec: debug
+ASMdexec: ASMdebug
 	./asm zork.s
 #######################################	FIN DE REGLE ASM
 
