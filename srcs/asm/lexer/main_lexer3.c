@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main_lexer.c                                     .::    .:/ .      .::   */
+/*   main_lexer3.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/08 21:13:26 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 16:23:05 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 08:53:35 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,16 +53,16 @@ int		delimiter(char c, char *analyse)
 	{
 //		printf("DELIMITEUR |%c|%s|\n", c, analyse);
 		if (ft_strchr(analyse, 'd'))
-			if (c == LABEL_CHAR || c == DIRECT_CHAR || c == SEPARATOR_CHAR || c == '-')
+			if (c == LABEL_CHAR || c == DIRECT_CHAR || c == SEPARATOR_CHAR || c == DNEGATIF)
 				return (TRUE);
 		if (ft_strchr(analyse, 's'))
 			if (ft_isspace(c))
 				return (TRUE);
 		if (ft_strchr(analyse, '*'))
-			if (c == '"')
+			if (c == DSTRING)
 				return (TRUE);
 		if (ft_strchr(analyse, 'N'))
-			if (ft_isdigit(c) != 0|| ft_isalpha(c) != 0)
+			if (ft_isdigit(c) != 0 || ft_isalpha(c) != 0)
 				return (TRUE);
 		if (ft_strchr(analyse, '#'))
 			if (c == COMMENT_CHAR || c == ALT_COMMENT_CHAR)

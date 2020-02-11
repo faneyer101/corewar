@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/11 08:13:44 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 10:13:33 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 11:12:09 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,10 +49,9 @@ static void	verif_oph_egality_delimiter(void)
 
 static void	verif_cmd(t_asm *master, int i, int j)
 {
-	while (++i < 15)
+	while (++i < 17)
 	{
 		j = -1;
-		printf("|%s|%d|\n", master->tab_op[i].name, i), fflush(stdout);
 		while (master->tab_op[i].name[++j])
 			if (!ft_isalpha(master->tab_op[i].name[j]))
 				print_error("name fonction op.c need juste alpha");

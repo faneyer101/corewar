@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2013/10/04 11:33:27 by zaz          #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 08:11:29 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 11:11:19 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -124,6 +124,6 @@ typedef struct      	s_op
 	int					size_octet_dir;
 }                   	t_op;
 
-void					init_op_tab(t_op *tab_op[17]);
+void					init_op_tab(t_op tab_op[17]);
 
 #endif

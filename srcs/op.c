@@ -6,12 +6,13 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2013/10/04 11:43:01 by zaz          #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/07 17:43:39 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 11:11:23 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
+#include "../includes/asm.h"
 
 t_op	g_op_tab[17] =
 {
@@ -41,14 +42,14 @@ t_op	g_op_tab[17] =
 	{{0}, 0, {0}, 0, 0, {0}, 0, 0}
 };
 
-void	init_op_tab(t_op *tab_op[17])
+void	init_op_tab(t_op tab_op[17])
 {
-	int 	i;
+	int i;
 
 	i = 0;
 	while (i < 17)
 	{
-		tab_op[i] = &g_op_tab[i];
+		tab_op[i] = g_op_tab[i];
 		i++;
 	}
 }

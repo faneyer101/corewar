@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 10:40:19 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 11:12:26 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,13 +79,9 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		ft_bzero(&master, sizeof(t_asm));
-		printf("|%p|\n", &(master.tab_op)), fflush(stdout);
-		init_op_tab((t_op**)&(master.tab_op));
-		printf("|%p|%p|%p|%p|\n", &master.tab_op[0], &master.tab_op[1], &master.tab_op[2],
-			&master.tab_op[3]);
+		init_op_tab((t_op*)(master.tab_op));
 		verif_error_first(&master, av[1]);
 		create_string_for_parser_lexer(0, &master, av);
-		
 		main_lexer2(&master, -1);
 	//	main_lexer(&master, 0);
 		//print_token(&master);
