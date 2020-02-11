@@ -6,7 +6,7 @@
 #    By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/07/27 18:49:19 by nsalle       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/11 06:38:50 by faneyer     ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/11 06:43:56 by faneyer     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -15,7 +15,7 @@ NAME_ASM		= 	asm
 NAME_VM			=	corewar
 
 CC 				= 	gcc
-CFLAGS 			+= 	-Wextra -Werror -Wall
+CFLAGS 			+= 	-Wextra -Werror -Wall -g
 CFLAGS_OPTI		+=	-flto -O3 -march=native -flto -ffast-math
 CFLAGS_DEBUG	+=	-g -fsanitize=address
 
