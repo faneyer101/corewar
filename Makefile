@@ -6,7 +6,7 @@
 #    By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/07/27 18:49:19 by nsalle       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/11 05:43:57 by faneyer     ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/11 05:49:49 by faneyer     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -32,11 +32,11 @@ INCDIR			=	./includes/
 INCLUDE			=	$(addprefix -I,$(INCDIR))
 
 #	GESTION OBJ ASM
-OBJDIR_ASM		=	./objs/
+OBJDIR_ASM		=	./objs_asm/
 OBJ_ASM			=	$(addprefix $(OBJDIR_ASM),$(SRCFILE_ASM:.c=.o))
 
 #	GESTION OBJ VM
-OBJDIR_VM		=	./objs/
+OBJDIR_VM		=	./objs_vm/
 OBJ_VM			=	$(addprefix $(OBJDIR_VM),$(SRCFILE_VM:.c=.o))
 
 #	GESTION LIBFT
@@ -100,7 +100,8 @@ LFTC:
 
 clean:
 	@$(MAKE) -C $(LFTDIR) $@
-	@$(RM) -rf $(OBJDIR)
+	@$(RM) -rf $(OBJDIR_VM)
+	@$(RM) -rf $(OBJDIR_ASM)
 	@printf "|-> \033[31mfile .o de $(NAME_VM) and $(NAME_ASM) deleted\033[0m\n"
 
 fclean: clean
