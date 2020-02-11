@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 17:28:01 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 10:00:26 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,9 +20,15 @@
 # include <fcntl.h>
 #include<stdio.h> //////////// A EFFACER !!!!!!!!!!!!!!!!!!!!
 
+# define DSTRING '"'
+# define DNEGATIF '-'
+
 # define FALSE	0
 # define TRUE	1
 
+
+
+/*
 typedef struct              s_list_label
 {
     int                     index_define;
@@ -36,6 +42,8 @@ typedef struct              s_champion
     unsigned char           code_champ[CHAMP_MAX_SIZE + 1];
     t_list_label            *label;
 }                           t_champion;
+*/
+
 
 typedef struct				s_lexer
 {
@@ -54,27 +62,22 @@ typedef struct              s_token
 	int						index;
 }							t_token;
 
-typedef struct 				s_parser
-{
-	int						test;
-}							t_parser;
-
 typedef struct              s_asm
 {
-	char					name;
-	char					comment;
+//	char					name;
+//	char					comment;
     char                    *buff_read;
 	char					**split_read;
 	int						numline;
 	int						size_read_total;
 	t_lexer					*lexer;
-    t_champion              champion;
+ //   t_champion              champion;
     t_header                header;
     t_op                    tab_op[17];
 }                           t_asm;
 
 int 	                    main_lexer(t_asm *master, int i);
-int							delimiter(char c, char *analyse);
+
 int							cheak_header(char *str);
 int							cmp_label_chars(char c, int i);
 void    					create_token_for_header(t_asm *master, char *header, t_token *token);
@@ -88,8 +91,8 @@ int                         main_parser(t_asm *master);
 
 
 int 						main_lexer2(t_asm *master, int i);
-
-
+int							delimiter(char c, char *analyse);
+void						verif_error_first(t_asm *master, char *file);
 
 
 void    					free_list_lexer(t_asm *master);
