@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 21:45:58 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 18:31:35 by nsalle      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 15:38:52 by nsalle      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,18 +31,28 @@ void    vm_init(t_vm *vm)
     vm->dump = 0;
 }
 
+void	introducing(t_vm *vm)
+{
+	int	i;
+
+	i = 0;
+	ft_printf("\nWe have %d champions today\n\n", vm->nb_player);
+	ft_printf("Dump after %d cycles\n", vm->dump);
+	ft_printf("Introducing contestants...\n");
+	while (i < vm->nb_player)
+	{
+		ft_printf("* Player %d, wheighing %d bytes,", i + 1, vm->players[i].size);
+		ft_printf(" \"%s\" ", vm->players[i].name);
+		ft_printf("(\"%s\")\n", vm->players[i].comment);
+		i++;
+	}
+}
+
 int     main(int argc, char **argv)
 {
     t_vm    vm;
 
     vm_init(&vm);
     all_checks(argc, argv, &vm);
-    ft_printf("\nWe have %d champions today\n\n", vm.nb_player);
-	ft_printf("Dump after %d cycles\n", vm.dump);
-	int i = 0;
-	while (i < vm.nb_player)
-	{
-		ft_printf("fd of p%d: %d\n", i + 1, vm.players[i].fd);
-		i++;
-	}
+	introducing(&vm);
 }

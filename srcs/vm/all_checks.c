@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/10 12:03:05 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 21:10:46 by nsalle      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 16:11:31 by nsalle      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,10 +19,7 @@ void	check_filenames(int ac, char **av, t_vm *vm)
 	unsigned char	error;
 
 	error = 0;
-	if (vm->booldump)
-		i = 3;
-	else
-		i = 1;
+	i = (vm->booldump) ? 3 : 1;
 	while (i < ac)
 	{
 		if (av[i][0] != '-'
@@ -66,6 +63,24 @@ void	check_dump(int argc, char **av, t_vm *vm)
 	}
 }
 
+void	check_nullbytes(t_vm *vm, int ip)
+{
+	int		i;
+	char	check[4];
+
+	i = 0;
+	read(vm->players[ip].fd, check, 4);
+	while (i < 4)
+	{
+		if (check[i] != 0)
+		{
+			ft_printf("Some bytes were supposed to be NULL\n");
+			exit(0);
+		}
+		i++;
+	}
+}
+
 void	check_magic(char **av, t_vm *vm)
 {
 	int	i;
@@ -77,19 +92,15 @@ void	check_magic(char **av, t_vm *vm)
 	{
 		if (av[i][0] == '-')
 			i += 2;
-		ft_printf("openning : %s \n", av[i]);
 		vm->players[ip].fd = open(av[i], O_RDONLY);
-		unsigned char *test = malloc(5);
-		test[5] = '\0';
-		read(vm->players[ip].fd, test, 4);
-
-		int	j = -1;
-		while (++j < 4)
-			ft_printf("%b16 ", test[j]);
-
-		ft_printf("\n\nmagic: %b16 \n", COREWAR_EXEC_MAGIC);
-		ft_putchar('\n');
+		read(vm->players[ip].fd, vm->players[ip].magic, 4);
+		read(vm->players[ip].fd, vm->players[ip].name, PROG_NAME_LENGTH);
+		check_nullbytes(vm, ip);
+		vm->players[ip].size = get_size(vm, ip);
+		read(vm->players[ip].fd, vm->players[ip].comment, COMMENT_LENGTH);
+		check_nullbytes(vm, ip);
 		ip++;
+		i++;
 	}
 }
 
