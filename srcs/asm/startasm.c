@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 18:33:50 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 10:40:19 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,22 +68,8 @@ void	create_string_for_parser_lexer(int fd, t_asm *master, char **av)
 		close(fd);
 		exit(0);
 	}
-	ft_strdel(&master->buff_read);
+//	ft_strdel(&master->buff_read);
 	close(fd);
-}
-
-void	verif_file(char *file)
-{
-	int	i;
-
-	i = 0;
-	while (file[i])
-		i++;
-	if (file[i - 2] != '.' || file[i - 1] != 's')
-	{
-		ft_printf("bad extension file. Need file with extension .s\n");
-		exit(0);
-	}
 }
 
 int	main(int ac, char **av)
@@ -93,8 +79,11 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		ft_bzero(&master, sizeof(t_asm));
-		verif_file(av[1]);
+		printf("|%p|\n", &(master.tab_op)), fflush(stdout);
 		init_op_tab((t_op**)&(master.tab_op));
+		printf("|%p|%p|%p|%p|\n", &master.tab_op[0], &master.tab_op[1], &master.tab_op[2],
+			&master.tab_op[3]);
+		verif_error_first(&master, av[1]);
 		create_string_for_parser_lexer(0, &master, av);
 		
 		main_lexer2(&master, -1);
