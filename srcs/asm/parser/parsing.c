@@ -6,14 +6,14 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/06 08:20:27 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 00:28:30 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 19:42:26 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../../includes/asm.h"
 
-
+/*
 int    gestion_token_comment(t_lexer **list)
 {
 	if (delimiter(list[0]->data[0], "#") && list[0]->data[1] == '\0')
@@ -43,4 +43,4 @@ int     main_parser(t_asm *master)
         list = list->next;
     }
     return (0);
-}
+}*/

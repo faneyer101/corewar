@@ -6,13 +6,13 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 01:47:54 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 08:06:05 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 19:40:31 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../../includes/asm.h"
-
+/*
 static t_lexer	*ft_create_elem(t_asm *master, char *s, int i[2], char type)
 {
 	t_lexer	*box;
@@ -65,3 +65,4 @@ void	push_token(t_asm *master, char *str, int size, char type)
             printf_error_lexer(master, "Crash allocate for memory\n");
 }
 
+*/

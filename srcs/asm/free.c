@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 04:45:56 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/09 12:57:01 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 19:53:56 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,15 +15,15 @@
 
 void    free_list_lexer(t_asm *master)
 {
-    t_lexer *next_list;
+    t_token *next_list;
 
-	next_list = master->lexer->next;
-	while (master->lexer != NULL)
+	next_list = master->bigin_token->next;
+	while (master->bigin_token != NULL)
 	{
-		free(master->lexer->data);
-		master->lexer->next = NULL;
-		free(master->lexer);
-		master->lexer = next_list;
+		free(master->bigin_token->data);
+		master->bigin_token->next = NULL;
+		free(master->bigin_token);
+		master->bigin_token = next_list;
 		if (next_list != NULL)
 			next_list = next_list->next;
 		else

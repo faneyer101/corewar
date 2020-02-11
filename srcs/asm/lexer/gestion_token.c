@@ -6,14 +6,14 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 04:48:01 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 08:13:29 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 19:40:20 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../../includes/asm.h"
 
-
+/*
 int		cheak_header(char *str)
 {
 	if (*str)
@@ -159,3 +159,4 @@ void    create_token_champion(t_asm *master, char *code, t_token *token)
 	if (code[token->index])
 		return (printf_error_lexer(master, "FILE bad syntax on the start prog champions"));
 }
+*/

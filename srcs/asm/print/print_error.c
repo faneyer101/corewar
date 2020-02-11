@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 01:05:17 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/09 13:03:25 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 19:54:07 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ void    print_error_before_read(char *msg_error, int fd, char *buff, char *line)
     ft_printf("%s", msg_error);
     exit(0);
 }
-
+/*
 void    printf_error_lexer(t_asm *master, char *msg_error)
 {
     if (master->lexer)
@@ -35,4 +35,4 @@ void    printf_error_lexer(t_asm *master, char *msg_error)
         msg_error, master->numline);
     exit(0);
 }
-
+*/

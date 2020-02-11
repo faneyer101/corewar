@@ -1,5 +1,3 @@
-
-
 SRCFILE_ASM		+=	op.c 							\
 					asm/verif_oph.c					\
 					asm/parser/parsing.c 			\

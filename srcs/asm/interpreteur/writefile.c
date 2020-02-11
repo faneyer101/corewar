@@ -12,7 +12,7 @@
 /* ************************************************************************** */
 
 #include "../../../includes/asm.h"
-
+/*
 int create_namefile(char *name, char namefile[0][ft_strlen(name) + 3])
 {
 	int i;
@@ -78,4 +78,4 @@ int init_write_file(t_asm *master, char *name)
 	ft_printf("Created and writting %s done\n", namefile);
 	close(fd);
 	return (0);
-}
+}*/

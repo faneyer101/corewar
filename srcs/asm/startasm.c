@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 11:12:26 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 14:19:05 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,13 +27,13 @@ void	stock_buff(char *line, t_asm *master, int fd)
 
 int	read_file(t_asm *master, int fd, char *line, int ret)
 {
-
 	ft_bzero(line, 16);
 	if ((ret = read(fd, line, 10)) < 0)
 	{
 		ft_printf("file empty\n");
 		return (-1);
 	}
+	master->size_read_total += ret;
 	if (!(master->buff_read = ft_strdup(line)))
 		return (-1);
 	ft_bzero(line, 16);
@@ -82,6 +82,7 @@ int	main(int ac, char **av)
 		init_op_tab((t_op*)(master.tab_op));
 		verif_error_first(&master, av[1]);
 		create_string_for_parser_lexer(0, &master, av);
+		
 		main_lexer2(&master, -1);
 	//	main_lexer(&master, 0);
 		//print_token(&master);

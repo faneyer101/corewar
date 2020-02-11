@@ -6,13 +6,13 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/08 21:13:26 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 08:53:35 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 19:49:27 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../../includes/asm.h"
-
+/*
 int		cmp_header_oph(char c, int i, char bole)
 {
 	if (bole == 'c')
@@ -45,7 +45,7 @@ int		cmp_label_chars(char c, int i)
 	}
 	return (FALSE);
 }
-
+*/
 
 int		delimiter(char c, char *analyse)
 {
@@ -71,34 +71,39 @@ int		delimiter(char c, char *analyse)
 			if (ft_isprint(c) && delimiter(c, "dsL#*") == 0)
 				return (TRUE);
 		
-		if (ft_strchr(analyse, 'L'))
-			if (cmp_label_chars(c, 0))
-				return (TRUE);
+	//	if (ft_strchr(analyse, 'L'))
+	//		if (cmp_label_chars(c, 0))
+	//			return (TRUE);
 		/*		GESTION HEADER 					*/		
 		if (ft_strcmp("nc", analyse) == 0)
 		{
 			if (c == COMMENT_CMD_STRING[0] || c == NAME_CMD_STRING[0])
 				return (TRUE);
 		}
-		else 
-		{
-			if (ft_strchr(analyse, 'n'))
-				if (cmp_header_oph(c, 0, 'n'))
-					return (TRUE);
-			if (ft_strchr(analyse, 'c'))
-				if (cmp_header_oph(c, 0, 'c'))
-					return (TRUE);
-		}
+	//	else 
+	//	{
+	//		if (ft_strchr(analyse, 'n'))
+	//			if (cmp_header_oph(c, 0, 'n'))
+	//				return (TRUE);
+	//		if (ft_strchr(analyse, 'c'))
+	//			if (cmp_header_oph(c, 0, 'c'))
+	//				return (TRUE);
+	//	}
 	}
 	return (FALSE);
 }
-
+/*
 void	init_token(t_token *token, t_asm *master)
 {
 	token->index = 0;
 	master->numline++;
 }
-/*voire pour l'histoire du decalage d'un char dans les commandes. Peu etre du a l'emploie du meme token->index */
+
+
+
+
+
+
 int	main_lexer(t_asm *master, int i)
 {	
 	t_token	token;
@@ -111,7 +116,7 @@ int	main_lexer(t_asm *master, int i)
 			token.index++;
 	if (delimiter(master->split_read[i][token.index], "#"))
 		create_token_comment(master, master->split_read[i], &token);
-	else if (/*delimiter(master->split_read[i][token.index], "nc") ||*/ cheak_header(master->split_read[i]))
+	else if (cheak_header(master->split_read[i]))
 	{
 		printf("%d|%d|%s|\n", i, master->numline, master->split_read[i]);
 		create_token_for_header(master, master->split_read[i], &token);
@@ -123,4 +128,4 @@ int	main_lexer(t_asm *master, int i)
 	else if (master->split_read[i][token.index] != '\0')
 		printf_error_lexer(master, "Bad syntax");
 	return (main_lexer(master, i + 1));
-}
+*/
