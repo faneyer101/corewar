@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 08:03:30 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/10 18:33:50 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,6 +45,7 @@ int	read_file(t_asm *master, int fd, char *line, int ret)
 			return (-1);
 		}
 		stock_buff(line, master, fd);
+		master->size_read_total += ret;
 		ft_bzero(line, 16);
 	}
 	ft_strdel(&line);
@@ -95,8 +96,10 @@ int	main(int ac, char **av)
 		verif_file(av[1]);
 		init_op_tab((t_op**)&(master.tab_op));
 		create_string_for_parser_lexer(0, &master, av);
-		main_lexer(&master, 0);
-		print_token(&master);
+		
+		main_lexer2(&master, -1);
+	//	main_lexer(&master, 0);
+		//print_token(&master);
 		//main_parser(&master);
 		//init_write_file(&master, av[1]);
 	}

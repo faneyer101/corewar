@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/10 02:49:53 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/10 17:28:01 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,6 +49,8 @@ typedef struct				s_lexer
 
 typedef struct              s_token
 {
+	char					kind;
+	char					*data;
 	int						index;
 }							t_token;
 
@@ -64,6 +66,7 @@ typedef struct              s_asm
     char                    *buff_read;
 	char					**split_read;
 	int						numline;
+	int						size_read_total;
 	t_lexer					*lexer;
     t_champion              champion;
     t_header                header;
@@ -84,6 +87,11 @@ void                        print_error_before_read(char *msg_error, int fd, cha
 int                         main_parser(t_asm *master);
 
 
+int 						main_lexer2(t_asm *master, int i);
+
+
+
+
 void    					free_list_lexer(t_asm *master);
 void						free_split(t_asm *master, int i);
 
@@ -92,6 +100,7 @@ int                         init_write_file(t_asm *master, char *name);
 /*
 **  Fonction de debugs // d'affichages
 */
+
 
 void                        print_token(t_asm *master);
 //int    print_ret_parsing(t_asm *master);
