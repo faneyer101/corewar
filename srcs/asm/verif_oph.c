@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/11 08:13:44 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 11:12:09 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/11 11:31:51 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,6 +55,16 @@ static void	verif_cmd(t_asm *master, int i, int j)
 		while (master->tab_op[i].name[++j])
 			if (!ft_isalpha(master->tab_op[i].name[j]))
 				print_error("name fonction op.c need juste alpha");
+	}
+	i = -1;
+	while (++i < 17)
+	{
+		j = -1;
+		while (++j < 17)
+		{
+			if (i != j && !ft_strcmp(master->tab_op[i].name, master->tab_op[j].name))
+				print_error("op.c 2 fonction are identic name\n");
+		}
 	}
 }
 
