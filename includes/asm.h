@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 20:01:47 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 18:33:12 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,39 +43,42 @@ typedef struct              s_champion
     t_list_label            *label;
 }                           t_champion;
 */
-
-typedef struct 				s_analyser
+typedef enum				e_lexeme
 {
-	struct s_analyser		*next;
-}							t_analyser;
+	ZERO,
+	HEADER_NAME,
+	HEADER_COMMENT,
+	HEADER_STRING,
+	LABEL_DECLARATION,
+	LABEL_DIRECT,
+	LABEL_INDIRECT,
+	NUM_DIRECT,
+	NUM_INDIRECT,
+	COMMENT,
+	FONCTION,
+	REGISTRE,
+	SEPARATOR,
+	NEW_LINE
+}							t_lexeme;
 
 typedef struct              s_token
 {
 	int						numline;
-	char					kind;	//categorie
+	int						column;
+	t_lexeme				kind;	//categorie
 	char					*data;	//data
 	struct s_token			*next;
 }							t_token;
-
-typedef struct				s_error
-{
-	int						numline;
-	t_token					*token_error;
-	struct s_error			*next;
-}							t_error;
-
-
 
 typedef struct              s_asm
 {
     char                    *buff_read;
 	char					**split_read;
 	int						numline;
+	int						column;
 	int						size_read_total;
-	t_analyser				*analyser;
-	t_token					*bigin_token;
-	t_error					*error;
- //   t_champion              champion;
+	t_token					**tab_token;
+	t_token					*error;
     t_header				*header;
     t_op                    tab_op[17];
 }                           t_asm;
@@ -84,10 +87,10 @@ typedef struct              s_asm
 int 	                    main_lexer(t_asm *master, int i);
 int							cheak_header(char *str);
 int							cmp_label_chars(char c, int i);
-void    					create_token_for_header(t_asm *master, char *header, t_token *token);
-void    					create_token_comment(t_asm *master, char *comment, t_token *token);
-void    					create_token_champion(t_asm *master, char *code, t_token *token);
-void	                    push_token(t_asm *master, char *str, int size, char type);
+//void    					create_token_for_header(t_asm *master, char *header, t_token *token);
+//void    					create_token_comment(t_asm *master, char *comment, t_token *token);
+//void    					create_token_champion(t_asm *master, char *code, t_token *token);
+void	                    push_token(t_asm *master, t_lexeme lexeme, int index, int size);
 void                        printf_error_lexer(t_asm *master, char *str_error);
 void                        print_error_before_read(char *msg_error, int fd, char *buff, char *line);
 int                         main_parser(t_asm *master);
@@ -96,10 +99,9 @@ int                         main_parser(t_asm *master);
 int 						main_lexer2(t_asm *master, int i);
 int							delimiter(char c, char *analyse);
 void						verif_error_first(t_asm *master, char *file);
-void    					print_lexeme(t_asm *master);
 
 
-void    					free_list_lexer(t_asm *master);
+void    					free_tab_token(t_asm *master);
 void						free_split(t_asm *master, int i);
 
 int                         init_write_file(t_asm *master, char *name);
@@ -109,6 +111,7 @@ int                         init_write_file(t_asm *master, char *name);
 */
 
 
+void    					print_buff_read(t_asm *master);
 void                        print_token(t_asm *master);
 //int    print_ret_parsing(t_asm *master);
 

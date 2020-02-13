@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/08 21:13:26 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 19:49:27 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 07:23:35 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,7 @@ int		cmp_label_chars(char c, int i)
 	return (FALSE);
 }
 */
-
+/*
 int		delimiter(char c, char *analyse)
 {
 	if (c != '\0')
@@ -74,7 +74,7 @@ int		delimiter(char c, char *analyse)
 	//	if (ft_strchr(analyse, 'L'))
 	//		if (cmp_label_chars(c, 0))
 	//			return (TRUE);
-		/*		GESTION HEADER 					*/		
+		
 		if (ft_strcmp("nc", analyse) == 0)
 		{
 			if (c == COMMENT_CMD_STRING[0] || c == NAME_CMD_STRING[0])
@@ -91,7 +91,7 @@ int		delimiter(char c, char *analyse)
 	//	}
 	}
 	return (FALSE);
-}
+}*/
 /*
 void	init_token(t_token *token, t_asm *master)
 {

@@ -6,28 +6,33 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 04:45:56 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 19:53:56 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 07:21:28 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/asm.h"
 
-void    free_list_lexer(t_asm *master)
+void    free_tab_token(t_asm *master)
 {
+	int		i;
     t_token *next_list;
 
-	next_list = master->bigin_token->next;
-	while (master->bigin_token != NULL)
+	i = -1;
+	while (++i < master->numline)
 	{
-		free(master->bigin_token->data);
-		master->bigin_token->next = NULL;
-		free(master->bigin_token);
-		master->bigin_token = next_list;
-		if (next_list != NULL)
-			next_list = next_list->next;
-		else
-			next_list = NULL;
+		next_list = master->tab_token[i]->next;
+		while (master->tab_token[i] != NULL)
+		{
+			free(master->tab_token[i]->data);
+			master->tab_token[i]->next = NULL;
+			free(master->tab_token[i]);
+			master->tab_token[i] = next_list;
+			if (next_list != NULL)
+				next_list = next_list->next;
+			else
+				next_list = NULL;
+		}
 	}
 }
 

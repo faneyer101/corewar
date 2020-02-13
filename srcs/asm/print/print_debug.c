@@ -1,34 +1,49 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   print_token.c                                    .::    .:/ .      .::   */
+/*   print_debug.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 01:23:48 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 19:58:28 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 18:49:22 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../../includes/asm.h"
-/*
+
 void    print_token(t_asm *master)
 {
-    t_lexer *list;
+    int		i;
+    t_token	*list;
 
-    list = master->lexer;
-    while (list)
-    {
-        ft_printf("String or digit or delimiter: %c|%c|%c ==> ",
-            list->string, list->digit, list->delimiter);
-        ft_printf("Data: %s\n", list->data);
-        list = list->next;
-    }
-}*/
+	i = 0;
+	while (i < master->numline)
+	{	
+		if (master->tab_token[i])
+    		list = master->tab_token[i];
+		else
+		{
+			i++;
+			continue;
+		}
+		while (list)
+    	{
+        	ft_printf("[%d]Valeur LEXEME ==> %d | ", i, list->kind);
+        	ft_printf("{RED}Data: |%s|{END} Line %d | column %d\n", list->data,
+				list->numline, list->column);
+        	list = list->next;
+    	}
+		i++;
+	}
+}
 
-void    print_lexeme(t_asm *master)
+void    print_buff_read(t_asm *master)
 {
+    int i;
+
+    i = -1;
     while (++i < master->size_read_total)
     {
         if (master->buff_read[i] && master->buff_read[i] == '\n' && ++master->numline)

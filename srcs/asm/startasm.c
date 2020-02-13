@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 14:19:05 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 10:07:06 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,11 +18,16 @@ void	stock_buff(char *line, t_asm *master, int fd)
 	int	i;
 	
 	i = 0;
-	while (master->buff_read[i])
+	while (line[i])
+	{
+		if (line[i] == '\n')
+			master->numline++;
 		i++;
+	}
 	if (!(master->buff_read = (char*)realloc(master->buff_read, sizeof(char) * (ft_strlen(master->buff_read) + ft_strlen(line) + 1))))
 		print_error_before_read("problem for reallocate memory\n", fd, master->buff_read, line);
-	ft_strcpy(&master->buff_read[i], line);
+	ft_strcpy(&master->buff_read[ft_strlen(master->buff_read)], line);
+	ft_bzero(line, 16);
 }
 
 int	read_file(t_asm *master, int fd, char *line, int ret)
@@ -46,7 +51,6 @@ int	read_file(t_asm *master, int fd, char *line, int ret)
 		}
 		stock_buff(line, master, fd);
 		master->size_read_total += ret;
-		ft_bzero(line, 16);
 	}
 	ft_strdel(&line);
 	return (0);
@@ -58,6 +62,7 @@ void	create_string_for_parser_lexer(int fd, t_asm *master, char **av)
 
 	if (!(line = (char*)malloc(sizeof(char) * (16))))
 		exit (0);
+	ft_bzero(line, 16);
 	if ((fd = open(av[1], O_RDONLY)) == -1)
 		print_error_before_read("file don't exist\n", fd, master->buff_read, line);
 	if (read_file(master, fd, line, 1) == -1)
@@ -84,12 +89,12 @@ int	main(int ac, char **av)
 		create_string_for_parser_lexer(0, &master, av);
 		
 		main_lexer2(&master, -1);
+		print_token(&master);
 	//	main_lexer(&master, 0);
-		//print_token(&master);
 		//main_parser(&master);
 		//init_write_file(&master, av[1]);
 	}
 	else
-		ft_printf("you need file with extension .s for compile\n");
+		ft_printf("[usage]: ./asm [file]\nExtension file .s\n");
 	return (0);
 }

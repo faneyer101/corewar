@@ -6,63 +6,46 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 01:47:54 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 19:40:31 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 11:05:23 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../../includes/asm.h"
-/*
-static t_lexer	*ft_create_elem(t_asm *master, char *s, int i[2], char type)
-{
-	t_lexer	*box;
 
-	if (!(box = (t_lexer*)malloc(sizeof(t_lexer))))
+static t_token	*ft_create_elem(t_asm *master, t_lexeme lexeme, int index, int size)
+{
+	t_token	*box;
+
+	if (!(box = (t_token*)malloc(sizeof(t_token))))
 		return (NULL);
-	ft_bzero(box, sizeof(t_lexer));
-    if (i[0] > 0)
-        box->digit = '1';
-	else if (type == 'S')
-		box->string = '1';
-	else if (type == 'D')
-		box->delimiter = '1';
-	if(!(box->data = ft_strndup(s, i[1])))
+	ft_bzero(box, sizeof(t_token));
+	if(!(box->data = ft_strndup(&master->buff_read[index], size)))
     {
         free(box);
         return (NULL);
     }
+	box->kind = lexeme;
+	box->column = master->column;
     box->numline = master->numline;
 	box->next = NULL;
 	return (box);
 }
 
-void	push_token(t_asm *master, char *str, int size, char type)
+void	push_token(t_asm *master, t_lexeme lexeme, int index, int size)
 {
-	t_lexer	*list;
-    int digit;
-    int i[2];
+	t_token	*list;
 
-    digit = -1;
-	i[0] = 1;
-    while (str[++digit])
-	    if (ft_isdigit(str[digit]) == 0)
-        {
-            i[0] = 0;
-            break;
-		}
-	list = master->lexer;
+	list = master->tab_token[master->numline - 1];
 	if (list)
 	{
 		while (list->next != NULL)
 			list = list->next;
-        i[1] = size;
-		if (!(list->next = ft_create_elem(master, str, i, type)))
+		if (!(list->next = ft_create_elem(master, lexeme, index, size)))
             printf_error_lexer(master, "Crash allocate for memory\n");
 		list = list->next;
 	}
 	else
-		if (!(master->lexer = ft_create_elem(master, str, i, type)))
+		if (!(master->tab_token[master->numline - 1] = ft_create_elem(master, lexeme, index, size)))
             printf_error_lexer(master, "Crash allocate for memory\n");
 }
-
-*/
