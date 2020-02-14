@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/10 16:33:44 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/14 18:08:26 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/14 18:14:00 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -271,13 +271,11 @@ void	create_token_name_funtion(t_asm *master, int *i, char *str, int j)
 			str[*i + ft_strlen(master->tab_op[j].name)] != '\n')
 		{
 			push_token(master, FONCTION, i[0], ft_strlen(master->tab_op[j].name));
-			printf("BEFORE |%d|%d|%s|%zu\n", i[0], master->size_read_total, master->tab_op[j].name, ft_strlen(master->tab_op[j].name));
 			i[0] += (ft_strlen(master->tab_op[j].name));
 			master->column++;
 			break;
 		}
 	}
-	printf("AFTER |%d|%d|\n", i[0], master->size_read_total);
 	while (str[*i] && str[*i] != '\n' && delimiter(str[*i], "s"))
 		i[0]++;
 	while (str[*i] && str[*i] != '\n')
