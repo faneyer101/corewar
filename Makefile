@@ -6,7 +6,7 @@
 #    By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/07/27 18:49:19 by nsalle       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/11 08:32:11 by faneyer     ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/14 09:50:33 by faneyer     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -44,6 +44,8 @@ LFTDIR			=	./libft_nsalle/
 INC_LFT			=	-I $(LFTDIR)
 LFT				=	-L $(LFTDIR) -lft
 
+BAR			=		\033[32;7m
+
 RM				=	/bin/rm
 
 #	CREATION DES DOSSIERS OBJS POUR ASM ET COMPILATION DES .o
@@ -54,18 +56,18 @@ $(OBJDIR_ASM)%.o: $(SRCDIR)%.c $(INCDIR)asm.h $(INCDIR)op.h $(LFTDIR)libft.a
 	@mkdir -p $(OBJDIR_ASM)/asm/parser
 	@mkdir -p $(OBJDIR_ASM)/asm/print
 	@mkdir -p $(OBJDIR_ASM)/asm/interpreteur
-	$(CC) $(CFLAGS) $(INCLUDE) $(INC_LFT) -o $@ -c $<
+	$(CC) $(CFLAGS) $(INCLUDE) $(INC_LFT) -o $@ -c $< && echo "${BAR} \c"
 
 #	CREATION DES DOSSIERS OBJS POUR VM ET COMPILATION DES .o
 $(OBJDIR_VM)%.o: $(SRCDIR)%.c $(INCDIR)vm.h $(INCDIR)op.h $(LFTDIR)libft.a
 	@mkdir -p $(OBJDIR_VM)
 	@mkdir -p $(OBJDIR_VM)/vm
-	$(CC) $(CFLAGS) $(INCLUDE) $(INC_LFT) -o $@ -c $<
+	$(CC) $(CFLAGS) $(INCLUDE) $(INC_LFT) -o $@ -c $< && echo "${BAR} \c"
 
 all: LFTC $(NAME_ASM) $(NAME_VM)
 
 #	CREATION EXE ASM
-$(NAME_ASM): $(OBJ_ASM)
+$(NAME_ASM): $(OBJ_ASM) 
 	$(CC) $(CFLAGS) -o $@ $(OBJ_ASM) $(LFT)
 	@printf "\n|-> \033[32m$(NAME_ASM) complete\033[0m\n"
 

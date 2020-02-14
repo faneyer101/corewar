@@ -148,17 +148,18 @@ INC			=		$(addprefix -I,$(INCDIR))
 
 RM			=		/bin/rm
 
+BAR			=		\033[32;7m
+
 $(OBJDIR)%.o: $(SRCDIR)%.c $(INCDIR)libft.h
 	@mkdir -p $(OBJDIR)
 	@mkdir -p $(OBJDIR)/Printf
-	@printf "."
-	@$(CC) $(CFLAGS) $(INC) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(INC) -o $@ -c $< && echo "${BAR} \c"
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@printf "\n|-> \033[32mobjects created\033[0m\n\n"
-	@ar vrus $@ $^
+	@ar rus $@ $^
 	@printf "\n|-> \033[32m$(NAME) complete\033[0m\n"
 
 clean:
