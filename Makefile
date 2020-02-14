@@ -6,7 +6,7 @@
 #    By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/07/27 18:49:19 by nsalle       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/14 09:50:33 by faneyer     ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/14 11:54:03 by faneyer     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -87,10 +87,12 @@ ASMdebug: LFTC $(OBJ_ASM) $(INCDIR)asm.h $(INCDIR)op.h $(LFTDIR)libft.a
 
 #	EXE EN NORMAL
 ASMexec: LFTC $(OBJ_ASM) $(NAME_ASM)
+	clear
 	./asm zork.s
 
 #	EXE AVEC FLAG DE DEBUG
 ASMdexec: ASMdebug
+	clear
 	./asm zork.s
 #######################################	FIN DE REGLE ASM
 
