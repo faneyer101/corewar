@@ -6,36 +6,35 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 01:23:48 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/13 18:49:22 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/14 12:08:09 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../../includes/asm.h"
 
-void    print_token(t_asm *master)
+void    print_token(t_asm *master, int i, t_token *list)
 {
-    int		i;
-    t_token	*list;
-
-	i = 0;
-	while (i < master->numline)
+	ft_printf("{GREEN}Valeur lexeme\n{CYAN}0: {RED}ZERO|{CYAN}1: {RED}Name header|");
+	ft_printf("{CYAN}2: {RED}Comment header|{CYAN}3: {RED}String header|{CYAN}4: {RED}Label declaration|");
+	ft_printf("{CYAN}5: {RED}Label direct|{CYAN}6: {RED}Label indirect|{CYAN}7: {RED}Num direct|{CYAN}8: {RED}Num indirect|");
+	ft_printf("{CYAN}9: {RED}Comment|{CYAN}10: {RED}Fonction|{CYAN}11: {RED}Registre|{CYAN}12: {RED}Separateur|{CYAN}13: {RED}BAD|{CYAN}14: {RED}New line{END}\n");
+	while (++i < master->numline)
 	{	
 		if (master->tab_token[i])
     		list = master->tab_token[i];
 		else
-		{
-			i++;
 			continue;
-		}
 		while (list)
     	{
-        	ft_printf("[%d]Valeur LEXEME ==> %d | ", i, list->kind);
-        	ft_printf("{RED}Data: |%s|{END} Line %d | column %d\n", list->data,
+			if (list->kind == 13)
+        		ft_printf("[%d]Valeur LEXEME ==> {RED}%d{END} | ", i, list->kind);
+			else
+        		ft_printf("[%d]Valeur LEXEME ==> {CYAN}%d{END} | ", i, list->kind);
+        	ft_printf("{YELL}{UND}Data: |%s|{END} Line %d | column %d\n", list->data,
 				list->numline, list->column);
         	list = list->next;
     	}
-		i++;
 	}
 }
 

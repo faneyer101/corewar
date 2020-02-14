@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/13 18:33:12 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/14 12:11:18 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,6 +58,7 @@ typedef enum				e_lexeme
 	FONCTION,
 	REGISTRE,
 	SEPARATOR,
+	BAD,
 	NEW_LINE
 }							t_lexeme;
 
@@ -84,7 +85,6 @@ typedef struct              s_asm
 }                           t_asm;
 
 
-int 	                    main_lexer(t_asm *master, int i);
 int							cheak_header(char *str);
 int							cmp_label_chars(char c, int i);
 //void    					create_token_for_header(t_asm *master, char *header, t_token *token);
@@ -96,7 +96,7 @@ void                        print_error_before_read(char *msg_error, int fd, cha
 int                         main_parser(t_asm *master);
 
 
-int 						main_lexer2(t_asm *master, int i);
+int 						main_lexer(t_asm *master, int i, int start);
 int							delimiter(char c, char *analyse);
 void						verif_error_first(t_asm *master, char *file);
 
@@ -112,7 +112,7 @@ int                         init_write_file(t_asm *master, char *name);
 
 
 void    					print_buff_read(t_asm *master);
-void                        print_token(t_asm *master);
+void                        print_token(t_asm *master, int i, t_token *list);
 //int    print_ret_parsing(t_asm *master);
 
 #endif

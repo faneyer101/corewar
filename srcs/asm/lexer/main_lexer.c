@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/10 16:33:44 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/13 18:49:44 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/14 18:08:26 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,6 @@ int		delimiter(char c, char *analyse)
 {
 	if (c != '\0')
 	{
-		//printf("DELIMITEUR |%c|%s|\n", c, analyse);
 		if (ft_strchr(analyse, 's'))
 			if (ft_isspace(c))
 				return (TRUE);
@@ -62,7 +61,6 @@ void	create_token_comment(t_asm *master, int *i, char *str)
 	int	start;
 
 	start = *i;
-	//printf("DEBUG |%c|%s|%d|%d|\n", str[*i], &str[*i], *i, start), fflush(stdout);
 	while (str[*i] && delimiter(str[*i], "s") && str[*i] != '\n')
 		i[0]++;
 	if (str[*i] && str[*i] == '\n')
@@ -108,8 +106,21 @@ void    create_token_header(t_asm *master, int *i, char *str, int start)
 		while (str[*i] && str[*i] != '\n' && str[*i] != DSTRING)
 			i[0]++;
 		if (str[*i] && str[*i] == DSTRING)
+		{
 			push_token(master, HEADER_STRING, start, *i - start + 1);
-		master->column++;
+			master->column++;
+		}
+		else
+		{
+			push_token(master, BAD, start, *i - start + 1);
+			master->numline++;
+			master->column = 1;
+		}
+	}
+	else if (str[i[0]] && str[i[0]] == '\n')
+	{
+			master->numline++;
+			master->column = 1;	
 	}
 }
 
@@ -143,8 +154,16 @@ void	create_labbel_declaration(t_asm *master, int *i, char *str)
 	start = *i;
 	while (str[*i] && str[*i] != LABEL_CHAR)
 		i[0]++;
-	push_token(master, LABEL_DECLARATION, start, *i - start + 1);	
-	master->column++;
+	push_token(master, LABEL_DECLARATION, start, *i - start + 1);
+	if (str[i[0]] == LABEL_CHAR)
+		i[0]++;
+	if (str[i[0]] && str[i[0]] == '\n')
+		{
+			master->column = 1;
+			master->numline++;
+		}
+		else
+			master->column++;
 }
 
 
@@ -155,9 +174,17 @@ void	create_token_param(t_asm *master, int *i, char *str)
 
 	if (str[*i] == '\0')
 		return ;
-	while (str[*i] && delimiter(str[*i], "s") && str[*i] && str[*i] != '\n')
+	while (str[*i] && delimiter(str[*i], "s") && str[*i] != '\n')
 		i[0]++;
-	if (str[i[0]] && str[i[0]] == 'r' && str[i[0] + 1] && ft_isdigit(str[i[0] + 1]))
+	if (str[i[0]] && delimiter(str[i[0]], "#"))
+		create_token_comment(master, i, str);
+	else if (str[i[0]] && str[i[0]] == SEPARATOR_CHAR)
+	{
+		push_token(master, SEPARATOR, i[0], 1);
+		i[0]++;
+		//master->column++;
+	}
+	else if (str[i[0]] && str[i[0]] == 'r' && str[i[0] + 1] && ft_isdigit(str[i[0] + 1]))
 	{
 		i[0]++;
 		start = *i;
@@ -166,21 +193,31 @@ void	create_token_param(t_asm *master, int *i, char *str)
 		push_token(master, REGISTRE, start, i[0] - start);
 		master->column++;
 	}
-	else if (str[i[0]] && str[*i] == DIRECT_CHAR && str[i[0] + 1] == LABEL_CHAR)
+	else if (str[i[0]] && str[*i] == DIRECT_CHAR && str[i[0] + 1] == LABEL_CHAR && cmp_label_chars(str[i[0] + 2], 0))
 	{
 		i[0] += 2;
 		start = *i;
 		while (cmp_label_chars(str[i[0]], 0))
 			i[0]++;
+		
 		push_token(master, LABEL_DIRECT, start, i[0] - start);
 		master->column++;
 	}
 	else if (str[i[0]] && str[*i] == LABEL_CHAR)
 	{	
+		i[0]++;
+	//	printf("apres push|%c|[%d][%d]|%s|\n", str[i[0]], master->column, master->numline, &str[i[0]]);
 		start = *i;
 		while (cmp_label_chars(str[i[0]], 0))
 			i[0]++;
-		push_token(master, LABEL_INDIRECT, start, i[0] - start);
+		if (delimiter(str[i[0]], "s") || str[i[0]] == SEPARATOR_CHAR)
+			push_token(master, LABEL_INDIRECT, start, i[0] - start);
+		else
+		{
+			while (str[i[0]] && ft_isprint(str[i[0]]) && !delimiter(str[i[0]], "s#d"))
+				i[0]++;
+			push_token(master, BAD, start, i[0] - start);
+		}
 		master->column++;
 	}
 	else if (str[i[0]] && str[i[0]] == DIRECT_CHAR && (ft_isdigit(str[i[0] + 1]) || str[i[0] + 1] == '-'))
@@ -201,37 +238,55 @@ void	create_token_param(t_asm *master, int *i, char *str)
 			i[0]++;
 		while (ft_isdigit(str[i[0]]))
 			i[0]++;
-		push_token(master, NUM_DIRECT, start, i[0] - start);
+		push_token(master, NUM_INDIRECT, start, i[0] - start);
 		master->column++;
 	}
-	if (str[i[0]] && str[i[0]] == SEPARATOR_CHAR)
+	else if (str[i[0]] && !delimiter(str[i[0]], "s") && ft_isprint(str[i[0]]))
 	{
-		push_token(master, SEPARATOR, i[0], 1);
-		i[0]++;
-		master->column++;
+		start = *i;
+		while (str[i[0]] && ft_isprint(str[i[0]]) && !delimiter(str[i[0]], "s#d"))
+			i[0]++;
+		push_token(master, BAD, start, i[0] - start);
+	//	if (str[i[0]] && str[i[0]] == '\n')
+	//	{
+	//		master->column = 1;
+	//		//master->numline++;
+	//	}
+	//	else
+	//		master->column++;
+	}
+	else //if (str[i[0]] && !delimiter(str[i[0]], "s"))
+	{
+		printf("IL MANQUE PEU ETRE UN CAS!!!!!!!!!!!|%c|[%d][%d]\n", str[i[0]], master->numline, master->column);
+		sleep(5);
 	}
 }
 
-void	create_token_name_funtion(t_asm *master, int *i, char *str)
+void	create_token_name_funtion(t_asm *master, int *i, char *str, int j)
 {
-	int	j;
-
-	j = 0;
-	while (j < 16)
+	while (++j < 17)
 	{
 		if (ft_strncmp(master->tab_op[j].name, &str[*i], ft_strlen(master->tab_op[j].name)) == 0 &&
 			delimiter(str[*i + ft_strlen(master->tab_op[j].name)], "s") &&
-			str[ft_strlen(master->tab_op[j].name)] != '\n')
+			str[*i + ft_strlen(master->tab_op[j].name)] != '\n')
 		{
 			push_token(master, FONCTION, i[0], ft_strlen(master->tab_op[j].name));
+			printf("BEFORE |%d|%d|%s|%zu\n", i[0], master->size_read_total, master->tab_op[j].name, ft_strlen(master->tab_op[j].name));
+			i[0] += (ft_strlen(master->tab_op[j].name));
+			master->column++;
 			break;
 		}
-		j++;
 	}
-	master->column++;
-	i[0] += ft_strlen(master->tab_op[j].name);
+	printf("AFTER |%d|%d|\n", i[0], master->size_read_total);
 	while (str[*i] && str[*i] != '\n' && delimiter(str[*i], "s"))
+		i[0]++;
+	while (str[*i] && str[*i] != '\n')
 		create_token_param(master, i, str);
+	if (str[*i] && str[*i] == '\n')
+	{
+		master->numline++;
+		master->column = 1;
+	}
 }
 
 void	init_token(t_asm* master)
@@ -245,16 +300,17 @@ void	init_token(t_asm* master)
 	master->column = 1;
 }
 
-int 	main_lexer2(t_asm *master, int i)
+int 	main_lexer(t_asm *master, int i, int start)
 {
 	if(!(master->tab_token = (t_token**)malloc(sizeof(t_token*) * (master->numline + 1))))
 		return (ft_printf("a faire une fonction pour free avant et exit 0\n"));
     init_token(master);
     while (++i < master->size_read_total && master->buff_read[i])
     {
+	//printf("START |%c|[%d][%d]\n", master->buff_read[i], master->numline, master->column);
         if (master->buff_read[i] && master->buff_read[i] == '\n')
 		{
-			//push_token(master, NEW_LINE, i, 1);
+		//	push_token(master, NEW_LINE, i, 1);
 			master->numline++;
 			master->column = 1;
             continue;
@@ -269,10 +325,16 @@ int 	main_lexer2(t_asm *master, int i)
 				control_label_declaration(&master->buff_read[i]))
 			create_labbel_declaration(master, &i, master->buff_read);
 		else if (check_param(master, &master->buff_read[i], 0))
-			create_token_name_funtion(master, &i, master->buff_read);
-		//else
-		//	ft_printf("Have a probleme of syntax on line %d column %d\n",
-		//		master->numline, master->column);
+			create_token_name_funtion(master, &i, master->buff_read, -1);
+		else
+		{
+			start = i;
+			while (master->buff_read[i] && master->buff_read[i] != '\n')
+				i++;
+			push_token(master, BAD, start, i - start);
+			master->column = 1;
+			master->numline++;
+		}
     }
     return (0);
 }

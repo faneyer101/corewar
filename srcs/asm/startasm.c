@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/13 10:07:06 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/14 12:11:27 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,9 +88,8 @@ int	main(int ac, char **av)
 		verif_error_first(&master, av[1]);
 		create_string_for_parser_lexer(0, &master, av);
 		
-		main_lexer2(&master, -1);
-		print_token(&master);
-	//	main_lexer(&master, 0);
+		main_lexer(&master, -1, 0);
+		print_token(&master, -1, NULL);
 		//main_parser(&master);
 		//init_write_file(&master, av[1]);
 	}
