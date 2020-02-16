@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/15 20:36:00 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/16 21:32:20 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/17 03:01:16 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ void	create_token_bad(t_asm *master, int *i, char *str, int start)
 	while (str[i[0]] && str[i[0]] != '\n')
 		i[0]++;
     
-    printf("[%d][%d]CREATE BAD |%c|%c|%c|\n", master->numline, master->column, str[i[0]], str[i[0] + 1], str[i[0] + 2]);
+   // printf("[%d][%d]CREATE BAD |%c|%c|%c|\n", master->numline, master->column, str[i[0]], str[i[0] + 1], str[i[0] + 2]);
 	push_token(master, BAD, start, i[0] - start);
     i[0]--;
     master->error_lexer++;

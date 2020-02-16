@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 02:13:42 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/17 03:53:44 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,6 +88,7 @@ int	main(int ac, char **av)
 		verif_error_first(&master, av[1]);
 		create_string_for_parser_lexer(0, &master, av);
 		main_lexer(&master, -1, 0);
+		print_token(&master, -1, NULL);
 	//	if (master.error_lexer == 0)
 			main_parser(&master);
 	//	else
@@ -102,7 +103,6 @@ int	main(int ac, char **av)
 		
 	//	printf("|%s|%u|%u|%u|\n", master.tab_op[0].name, master.tab_op[0].args[0],
 	//		master.tab_op[0].args[1], master.tab_op[0].args[2]);
-		//print_token(&master, -1, NULL);
 	}
 	else
 		ft_printf("[usage]: ./asm [file]\nExtension file .s\n");

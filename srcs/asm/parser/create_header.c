@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/17 01:39:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 02:14:53 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/17 02:48:38 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,10 +62,10 @@ static void	parser_header_comment(t_asm *master, t_token *token)
 		{
             while (token->next != NULL)
 		    	token = token->next;
-		    ft_printf("[%d][%d] problem syntax ==> {RED}%s{END}\n", master->numline, master->column, token->data);
+		    ft_printf("[%d][%d] problem syntax ==> {RED}%s{END}\n", token->numline, token->column, token->data);
         }
-    //    else
-      //      ft_printf("Need comment\n");
+        else
+            ft_printf("Need comment\n");
     }
 }
 
