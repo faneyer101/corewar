@@ -1,46 +1,43 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   parsing.c                                        .::    .:/ .      .::   */
+/*   main_parser.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/02/06 08:20:27 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 19:42:26 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Created: 2020/02/16 23:23:14 by faneyer      #+#   ##    ##    #+#       */
+/*   Updated: 2020/02/17 02:07:37 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../../includes/asm.h"
 
-/*
-int    gestion_token_comment(t_lexer **list)
-{
-	if (delimiter(list[0]->data[0], "#") && list[0]->data[1] == '\0')
-	{
-		list[0] = list[0]->next->next;
-		return (TRUE);
-	}
-    return (FALSE);
-}
-
 int     main_parser(t_asm *master)
 {
-    t_lexer *list;
+	int		i;
+	t_token	*list;
 
-    list = master->lexer;
-    while (list)
-    {
-		printf("DEBUT BOUCLE |%s|\n", list->data);
-        if (gestion_token_comment(&list))
-		{
-			printf("COMMENT passer |%s|\n", list->data);
-            continue;
-		}
-       // else if (gestion_token_comment)
-        //header
-        //code asm
-        list = list->next;
-    }
+	i = -1;
+	while (++i < master->numline)
+	{	
+		if (master->tab_token[i])
+    		list = master->tab_token[i];
+		else
+			continue;
+		while (list)
+    	{
+			if (list->kind == HEADER_NAME || list->kind == HEADER_COMMENT)
+				parser_header(master, list);
+ 			
+			//verif header
+			//verif labbel
+			//verif op code
+        	list = list->next;
+    	}
+	}
+//	write(0, &master->header, sizeof(t_header));
+//	write(0, "\n", 1);
+//	printf("header|%s|\n", master->header.prog_name);
     return (0);
-}*/
+}

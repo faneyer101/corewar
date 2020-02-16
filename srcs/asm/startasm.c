@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/14 12:11:27 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/17 02:13:42 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,11 +87,22 @@ int	main(int ac, char **av)
 		init_op_tab((t_op*)(master.tab_op));
 		verif_error_first(&master, av[1]);
 		create_string_for_parser_lexer(0, &master, av);
-		
 		main_lexer(&master, -1, 0);
-		print_token(&master, -1, NULL);
-		//main_parser(&master);
-		//init_write_file(&master, av[1]);
+	//	if (master.error_lexer == 0)
+			main_parser(&master);
+	//	else
+	//	{
+	//		printf("printf tout les BAD lexeme du nombre d'erreur detecter et free token et buff_read et exit(0)\n");
+	//		exit(0);
+	//	}
+		if (master.error_parser == 0)
+			init_write_file(&master, av[1]);
+		else
+			ft_printf("free token et buff_read et exit 0\n");
+		
+	//	printf("|%s|%u|%u|%u|\n", master.tab_op[0].name, master.tab_op[0].args[0],
+	//		master.tab_op[0].args[1], master.tab_op[0].args[2]);
+		//print_token(&master, -1, NULL);
 	}
 	else
 		ft_printf("[usage]: ./asm [file]\nExtension file .s\n");

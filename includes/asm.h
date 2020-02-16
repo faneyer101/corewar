@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/14 12:11:18 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/17 01:42:17 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,40 +71,64 @@ typedef struct              s_token
 	struct s_token			*next;
 }							t_token;
 
+typedef struct 				s_parser
+{	
+	int						name;
+	int						comment;
+}							t_parser;
+
 typedef struct              s_asm
 {
+	int						error_lexer;
+	int						error_parser;
     char                    *buff_read;
 	char					**split_read;
 	int						numline;
 	int						column;
 	int						size_read_total;
+	t_parser				parser;
 	t_token					**tab_token;
-	t_token					*error;
-    t_header				*header;
+	t_token					*current;
+    t_header				header;
     t_op                    tab_op[17];
 }                           t_asm;
 
 
-int							cheak_header(char *str);
-int							cmp_label_chars(char c, int i);
 //void    					create_token_for_header(t_asm *master, char *header, t_token *token);
 //void    					create_token_comment(t_asm *master, char *comment, t_token *token);
 //void    					create_token_champion(t_asm *master, char *code, t_token *token);
-void	                    push_token(t_asm *master, t_lexeme lexeme, int index, int size);
 void                        printf_error_lexer(t_asm *master, char *str_error);
 void                        print_error_before_read(char *msg_error, int fd, char *buff, char *line);
-int                         main_parser(t_asm *master);
-
-
-int 						main_lexer(t_asm *master, int i, int start);
-int							delimiter(char c, char *analyse);
 void						verif_error_first(t_asm *master, char *file);
+
+int                         init_write_file(t_asm *master, char *name);
+void						free_split(t_asm *master, int i);
 
 
 void    					free_tab_token(t_asm *master);
-void						free_split(t_asm *master, int i);
+/*
+**			LEXER Creation de token pour le parser
+*/
 
-int                         init_write_file(t_asm *master, char *name);
+int 						main_lexer(t_asm *master, int i, int start);
+int							delimiter(char c, char *analyse);
+int							cmp_label_chars(char c, int i);
+int							cheak_header(char *str);
+void	                    push_token(t_asm *master, t_lexeme lexeme, int index, int size);
+void    					create_token_header(t_asm *master, int *i, char *str, int start);
+void						create_token_comment(t_asm *master, int *i, char *str, int start);
+void						create_token_bad(t_asm *master, int *i, char *str, int start);
+void						create_token_name_funtion(t_asm *master, int *i, char *str, int j);
+
+/*
+**			PARSER Verif si tout est ok pour passer a l'interpreteur
+*/
+
+int                         main_parser(t_asm *master);
+void						parser_header(t_asm *master, t_token *token);
+
+
+
 
 /*
 **  Fonction de debugs // d'affichages
