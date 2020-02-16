@@ -6,25 +6,47 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/11 14:39:38 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 16:42:20 by nsalle      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/12 18:31:10 by nsalle      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
+void	get_code(t_vm *vm, int ip)
+{
+	int				i;
+	int				toread;
+	unsigned char	trash[MEM_SIZE];
+
+	i = 0;
+	close(vm->players[ip].fd);
+	vm->players[ip].fd = open(vm->players[ip].pname, O_RDONLY);
+	toread = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;
+	read(vm->players[ip].fd, trash, toread);
+	if (!(vm->players[ip].code = (unsigned char*)malloc(vm->players[ip].size)))
+	{
+		ft_printf("Malloc failed on get_code\n");
+		while (ip-- > 0)
+			free(vm->players[ip].code);
+		exit(0);
+	}
+	read(vm->players[ip].fd, vm->players[ip].code, vm->players[ip].size);
+}
+
 void	check_realsize(t_vm *vm, int ip)
 {
-	int readc = 0;
-	char dump[1];
+	int		readc;
+	char	dump[1];
 
+	readc = 0;
 	while (read(vm->players[ip].fd, dump, 1))
 		readc++;
 	if (readc != vm->players[ip].size)
 	{
 		ft_printf("Champion %s ", vm->players[ip].name);
 		ft_printf("has a code size that differ from what its header says\n");
-		exit (0);
+		exit(0);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/10 12:03:05 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 16:36:47 by nsalle      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/12 17:31:21 by nsalle      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,10 @@ void	check_filenames(int ac, char **av, t_vm *vm)
 			error = 1;
 		}
 		else if (av[i][0] != '-')
+		{
+			vm->players[vm->nb_player].pname = av[i];
 			vm->nb_player++;
+		}
 		i++;
 	}
 	if (error)
@@ -100,6 +103,8 @@ void	check_magic(char **av, t_vm *vm)
 		read(vm->players[ip].fd, vm->players[ip].comment, COMMENT_LENGTH);
 		check_nullbytes(vm, ip);
 		check_realsize(vm, ip);
+		get_code(vm, ip);
+		vm->players[ip].start = MEM_SIZE / vm->nb_player * (ip);
 		ip++;
 		i++;
 	}
