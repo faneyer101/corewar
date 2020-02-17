@@ -1,4 +1,6 @@
-#st	r1, :ld+1
+st	r1, :ld+1
 #a tester
-l2:
-		sti%:live,:test
+test:
+		stir1,:test,:test
+
+

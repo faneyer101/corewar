@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/17 01:39:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 13:33:57 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/17 21:28:51 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ static void	parser_header_name(t_asm *master, t_token **token)
 {
 	master->parser.name = 1;
 	token[0] = token[0]->next;
-	if (token && token[0]->kind == HEADER_STRING && (token[0]->next == NULL || token[0]->next->kind == COMMENT))
+	if (token[0] && token[0]->kind == HEADER_STRING && (token[0]->next == NULL || token[0]->next->kind == COMMENT))
 	{
 		if ((ft_strlen(token[0]->data) - 2) < PROG_NAME_LENGTH && (ft_strlen(token[0]->data) - 2) > 0)
 			ft_strncpy(master->header.prog_name, &token[0]->data[1], (ft_strlen(&token[0]->data[1]) - 1));

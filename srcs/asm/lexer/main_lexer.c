@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/10 16:33:44 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 20:44:02 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/17 21:44:58 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,7 +66,7 @@ int		control_label_declaration(char *str)
 	i = 0;
 	while (str[i] && !delimiter(str[i], "s") && str[i] != LABEL_CHAR)
 		i++;
-	if ((cmp_label_chars(str[i - 1], 0) && /*delimiter(str[i], "s")) || (*/str[i] == LABEL_CHAR))
+	if ((cmp_label_chars(str[i - 1], 0) && str[i] == LABEL_CHAR))
 		return (TRUE);
 	return (FALSE);
 }
@@ -123,15 +123,10 @@ int 	main_lexer(t_asm *master, int i)
 			create_token_comment(master, &i, master->buff_read, 0);
         else if (delimiter(master->buff_read[i], "nc"))
 			create_token_header(master, &i, master->buff_read, i);
-		else if (/*cmp_label_chars(master->buff_read[i], 0) &&*/
-				control_label_declaration(&master->buff_read[i])/*&& master->current->kind != LABEL_DECLARATION*/)
-		{
+		else if (control_label_declaration(&master->buff_read[i]))
 			create_labbel_declaration(master, &i, master->buff_read);
-		}
 		else if (check_param(master, &master->buff_read[i], 0))
-		{
 			create_token_name_funtion(master, &i, master->buff_read, -1);
-		}
 		else if (!delimiter(master->buff_read[i], "s#") && master->buff_read[i] != SEPARATOR_CHAR)
 			create_token_bad(master, &i, master->buff_read, 0);
 	}

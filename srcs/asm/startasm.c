@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 17:05:47 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/17 21:51:46 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,6 +100,7 @@ int	main(int ac, char **av)
 	if (ac == 2 || ac == 3)
 	{
 		ft_bzero(&master, sizeof(t_asm));
+		master.numline++;
 		verif_option(&master, av);
 		init_op_tab((t_op*)(master.tab_op));
 		verif_error_first(&master, av[ac - 1]);
@@ -108,8 +109,12 @@ int	main(int ac, char **av)
 		if (master.option.t == 1)
 			print_token(&master, -1, NULL);
 		main_parser(&master);
-		if (master.error_parser == 0)
+		if (master.error_parser == 0 && master.parser.name == 1 && master.parser.comment == 1)
 			init_write_file(&master, av[ac - 1]);
+		if (master.parser.name == 0)
+			ft_printf("need .name for compilation this champions\n");
+		if (master.parser.comment == 0)
+			ft_printf("need .comment for compilation this champions\n");
 		free_token_and_buff(&master);
 	}
 	else

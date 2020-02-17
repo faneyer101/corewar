@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 18:09:06 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/17 21:51:52 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,6 +90,7 @@ typedef struct              s_asm
     char                    *buff_read;
 	char					**split_read;
 	int						numline;
+	int						max_line;
 	int						column;
 	int						size_read_total;
 	t_option				option;
@@ -107,8 +108,6 @@ void						verif_error_first(t_asm *master, char *file);
 
 int                         init_write_file(t_asm *master, char *name);
 void						free_split(t_asm *master, int i);
-
-
 void    					free_tab_token(t_asm *master);
 /*
 **			LEXER Creation de token pour le parser
@@ -129,6 +128,15 @@ void						create_token_name_funtion(t_asm *master, int *i, char *str, int j);
 */
 
 int                         main_parser(t_asm *master);
+int							verif_separator(t_asm *master, t_op function, t_token *verif);
+int							verif_bad(t_asm *master, t_token *list);
+int							nb_param(t_token *list);
+int							search_label(t_list_label *label, char *str);
+void						verif_declaration_label(t_asm *master, t_list_label *label);
+void						declare_label_param(t_asm *master, t_token *list);
+void						push_label(t_asm *master, t_token *token, int define);
+void						print_error_parser_param(t_asm *master, char *msg_error, char *error, t_token *list);
+void						verif_type_param(t_asm *master, t_token *list, t_op function, int i);
 void						parser_header(t_asm *master, t_token **token);
 
 

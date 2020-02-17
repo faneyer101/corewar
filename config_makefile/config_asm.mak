@@ -1,7 +1,8 @@
 SRCFILE_ASM		+=	op.c 							\
 					asm/verif_oph.c					\
 					asm/parser/main_parser.c 		\
-					asm/parser/toolsparsing.c 		\
+					asm/parser/toolsparser.c 		\
+					asm/parser/toolsparser2.c 		\
 					asm/parser/create_header.c 		\
 					asm/interpreteur/writefile.c 	\
 					asm/free.c						\
