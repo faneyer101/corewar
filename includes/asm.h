@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 01:42:17 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/17 06:29:17 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,21 +28,23 @@
 
 
 
-/*
+
 typedef struct              s_list_label
 {
     int                     index_define;
-    int                     define;
-    char                    name[64];
+    int                     define_parser; // -1 non definis, 0 definis parser, 1 definis solver
+    char                    *name;
     struct s_list_label     *next;
 }                           t_list_label;
 
+/*
 typedef struct              s_champion
 {
     unsigned char           code_champ[CHAMP_MAX_SIZE + 1];
     t_list_label            *label;
 }                           t_champion;
 */
+
 typedef enum				e_lexeme
 {
 	ZERO,
@@ -87,6 +89,7 @@ typedef struct              s_asm
 	int						column;
 	int						size_read_total;
 	t_parser				parser;
+	t_list_label			*define_label;
 	t_token					**tab_token;
 	t_token					*current;
     t_header				header;
@@ -94,9 +97,6 @@ typedef struct              s_asm
 }                           t_asm;
 
 
-//void    					create_token_for_header(t_asm *master, char *header, t_token *token);
-//void    					create_token_comment(t_asm *master, char *comment, t_token *token);
-//void    					create_token_champion(t_asm *master, char *code, t_token *token);
 void                        printf_error_lexer(t_asm *master, char *str_error);
 void                        print_error_before_read(char *msg_error, int fd, char *buff, char *line);
 void						verif_error_first(t_asm *master, char *file);
@@ -125,7 +125,7 @@ void						create_token_name_funtion(t_asm *master, int *i, char *str, int j);
 */
 
 int                         main_parser(t_asm *master);
-void						parser_header(t_asm *master, t_token *token);
+void						parser_header(t_asm *master, t_token **token);
 
 
 

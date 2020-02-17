@@ -1,4 +1,10 @@
 #st	r1, :ld1+1
+#a tester
+#l2:		
+#		sti:%live,:test
+#
+#		
+#l2:	
 #.name "zork"
 #.comment "I'M ALIIIIVE"
 
