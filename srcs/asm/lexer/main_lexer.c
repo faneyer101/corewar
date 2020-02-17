@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/10 16:33:44 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/16 21:34:17 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/17 20:44:02 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,7 +66,7 @@ int		control_label_declaration(char *str)
 	i = 0;
 	while (str[i] && !delimiter(str[i], "s") && str[i] != LABEL_CHAR)
 		i++;
-	if ((str[i - 1] == LABEL_CHAR && delimiter(str[i], "s")) || (str[i] == LABEL_CHAR))
+	if ((cmp_label_chars(str[i - 1], 0) && /*delimiter(str[i], "s")) || (*/str[i] == LABEL_CHAR))
 		return (TRUE);
 	return (FALSE);
 }
@@ -89,7 +89,7 @@ void	create_labbel_declaration(t_asm *master, int *i, char *str)
 	start = *i;
 	while (str[*i] && str[*i] != LABEL_CHAR)
 		i[0]++;
-	push_token(master, LABEL_DECLARATION, start, *i - start + 1);
+	push_token(master, LABEL_DECLARATION, start, *i - start);
 }
 
 void	init_token(t_asm* master)
@@ -103,18 +103,16 @@ void	init_token(t_asm* master)
 	master->column = 1;
 }
 
-int 	main_lexer(t_asm *master, int i, int start)
+int 	main_lexer(t_asm *master, int i)
 {
-	(void)start;
 	if(!(master->tab_token = (t_token**)malloc(sizeof(t_token*) * (master->numline + 1))))
 		return (ft_printf("a faire une fonction pour free avant et exit 0\n"));
     init_token(master);
     while (++i < master->size_read_total && master->buff_read[i])
     {
- 	//printf("Check labbel |%c|[%d][%d]\n", master->buff_read[i], master->numline, master->column);
-        if (master->buff_read[i] && master->buff_read[i] == '\n')
+		//ft_printf("MAIN LEXER |{RED}%s{END}|{GREEN}%c{END}|[%d][%d]", &master->buff_read[i], master->buff_read[i], master->numline, master->column);	
+		if (master->buff_read[i] && master->buff_read[i] == '\n')
 		{
-		//	push_token(master, NEW_LINE, i, 1);
 			master->numline++;
 			master->column = 1;
             continue;
@@ -125,8 +123,8 @@ int 	main_lexer(t_asm *master, int i, int start)
 			create_token_comment(master, &i, master->buff_read, 0);
         else if (delimiter(master->buff_read[i], "nc"))
 			create_token_header(master, &i, master->buff_read, i);
-		else if (cmp_label_chars(master->buff_read[i], 0) &&
-				control_label_declaration(&master->buff_read[i]) && master->current->kind != LABEL_DECLARATION)
+		else if (/*cmp_label_chars(master->buff_read[i], 0) &&*/
+				control_label_declaration(&master->buff_read[i])/*&& master->current->kind != LABEL_DECLARATION*/)
 		{
 			create_labbel_declaration(master, &i, master->buff_read);
 		}
@@ -135,9 +133,7 @@ int 	main_lexer(t_asm *master, int i, int start)
 			create_token_name_funtion(master, &i, master->buff_read, -1);
 		}
 		else if (!delimiter(master->buff_read[i], "s#") && master->buff_read[i] != SEPARATOR_CHAR)
-		{
 			create_token_bad(master, &i, master->buff_read, 0);
-		}
 	}
-    return (0);
+	return (0);
 }

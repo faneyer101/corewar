@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 16:18:14 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/17 18:09:06 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,17 +25,6 @@
 
 # define FALSE	0
 # define TRUE	1
-
-
-
-
-typedef struct              s_list_label
-{
-    int                     index_define;
-    int                     define_parser; // -1 non definis, 0 definis parser, 1 definis solver
-    char                    *name;
-    struct s_list_label     *next;
-}                           t_list_label;
 
 /*
 typedef struct              s_champion
@@ -73,10 +62,20 @@ typedef struct              s_token
 	struct s_token			*next;
 }							t_token;
 
+typedef struct              s_list_label
+{
+    int                     index_define;
+    int                     define_parser;
+	t_token					*info;
+    char                    *name;
+    struct s_list_label     *next;
+}                           t_list_label;
+
 typedef struct 				s_parser
 {	
 	int						name;
 	int						comment;
+	t_list_label			*define_label;
 }							t_parser;
 
 typedef struct 				s_option
@@ -95,7 +94,6 @@ typedef struct              s_asm
 	int						size_read_total;
 	t_option				option;
 	t_parser				parser;
-	t_list_label			*define_label;
 	t_token					**tab_token;
 	t_token					*current;
     t_header				header;
@@ -116,7 +114,7 @@ void    					free_tab_token(t_asm *master);
 **			LEXER Creation de token pour le parser
 */
 
-int 						main_lexer(t_asm *master, int i, int start);
+int 						main_lexer(t_asm *master, int i);
 int							delimiter(char c, char *analyse);
 int							cmp_label_chars(char c, int i);
 int							cheak_header(char *str);

@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 16:30:34 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/17 17:05:47 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,6 +70,29 @@ void	create_string_for_parser_lexer(int fd, t_asm *master, char *av)
 	close(fd);
 }
 
+void	free_token_and_buff(t_asm *master)
+{
+	free_tab_token(master);
+	ft_strdel(&master->buff_read);
+}
+
+void 	print_usage(void)
+{
+	ft_printf("{UND}Usage:{END}\n./asm [{YELL}opion{END}][{RED}file{END}]\n{YELL}Option{END}:\n	t: print token\n{RED}Extension file .s{END}\n\n");
+	exit(0);
+}
+
+void	verif_option(t_asm *master, char **av)
+{
+	if (!ft_strncmp(av[1], "-", 1))
+	{
+		if (ft_strchr(av[1], 't'))
+			master->option.t = 1;
+		else
+			print_usage();
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_asm	master;
@@ -77,38 +100,17 @@ int	main(int ac, char **av)
 	if (ac == 2 || ac == 3)
 	{
 		ft_bzero(&master, sizeof(t_asm));
-		if (!ft_strncmp(av[1], "-", 1))
-		{
-			if (ft_strchr(av[1], 't'))
-				master.option.t = 1;
-			else
-			{
-				ft_printf("{UND}Usage:{END}\n./asm [{YELL}opion{END}][{RED}file{END}]\n{YELL}Option{END}:\n	t: print token\n{RED}Extension file .s{END}\n\n");
-				exit(0);
-			}
-		}
+		verif_option(&master, av);
 		init_op_tab((t_op*)(master.tab_op));
 		verif_error_first(&master, av[ac - 1]);
 		create_string_for_parser_lexer(0, &master, av[ac - 1]);
-		main_lexer(&master, -1, 0);
+		main_lexer(&master, -1);
 		if (master.option.t == 1)
 			print_token(&master, -1, NULL);
 		main_parser(&master);
-
-	//	if (master.error_lexer == 0)
-		
-	//	else
-	//	{
-	//		printf("printf tout les BAD lexeme du nombre d'erreur detecter et free token et buff_read et exit(0)\n");
-	//		exit(0);
-	//	}
 		if (master.error_parser == 0)
-			init_write_file(&master, av[1]);
-		else
-			ft_printf("free token et buff_read et exit 0\n");
-		
-	//	printf("|%s|%u|%u|%u|\n", master.tab_op[0].name, master.tab_op[0].args[0],
-	//		master.tab_op[0].args[1], master.tab_op[0].args[2]);
+			init_write_file(&master, av[ac - 1]);
+		free_token_and_buff(&master);
 	}
 	else
 		ft_printf("{UND}Usage:{END}\n./asm [{YELL}opion{END}][{RED}file{END}]\n{YELL}Option{END}:\n	t: print token\n{RED}Extension file .s{END}\n\n");
