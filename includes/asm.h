@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 06:29:17 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/17 16:18:14 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,6 +79,11 @@ typedef struct 				s_parser
 	int						comment;
 }							t_parser;
 
+typedef struct 				s_option
+{
+	char					t;
+}							t_option;
+
 typedef struct              s_asm
 {
 	int						error_lexer;
@@ -88,6 +93,7 @@ typedef struct              s_asm
 	int						numline;
 	int						column;
 	int						size_read_total;
+	t_option				option;
 	t_parser				parser;
 	t_list_label			*define_label;
 	t_token					**tab_token;

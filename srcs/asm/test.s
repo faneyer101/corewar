@@ -1,14 +1,14 @@
-#st	r1, :ld1+1
-#a tester
+st	r1, :ld1+1
+a tester
 #l2:		
-#		sti:%live,:test
-#
-#		
-#l2:	
-#.name "zork"
-#.comment "I'M ALIIIIVE"
+		sti:%live,:test
 
-#l2:	
+		
+l2:	
+.name "zork"
+.comment "I'M ALIIIIVE"
+
+l2:	
 #	sti r1, :live , %1
 #	and r1, %0, r1
 

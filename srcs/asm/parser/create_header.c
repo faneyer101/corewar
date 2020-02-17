@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/17 01:39:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 06:18:27 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/17 16:56:53 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,7 @@ static void	parser_header_name(t_asm *master, t_token **token)
 		{
             while (token[0]->next != NULL)
 		    	token[0] = token[0]->next;
-		    ft_printf("[%d][%d] problem syntax ==> {RED}%s{END}\n", token[0]->numline, token[0]->column, token[0]->data);
+		    ft_printf("parser[{GREEN}line:%d{END}][{GREEN}column:%d{END}]Error of syntax{RED}|%s|{END}\n", token[0]->numline, token[0]->column, token[0]->data);
         }
         else
             ft_printf("Need one name\n");
@@ -62,7 +62,7 @@ static void	parser_header_comment(t_asm *master, t_token **token)
 		{
             while (token[0]->next != NULL)
 		    	token[0] = token[0]->next;
-		    ft_printf("[{GREEN}line:%d{END}][{GREEN}column:%d{END}]problem syntax ==> {RED}%s{END}\n", token[0]->numline, token[0]->column, token[0]->data);
+		    ft_printf("parser[{GREEN}line:%d{END}][{GREEN}column:%d{END}]error of syntax{RED}|%s|{END}\n", token[0]->numline, token[0]->column, token[0]->data);
         }
         else
             ft_printf("Need comment\n");
