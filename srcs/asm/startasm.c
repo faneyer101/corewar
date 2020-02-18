@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/18 07:24:15 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/18 15:50:55 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,9 +88,15 @@ void	verif_option(t_asm *master, char **av)
 	{
 		if (ft_strchr(av[1], 't'))
 			master->option.t = 1;
-		else
+		if (ft_strchr(av[1], 'p'))
+			master->option.p = 1;
+		if (!ft_strchr(av[1], 'p') && !ft_strchr(av[1], 't'))
 			print_usage();
 	}
+	else
+		print_usage();
+
+	
 }
 
 int	main(int ac, char **av)
@@ -101,14 +107,17 @@ int	main(int ac, char **av)
 	{
 		ft_bzero(&master, sizeof(t_asm));
 		master.numline++;
-		verif_option(&master, av);
+		if (ac == 3)
+			verif_option(&master, av);
 		init_op_tab((t_op*)(master.tab_op));
 		verif_error_first(&master, av[ac - 1]);
 		create_string_for_parser_lexer(0, &master, av[ac - 1]);
 		main_lexer(&master, -1);
-		if (master.option.t == 1)
+		if (master.option.t)
 			print_token(&master, -1, NULL);
 		main_parser(&master);
+		if (master.option.p)
+			print_parser(&master);
 		if (master.error_parser == 0 && master.parser.name == 1 && master.parser.comment == 1)
 			init_write_file(&master, av[ac - 1]);
 		if (master.parser.name == 0)

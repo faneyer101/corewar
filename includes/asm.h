@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/18 07:19:04 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/18 15:47:09 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -80,6 +80,7 @@ typedef struct 				s_parser
 
 typedef struct 				s_option
 {
+	char					p;
 	char					t;
 }							t_option;
 
@@ -147,7 +148,7 @@ void 						print_usage(void);
 **  Fonction de debugs // d'affichages
 */
 
-
+void						print_parser(t_asm *master);
 void    					print_buff_read(t_asm *master);
 void                        print_token(t_asm *master, int i, t_token *list);
 //int    print_ret_parsing(t_asm *master);

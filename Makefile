@@ -6,7 +6,7 @@
 #    By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/07/27 18:49:19 by nsalle       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/14 11:54:03 by faneyer     ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/18 16:05:04 by faneyer     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -88,12 +88,12 @@ ASMdebug: LFTC $(OBJ_ASM) $(INCDIR)asm.h $(INCDIR)op.h $(LFTDIR)libft.a
 #	EXE EN NORMAL
 ASMexec: LFTC $(OBJ_ASM) $(NAME_ASM)
 	clear
-	./asm zork.s
+	./asm srcs/asm/Gzork.s
 
 #	EXE AVEC FLAG DE DEBUG
 ASMdexec: ASMdebug
 	clear
-	./asm zork.s
+	./asm srcs/asm/Gzork.s
 #######################################	FIN DE REGLE ASM
 
 #	COMPILER JUSTE VM

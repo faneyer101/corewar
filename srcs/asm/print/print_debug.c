@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 01:23:48 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/14 12:08:09 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/18 16:10:27 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,4 +56,32 @@ void    print_buff_read(t_asm *master)
 		else
 			ft_printf("{GREEN}|%c|C'est un delimiteur{END}\n", master->buff_read[i]);
     }
+}
+
+void	print_parser(t_asm *master)
+{
+	int				i;
+	t_list_label	*label;
+	t_token			*info;
+
+	ft_printf("{GREEN}Valeur lexeme\n{CYAN}0: {RED}ZERO|{CYAN}1: {RED}Name header|");
+	ft_printf("{CYAN}2: {RED}Comment header|{CYAN}3: {RED}String header|{CYAN}4: {RED}Label declaration|");
+	ft_printf("{CYAN}5: {RED}Label direct|{CYAN}6: {RED}Label indirect|{CYAN}7: {RED}Num direct|{CYAN}8: {RED}Num indirect|");
+	ft_printf("{CYAN}9: {RED}Comment|{CYAN}10: {RED}Fonction|{CYAN}11: {RED}Registre|{CYAN}12: {RED}Separateur|{CYAN}13: {RED}BAD|{CYAN}14: {RED}New line{END}\n");
+	i = 0;
+	label = master->parser.define_label;
+	while (label)
+	{
+		ft_printf("{YELL}label declaration{END}:|%s|\n", label->name);
+		info = label->info;
+		while (info)
+		{
+			if (info->kind == FONCTION)
+				ft_printf("{BLUE}Function{END}:|%s|\n", info->data);
+			else
+				ft_printf("	{GREEN}Param of function{END}:|%s|{GREEN}Type{END}|{CYAN}%d{END}|\n", info->data, info->kind);
+			info = info->next;
+		}
+		label = label->next;
+	}
 }
