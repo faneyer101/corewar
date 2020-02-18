@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/17 18:03:31 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 21:45:44 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/18 18:56:58 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,15 +27,12 @@ int		search_label(t_list_label *label, char *str)
 	return (FALSE);
 }
 
-void	verif_type_param(t_asm *master, t_token *list, t_op function, int i)
+int	verif_type_param(t_asm *master, t_token *list, t_op function, int i)
 {
 	while (list)
 	{
 		if (list->kind == BAD)
-		{
-			print_error_parser_param(master, "error type of param in function", function.name, list);
-			break;
-		}
+			return (print_error_parser_param(master, "error type of param in function", function.name, list));
 		if (list->kind == LABEL_INDIRECT || list->kind == LABEL_DIRECT)
 			declare_label_param(master, list);
 		while (++i < function.nb_arg)
@@ -48,10 +45,11 @@ void	verif_type_param(t_asm *master, t_token *list, t_op function, int i)
 			else if (list->kind == REGISTRE && (function.args[i] == 1 || function.args[i] == 3 || function.args[i] == 5 || function.args[i] == 7))
 				break;
 			else if (list->kind != SEPARATOR)
-				print_error_parser_param(master, "error type of param", list->data, list);
+				return (print_error_parser_param(master, "error type of param", list->data, list));
 		}
 		list = list->next;
 	}
+	return (1);
 }
 
 int	nb_param(t_token *list)
@@ -103,7 +101,10 @@ int		verif_separator(t_asm *master, t_op function, t_token *verif)
 		return (FALSE);
 	}
 	if (nb_param(list->next) < function.nb_arg)
+	{
+		ft_printf("|%d|%d|\n", nb_param(list->next), function.nb_arg);
 		print_error_parser_param(master, "missing declared parameters in function", list->data, list);
+	}
 	else if (nb_param(list->next) > function.nb_arg)
 		print_error_parser_param(master, "too many parameters declared in function", list->data, list);
 	else

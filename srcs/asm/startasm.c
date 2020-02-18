@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/18 15:50:55 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/18 19:28:04 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,7 +78,7 @@ void	free_token_and_buff(t_asm *master)
 
 void 	print_usage(void)
 {
-	ft_printf("{UND}Usage:{END}\n./asm [{YELL}opion{END}][{RED}file{END}]\n{YELL}Option{END}:\n	t: print token\n{RED}Extension file .s{END}\n\n");
+	ft_printf("{UND}Usage:{END}\n./asm [{YELL}opion{END}][{RED}file{END}]\n{YELL}Option{END}:\n	t: print token\n	p: print parser\n{RED}Extension file .s{END}\n\n");
 	exit(0);
 }
 
@@ -115,7 +115,7 @@ int	main(int ac, char **av)
 		main_lexer(&master, -1);
 		if (master.option.t)
 			print_token(&master, -1, NULL);
-		main_parser(&master);
+		main_parser(&master, NULL, -1);
 		if (master.option.p)
 			print_parser(&master);
 		if (master.error_parser == 0 && master.parser.name == 1 && master.parser.comment == 1)
@@ -127,6 +127,6 @@ int	main(int ac, char **av)
 		free_token_and_buff(&master);
 	}
 	else
-		ft_printf("{UND}Usage:{END}\n./asm [{YELL}opion{END}][{RED}file{END}]\n{YELL}Option{END}:\n	t: print token\n{RED}Extension file .s{END}\n\n");
+		ft_printf("{UND}Usage:{END}\n./asm [{YELL}opion{END}][{RED}file{END}]\n{YELL}Option{END}:\n	t: print token\n	p: print parser\n{RED}Extension file .s{END}\n\n");
 	return (0);
 }

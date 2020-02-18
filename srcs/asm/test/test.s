@@ -1,26 +1,23 @@
-#st	r1, :ld+1
-#a tester
-#l2:		
-#		sti:%live,:test
-#
-#		
-#l2:	
 .name "zork"
 .comment "I'M ALIIIIVE"
 
-l2:	
-	sti r1, :live , %1
-#	and r1, %0, r1
+#
+# Warrior qui a gagne
+# l'annee derniere
+#     VOALA
+#
+#.name		"Celebration Funebre v0.99pl42"
+#.comment	"Jour J"
 
-t1:
-t2:	t3i: rty:
+		ld   %0,r3		
+label:		zjmp %:avantdebt
+		zjmp %0				# pour eviter ecrasement
+						# de l'instruction suivante
+code:
 
-live:	live %1
-		zjmp %:live
 
-ld2:	live	%:l2
-	fork	%:t1
-	# process qui dit live pour T2
-	st	r1, :live
-	ld	%-10, r2
-	ld	%1, r3
+#l2:		sti r1, %:live, %1
+#		and r1, %0, r1
+#
+#live:	live %1
+#		zjmp %:live

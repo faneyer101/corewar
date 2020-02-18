@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 01:23:48 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/18 16:10:27 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/18 19:03:22 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,7 +72,10 @@ void	print_parser(t_asm *master)
 	label = master->parser.define_label;
 	while (label)
 	{
-		ft_printf("{YELL}label declaration{END}:|%s|\n", label->name);
+		if (label->name && label->define_parser == 1)
+			ft_printf("{YELL}label declaration{END}:|%s|\n", label->name);
+		else if (label->defaut == 1)
+			ft_printf("{YELL}label declaration{END}:|Default|\n");
 		info = label->info;
 		while (info)
 		{
@@ -80,7 +83,7 @@ void	print_parser(t_asm *master)
 				ft_printf("{BLUE}Function{END}:|%s|\n", info->data);
 			else
 				ft_printf("	{GREEN}Param of function{END}:|%s|{GREEN}Type{END}|{CYAN}%d{END}|\n", info->data, info->kind);
-			info = info->next;
+			info = info->lnext;
 		}
 		label = label->next;
 	}
