@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/17 20:59:44 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/18 19:48:03 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/18 19:52:17 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,8 +78,6 @@ void	push_label(t_asm *master, t_token *token, int define)
 
 int	print_error_parser_param(t_asm *master, char *msg_error, char *error, t_token *list)
 {	
-	printf("|%s\n|", error);
-	printf("|%s\n|", list->data);
 	ft_printf("parser[{GREEN}line:%d{END}][{GREEN}column:%d{END}]%s|{RED}%s{END}|\n", list->numline, list->column, msg_error, error);
 	master->error_parser++;
 	return(0);
