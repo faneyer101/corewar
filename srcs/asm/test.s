@@ -9,17 +9,18 @@
 .comment "I'M ALIIIIVE"
 
 l2:	
-	sti r1, :live , %1
+	stir1, :live , %1
 #	and r1, %0, r1
 
-t1:fork
+t1:
+t2:
 
 live:	live %1
 		zjmp %:live
 
-ld2:	live	%0,
+ld2:	live	%:l2
 	fork	%:t1
 	# process qui dit live pour T2
-	st	r1, :live2-1
+	st	r1, :live
 	ld	%-10, r2
 	ld	%1, r3

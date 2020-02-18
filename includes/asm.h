@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 21:51:52 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/18 07:19:04 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -138,6 +138,7 @@ void						push_label(t_asm *master, t_token *token, int define);
 void						print_error_parser_param(t_asm *master, char *msg_error, char *error, t_token *list);
 void						verif_type_param(t_asm *master, t_token *list, t_op function, int i);
 void						parser_header(t_asm *master, t_token **token);
+void 						print_usage(void);
 
 
 

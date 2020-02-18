@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/11 08:13:44 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/13 12:27:20 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/18 07:25:10 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,7 +76,10 @@ void	    verif_error_first(t_asm *master, char *file)
 	while (file[i])
 		i++;
 	if (file[i - 2] != '.' || file[i - 1] != 's')
+	{
+ 		ft_printf("{UND}Usage:{END}\n./asm [{YELL}opion{END}][{RED}file{END}]\n{YELL}Option{END}:\n	t: print token\n{RED}Extension file .s{END}\n\n");
 		print_error("bad extension file. Need file with extension .s\n");
+	}
 	verif_oph_egality_delimiter();
 	verif_cmd(master, -1, -1);
 	if (ft_strcmp(NAME_CMD_STRING, COMMENT_CMD_STRING) == 0)
