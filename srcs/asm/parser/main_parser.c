@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/16 23:23:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 21:45:21 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/18 08:19:29 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,8 +59,10 @@ void	parser_label_or_function(t_asm *master, t_token **token)
 	{
 		if (list->kind == LABEL_DECLARATION)
 		{
-			if (search_label(master->parser.define_label, list->data))
+			if (search_label(master->parser.define_label, list->data) && list->column == 1)
 				print_error_parser_param(master, "label deja declarer", list->data, list);
+			else if (list->column > 1)
+				print_error_parser_param(master, "just one label declaration on line", list->data, list);
 			else
 				push_label(master, list, 1);
 		}

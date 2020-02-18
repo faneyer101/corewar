@@ -9,11 +9,11 @@
 .comment "I'M ALIIIIVE"
 
 l2:	
-	stir1, :live , %1
+	sti r1, :live , %1
 #	and r1, %0, r1
 
 t1:
-t2:
+t2:	t3i: rty:
 
 live:	live %1
 		zjmp %:live

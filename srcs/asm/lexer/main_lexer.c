@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/10 16:33:44 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 21:44:58 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/18 08:13:40 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,6 +90,7 @@ void	create_labbel_declaration(t_asm *master, int *i, char *str)
 	while (str[*i] && str[*i] != LABEL_CHAR)
 		i[0]++;
 	push_token(master, LABEL_DECLARATION, start, *i - start);
+	master->column++;
 }
 
 void	init_token(t_asm* master)
