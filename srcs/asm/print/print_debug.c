@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 01:23:48 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/18 19:03:22 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/19 18:54:45 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,6 +85,6 @@ void	print_parser(t_asm *master)
 				ft_printf("	{GREEN}Param of function{END}:|%s|{GREEN}Type{END}|{CYAN}%d{END}|\n", info->data, info->kind);
 			info = info->lnext;
 		}
-		label = label->next;
+		label = label->dnext;
 	}
 }

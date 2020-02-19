@@ -6,41 +6,12 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/16 23:23:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/18 19:34:38 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/19 19:04:04 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../../includes/asm.h"
-
-void	declare_label_param(t_asm *master, t_token *list)
-{
-	t_list_label *label;
-	
-	label = master->parser.define_label;
-	if (label && label->defaut == 1)
-		label = label->next;
-	while (label)
-	{
-		if (ft_strncmp(label->name, list->data, ft_strlen(list->data)) == 0)
-			return ;
-		label = label->next;
-	}
-	push_label(master, list, 0);
-}
-
-void	create_label_null(t_asm *master, t_token *info)
-{
-	if ((master->parser.define_label = (t_list_label*)malloc(sizeof(t_list_label))))
-	{
-		ft_printf("CRASH a securiser et free tout le reste ici"); //icicicicicici
-		exit (0);
-	}
-	ft_bzero(master->parser.define_label, sizeof(t_list_label));
-	master->parser.define_label->defaut = 1;
-	master->parser.define_label->info = info;
-	//master->parser.begin_label = master->parser.define_label;
-}
 
 static void	create_label_token(t_token *list, t_token **label)
 {
@@ -60,7 +31,7 @@ static void	create_label_token(t_token *list, t_token **label)
 void	push_back_token_on_label(t_list_label *label, t_token *token)
 {
 	t_token	*llist;
-
+	
 	llist = label->info;
 	if (llist)
 	{
@@ -79,59 +50,30 @@ static t_list_label	*create_label_defaut(int define, t_token *data)
 	if (!(box = (t_list_label*)malloc(sizeof(t_list_label))))
 		return (NULL);
 	ft_bzero(box, sizeof(t_list_label));
+	//box->name = ft_strnew(1);
 	box->define_parser = define;
 	box->info = data;
 	box->defaut = 1;
 	return (box);
 }
 
-void	push_front_token_on_label(t_asm *master, t_token *data)
+void	create_token_label(t_asm *master, t_token *tlist)
 {
-	t_list_label	*front_list;
-
-	front_list = create_label_defaut(1, data);
-	if (master->parser.define_label)
+	while (tlist)
 	{
-		front_list->next = master->parser.define_label;
-		master->parser.define_label = front_list;
-	}
-	else
-		master->parser.define_label = front_list;
-	front_list->info = data;
-}
-
-void	push_info(t_asm *master, t_token *data)
-{
-	t_list_label	*label;
-	t_list_label	*save;
-
-	label = master->parser.define_label;
-	save = master->parser.define_label;
-	while (label)
-	{
-		if (label->define_parser == 1)
-			save = label;
-		label = label->next;
-	}
-	label = save;
-	if (label->define_parser == 1)
-		push_back_token_on_label(label, data);
-	else
-		push_front_token_on_label(master, data);
-}
-
-void	create_token_label(t_asm *master, t_token *list)
-{
-	while (list)
-	{
-		if (list->kind != SEPARATOR && list->kind != BAD && list->kind != COMMENT)
+		if (tlist->kind != SEPARATOR && tlist->kind != BAD && tlist->kind != COMMENT)
 		{
-			if (master->parser.define_label)
-				push_info(master, list);
+			if ((tlist->kind == LABEL_DIRECT || tlist->kind == LABEL_INDIRECT) && master->parser.define_label->name && !search_label_define(master->parser.define_label, tlist))
+				push_undefine_label(master, tlist);
+			if (master->parser.curent_label)
+				push_back_token_on_label(master->parser.curent_label, tlist);
 			else
-				push_front_token_on_label(master, list);
+			{
+				master->parser.define_label = create_label_defaut(0, tlist);
+				master->parser.curent_label = master->parser.define_label;
+			}
 		}
-		list = list->next;
+		tlist = tlist->next;
 	}
 }
 
@@ -143,14 +85,16 @@ void	parser_function_and_param(t_asm *master, t_token *list, int i)
 		while (++i < 17)
 			if (ft_strncmp(master->tab_op[i].name, list->data, ft_strlen(list->data)) == 0)
 				break;
-		if (!verif_bad(master, list) && verif_separator(master, master->tab_op[i], list))
+		if (!verif_kind_bad(master, list) && verif_separator(master, master->tab_op[i], list))
 		{
 			if (list->next == NULL || master->tab_op[i].nb_arg > nb_param(list->next))
 				print_error_parser_param(master, "missing declared parameters in function", list->data, list);
 			else if (master->tab_op[i].nb_arg != nb_param(list->next))
 				print_error_parser_param(master, "too many parameters declared in function", list->data, list);
 			if (verif_type_param(master, list->next, master->tab_op[i], -1))
+			{
 				create_token_label(master, list);
+			}
 		}
 	}
 	else if (list->kind == BAD)
@@ -160,22 +104,21 @@ void	parser_function_and_param(t_asm *master, t_token *list, int i)
 void	parser_label_or_function(t_asm *master, t_token **token)
 {
 	t_token			*list;
-	t_list_label	*begin_label;
 
 	list = token[0];
-	begin_label = master->parser.define_label;
-	if (begin_label && begin_label->defaut == 1)
-		begin_label = begin_label->next;
 	while (list)
 	{
 		if (list->kind == LABEL_DECLARATION)
 		{
-			if (search_label(begin_label, list->data) && list->column == 1)
+			if (master->parser.curent_label && !master->parser.curent_label->defaut && search_label(master->parser.define_label, list->data) && list->column == 1)
 				print_error_parser_param(master, "label deja declarer", list->data, list);
 			else if (list->column > 1)
 				print_error_parser_param(master, "just one label declaration on line", list->data, list);
 			else
-				push_label(master, list, 1);
+			{
+				printf("DECLARE LABEL|%s|\n", list->data);
+				declare_label_define(master, list);
+			}
 		}
 		else if (list->kind != COMMENT || list->kind == BAD)
 		{
@@ -195,11 +138,9 @@ int     main_parser(t_asm *master, t_token *list, int i)
     		list = master->tab_token[i];
 		else
 			continue;
-		while (list)
+		while (list && list->kind != COMMENT)
     	{
-			if (list->kind == COMMENT)
-				break;
-			else if (list->kind == HEADER_NAME || list->kind == HEADER_COMMENT)
+			if (list->kind == HEADER_NAME || list->kind == HEADER_COMMENT)
 				parser_header(master, &list);
 			else if (list->kind == BAD)
 			{
@@ -215,10 +156,7 @@ int     main_parser(t_asm *master, t_token *list, int i)
         		list = list->next;
     	}
 	}
-	if (master->parser.define_label->defaut == 1)
-		verif_declaration_label(master, master->parser.define_label->next);
-	else
-		verif_declaration_label(master, master->parser.define_label);
+	verif_declaration_label(master, master->parser.undefine_label);
 	if (master->error_parser == 1)
 		ft_printf("{RED}%d{END} error detected\n", master->error_parser);
     else if (master->error_parser > 1)

@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/18 19:47:17 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/19 18:12:48 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,13 +74,17 @@ typedef struct              s_list_label
 	char					defaut;
 	t_token					*info;
     char                    *name;
-    struct s_list_label     *next;
+    struct s_list_label     *dnext;
+    struct s_list_label     *unext;
 }                           t_list_label;
 
 typedef struct 				s_parser
 {	
 	int						name;
 	int						comment;
+	t_list_label			*undefine_label;
+	t_list_label			*begin_label;
+	t_list_label			*curent_label;
 	t_list_label			*define_label;
 }							t_parser;
 
@@ -136,17 +140,23 @@ void						create_token_name_funtion(t_asm *master, int *i, char *str, int j);
 
 int                         main_parser(t_asm *master, t_token *list, int i);
 int							verif_separator(t_asm *master, t_op function, t_token *verif);
-int							verif_bad(t_asm *master, t_token *list);
+int							verif_kind_bad(t_asm *master, t_token *list);
 int							nb_param(t_token *list);
 int							search_label(t_list_label *label, char *str);
 int							print_error_parser_param(t_asm *master, char *msg_error, char *error, t_token *list);
 int							print_error_parser_label(t_asm *master, char *msg_error, char *error, t_list_label *list);
 int							verif_type_param(t_asm *master, t_token *list, t_op function, int i);
+int							search_label_define(t_list_label *begin_define, t_token *data);
+int							search_label_undefine(t_list_label *begin_define, t_token *data);
 void						verif_declaration_label(t_asm *master, t_list_label *label);
 void						declare_label_param(t_asm *master, t_token *list);
-void						push_label(t_asm *master, t_token *token, int define);
+void						push_label_define(t_asm *master, t_token *token);
 void						parser_header(t_asm *master, t_token **token);
 void 						print_usage(void);
+void						declare_label_define(t_asm *master, t_token *token);
+void						push_undefine_label(t_asm *master, t_token *data);
+t_list_label				*create_label_undefine(t_token *data);
+
 
 
 
