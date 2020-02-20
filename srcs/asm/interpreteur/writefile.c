@@ -72,6 +72,7 @@ int init_write_file(t_asm *master, char *name)
 		return (-1);
 	swap_size(master);
 	swap_magic(master);
+	create_champion(master);
 	if ((fd = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 0600)) == -1)
 	 	return (-1);
 	write(fd, &master->header, sizeof(t_header));

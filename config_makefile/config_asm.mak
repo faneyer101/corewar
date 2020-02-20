@@ -7,6 +7,7 @@ SRCFILE_ASM		+=	op.c 								\
 					asm/parser/declare_label_define.c	\
 					asm/parser/verif_label_def_undef.c	\
 					asm/interpreteur/writefile.c 		\
+					asm/interpreteur/champion.c 		\
 					asm/free.c							\
 					asm/lexer/main_lexer.c				\
 		 			asm/startasm.c 						\

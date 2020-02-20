@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/16 23:23:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/19 20:45:32 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/20 04:19:10 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,7 +50,6 @@ static t_list_label	*create_label_defaut(int define, t_token *data)
 	if (!(box = (t_list_label*)malloc(sizeof(t_list_label))))
 		return (NULL);
 	ft_bzero(box, sizeof(t_list_label));
-	//box->name = ft_strnew(1);
 	box->define_parser = define;
 	box->info = data;
 	box->defaut = 1;
@@ -115,10 +114,7 @@ void	parser_label_or_function(t_asm *master, t_token **token)
 			else if (list->column > 1)
 				print_error_parser_param(master, "just one label declaration on line", list->data, list);
 			else
-			{
-				printf("DECLARE LABEL|%s|\n", list->data);
 				declare_label_define(master, list);
-			}
 		}
 		else if (list->kind != COMMENT || list->kind == BAD)
 		{

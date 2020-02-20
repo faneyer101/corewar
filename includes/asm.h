@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/19 18:12:48 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/20 04:11:48 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -157,8 +157,11 @@ void						declare_label_define(t_asm *master, t_token *token);
 void						push_undefine_label(t_asm *master, t_token *data);
 t_list_label				*create_label_undefine(t_token *data);
 
+/*
+**			INTERPRETEUR
+*/
 
-
+void						create_champion(t_asm *master);
 
 
 /*
