@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/18 19:28:04 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/20 22:49:11 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -119,7 +119,10 @@ int	main(int ac, char **av)
 		if (master.option.p)
 			print_parser(&master);
 		if (master.error_parser == 0 && master.parser.name == 1 && master.parser.comment == 1)
+		{
+			main_interpreteur(&master);
 			init_write_file(&master, av[ac - 1]);
+		}
 		if (master.parser.name == 0)
 			ft_printf("need .name for compilation this champions\n");
 		if (master.parser.comment == 0)

@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/16 23:23:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/20 04:19:10 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/21 14:58:31 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,7 +64,12 @@ void	create_token_label(t_asm *master, t_token *tlist)
 		{
 			if ((tlist->kind == LABEL_DIRECT || tlist->kind == LABEL_INDIRECT) && master->parser.define_label->name && !search_label_define(master->parser.define_label, tlist))
 				push_undefine_label(master, tlist);
-			if (master->parser.curent_label)
+			if (tlist->kind == REGISTRE && ft_atoi(tlist->data) > REG_NUMBER)
+			{
+				ft_printf("probleme of registre. need registre max %d\n", REG_NUMBER);
+				master->error_parser++;
+			}
+			else if (master->parser.curent_label)
 				push_back_token_on_label(master->parser.curent_label, tlist);
 			else
 			{

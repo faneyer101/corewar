@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/20 04:11:48 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/21 16:05:09 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,14 +25,6 @@
 
 # define FALSE	0
 # define TRUE	1
-
-/*
-typedef struct              s_champion
-{
-    unsigned char           code_champ[CHAMP_MAX_SIZE + 1];
-    t_list_label            *label;
-}                           t_champion;
-*/
 
 typedef enum				e_lexeme
 {
@@ -70,7 +62,6 @@ typedef struct              s_list_label
     int                     define_parser;
 	int						numline;
 	int						column;
-	size_t					size_token;
 	char					defaut;
 	t_token					*info;
     char                    *name;
@@ -83,10 +74,16 @@ typedef struct 				s_parser
 	int						name;
 	int						comment;
 	t_list_label			*undefine_label;
-	t_list_label			*begin_label;
 	t_list_label			*curent_label;
 	t_list_label			*define_label;
 }							t_parser;
+
+typedef struct 				s_interpretor
+{
+	int						index;
+    char					code_champ[CHAMP_MAX_SIZE + 1];
+}							t_interpretor;
+
 
 typedef struct 				s_option
 {
@@ -104,6 +101,7 @@ typedef struct              s_asm
 	int						max_line;
 	int						column;
 	int						size_read_total;
+	t_interpretor			interpretor;
 	t_option				option;
 	t_parser				parser;
 	t_token					**tab_token;
@@ -113,6 +111,7 @@ typedef struct              s_asm
 }                           t_asm;
 
 
+void 						print_usage(void);
 void                        printf_error_lexer(t_asm *master, char *str_error);
 void                        print_error_before_read(char *msg_error, int fd, char *buff, char *line);
 void						verif_error_first(t_asm *master, char *file);
@@ -152,7 +151,6 @@ void						verif_declaration_label(t_asm *master, t_list_label *label);
 void						declare_label_param(t_asm *master, t_token *list);
 void						push_label_define(t_asm *master, t_token *token);
 void						parser_header(t_asm *master, t_token **token);
-void 						print_usage(void);
 void						declare_label_define(t_asm *master, t_token *token);
 void						push_undefine_label(t_asm *master, t_token *data);
 t_list_label				*create_label_undefine(t_token *data);
@@ -161,7 +159,8 @@ t_list_label				*create_label_undefine(t_token *data);
 **			INTERPRETEUR
 */
 
-void						create_champion(t_asm *master);
+void						main_interpreteur(t_asm *master);
+
 
 
 /*

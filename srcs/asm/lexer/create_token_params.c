@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/15 21:20:18 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/20 04:18:59 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/21 16:36:57 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,12 +28,17 @@ static void	create_ind_dir_label(t_asm *master, int *i, char *str, int start)
 	start = *i;	
 	while (cmp_label_chars(str[i[0]], 0))
 		i[0]++;
-	if (str[i[0]] && (str[*i] == SEPARATOR_CHAR || delimiter(str[*i], "s")))
+	if (str[i[0]] == '\0' || str[*i] == SEPARATOR_CHAR || delimiter(str[*i], "s")) ///// \0 sans new line str[*i] && (... || ...)
 	{	
 		if (direct)
+		{
 			push_token(master, LABEL_DIRECT, start, i[0] - start);
+		}
 		else
+		{
+	printf("create ind dir|%s|\n", &str[*i]);
 			push_token(master, LABEL_INDIRECT, start, i[0] - start);	
+		}
 	}
 	else
 	{
@@ -94,8 +99,9 @@ static void	create_token_param(t_asm *master, int *i, char *str, int start)
 		}
 		else
 			i[0]++;
+	printf("Create token param %d|%d|%c|\n", master->size_read_total, *i, str[*i]);
     }
-	if (str[*i] && str[*i]== '\n')
+	if (str[*i] && str[*i]== '\n' && *i != master->size_read_total)
 		i[0]--;
 }
 
@@ -114,13 +120,16 @@ void	create_token_name_funtion(t_asm *master, int *i, char *str, int j)
 	}
     if (j >= 17)
 	{	
-		//printf("CREATE NAME FONCTION |%c|[%d][%d]", str[*i], master->numline, master->column);
+	//	printf("CREATE NAME FONCTION |%c|[%d][%d]", str[*i], master->numline, master->column);
 		return (create_token_bad(master, i, str, 0));
 	}
 	while (str[*i] && str[*i] != '\n' && delimiter(str[*i], "s"))
 		i[0]++;
     if (str[*i] && str[*i] != '\n')
+	{
+	printf("%d|%d|%c|\n", master->size_read_total, *i, str[*i]);
 		create_token_param(master, i, str, 0);
-	else
+	}
+	else if (str[*i])
 		i[0]--;
 }

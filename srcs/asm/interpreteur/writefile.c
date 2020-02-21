@@ -72,9 +72,9 @@ int init_write_file(t_asm *master, char *name)
 		return (-1);
 	swap_size(master);
 	swap_magic(master);
-	create_champion(master);
 	if ((fd = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 0600)) == -1)
 	 	return (-1);
+	write(fd, &master->interpretor.code_champ, ft_strlen(master->interpretor.code_champ));
 	write(fd, &master->header, sizeof(t_header));
 	ft_printf("Created and writting %s done\n", namefile);
 	close(fd);
