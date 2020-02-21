@@ -46,7 +46,7 @@ void	swap_magic(t_asm *master)
 	a[1] = (master->header.magic >> 16) & 0xFF;
 	a[2] = (master->header.magic >> 8) & 0xFF;
 	a[3] = (master->header.magic) & 0xFF;
-	master->header.magic = a[0] + (a[1] << 8) + (a[2] << 16) + (a[3] << 24);
+	master->header.magic = a[0] | a[1] << 8 | a[2] << 16 | a[3] << 24;
 }
 
 void	swap_size(t_asm *master)
@@ -54,12 +54,12 @@ void	swap_size(t_asm *master)
 	unsigned char a[4];
 
 	ft_bzero(a, 4);
-	master->header.prog_size = 23;
+	master->header.prog_size = master->interpretor.index;
 	a[0] = (master->header.prog_size >> 24) & 0xFF;
 	a[1] = (master->header.prog_size >> 16) & 0xFF;
 	a[2] = (master->header.prog_size >> 8) & 0xFF;
 	a[3] = (master->header.prog_size) & 0xFF;
-	master->header.prog_size = a[0] + (a[1] << 8) + (a[2] << 16) + (a[3] << 24);
+	master->header.prog_size = a[0] | a[1] << 8 | a[2] << 16 | a[3] << 24;
 }
 
 int init_write_file(t_asm *master, char *name)
@@ -74,8 +74,9 @@ int init_write_file(t_asm *master, char *name)
 	swap_magic(master);
 	if ((fd = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 0600)) == -1)
 	 	return (-1);
-	write(fd, &master->interpretor.code_champ, ft_strlen(master->interpretor.code_champ));
 	write(fd, &master->header, sizeof(t_header));
+	//write(fd, &master->interpretor.code_champ, sizeof(unsigned char) * ft_strlen(master->interpretor.code_champ));
+	write(fd, &master->interpretor.code_champ, sizeof(unsigned char) * master->interpretor.index);
 	ft_printf("Created and writting %s done\n", namefile);
 	close(fd);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/20 22:49:11 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/21 12:06:30 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,8 +83,8 @@ void 	print_usage(void)
 }
 
 void	verif_option(t_asm *master, char **av)
-{
-	if (!ft_strncmp(av[1], "-", 1))
+{// solution pour eviter autre parametre a trouver
+	if (ft_strncmp(av[1], "-", 1) == 0)
 	{
 		if (ft_strchr(av[1], 't'))
 			master->option.t = 1;

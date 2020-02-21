@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/10 16:33:44 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/21 16:19:09 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/21 12:02:26 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -129,7 +129,7 @@ int 	main_lexer(t_asm *master, int i)
 		else if (check_param(master, &master->buff_read[i], 0))
 		{
 			create_token_name_funtion(master, &i, master->buff_read, -1);
-			printf("%d|%d|%c|\n", master->size_read_total, i, master->buff_read[i]);
+		//	printf("%d|%d|%c|\n", master->size_read_total, i, master->buff_read[i]);
 		}
 		else if (!delimiter(master->buff_read[i], "s#") && master->buff_read[i] != SEPARATOR_CHAR)
 			create_token_bad(master, &i, master->buff_read, 0);

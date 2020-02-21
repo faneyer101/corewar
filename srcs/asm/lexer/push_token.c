@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 01:47:54 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/21 16:27:56 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/21 12:02:44 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,7 +30,7 @@ static t_token	*create_token(t_asm *master, t_lexeme lexeme, int index, int size
     box->numline = master->numline;
 	box->next = NULL;
 	master->current = box;
-	printf("create token|%s|\n", box->data);
+	//printf("create token|%s|\n", box->data);
 	return (box);
 }
 

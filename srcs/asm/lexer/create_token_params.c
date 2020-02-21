@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/15 21:20:18 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/21 16:36:57 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/21 12:02:16 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,7 @@ static void	create_ind_dir_label(t_asm *master, int *i, char *str, int start)
 		}
 		else
 		{
-	printf("create ind dir|%s|\n", &str[*i]);
+			//printf("create ind dir|%s|\n", &str[*i]);
 			push_token(master, LABEL_INDIRECT, start, i[0] - start);	
 		}
 	}
@@ -99,7 +99,7 @@ static void	create_token_param(t_asm *master, int *i, char *str, int start)
 		}
 		else
 			i[0]++;
-	printf("Create token param %d|%d|%c|\n", master->size_read_total, *i, str[*i]);
+//			printf("Create token param %d|%d|%c|\n", master->size_read_total, *i, str[*i]);
     }
 	if (str[*i] && str[*i]== '\n' && *i != master->size_read_total)
 		i[0]--;
@@ -127,7 +127,7 @@ void	create_token_name_funtion(t_asm *master, int *i, char *str, int j)
 		i[0]++;
     if (str[*i] && str[*i] != '\n')
 	{
-	printf("%d|%d|%c|\n", master->size_read_total, *i, str[*i]);
+		//printf("%d|%d|%c|\n", master->size_read_total, *i, str[*i]);
 		create_token_param(master, i, str, 0);
 	}
 	else if (str[*i])

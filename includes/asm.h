@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/21 16:05:09 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/21 20:55:06 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,17 +47,19 @@ typedef enum				e_lexeme
 
 typedef struct              s_token
 {
+	int						call_index;
 	int						numline;
 	int						column;
 	t_lexeme				kind;	//categorie
 	char					*data;	//data
 	struct s_token			*next;
-	struct s_token			*lnext;
-	
+	struct s_token			*lnext;	
+	struct s_token			*unext;
 }							t_token;
 
 typedef struct              s_list_label
 {
+//	int						index_undefine;
     int                     index_define;
     int                     define_parser;
 	int						numline;
@@ -70,7 +72,7 @@ typedef struct              s_list_label
 }                           t_list_label;
 
 typedef struct 				s_parser
-{	
+{
 	int						name;
 	int						comment;
 	t_list_label			*undefine_label;
@@ -78,12 +80,23 @@ typedef struct 				s_parser
 	t_list_label			*define_label;
 }							t_parser;
 
+typedef struct 				s_function
+{
+	int						index_tab;
+	int						direct;
+	int						octet;
+	int						opcode;
+}							t_function;
+
 typedef struct 				s_interpretor
 {
 	int						index;
+	int						nb_label;
     char					code_champ[CHAMP_MAX_SIZE + 1];
+	t_list_label			*begin_label;
+	t_token					*wait_label;
+	t_function				function;
 }							t_interpretor;
-
 
 typedef struct 				s_option
 {
@@ -160,6 +173,7 @@ t_list_label				*create_label_undefine(t_token *data);
 */
 
 void						main_interpreteur(t_asm *master);
+void						interpretor_function(t_asm *master, t_list_label *label, t_token *token);
 
 
 
