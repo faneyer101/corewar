@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/15 20:36:00 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 03:01:16 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/23 05:19:13 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,7 +55,7 @@ void	create_token_comment(t_asm *master, int *i, char *str, int start)
 static void    create_token_string_header(t_asm *master, int *i, int start, char* str)
 {
     i[0]++;
-	while (str[*i] && str[*i] != '\n' && str[*i] != DSTRING)
+	while (str[*i] /*&& str[*i] != '\n'*/ && str[*i] != DSTRING)
 		i[0]++;
     if (str[*i] && str[*i] == DSTRING)
 	{

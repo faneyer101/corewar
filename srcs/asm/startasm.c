@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/21 12:06:30 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/22 23:15:10 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -127,7 +127,7 @@ int	main(int ac, char **av)
 			ft_printf("need .name for compilation this champions\n");
 		if (master.parser.comment == 0)
 			ft_printf("need .comment for compilation this champions\n");
-		free_token_and_buff(&master);
+		//free_token_and_buff(&master);
 	}
 	else
 		ft_printf("{UND}Usage:{END}\n./asm [{YELL}opion{END}][{RED}file{END}]\n{YELL}Option{END}:\n	t: print token\n	p: print parser\n{RED}Extension file .s{END}\n\n");

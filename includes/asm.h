@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/21 20:55:06 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/23 04:06:38 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,6 +47,9 @@ typedef enum				e_lexeme
 
 typedef struct              s_token
 {
+	int						direct;
+	int						index_tab_op;
+	int						index_function;
 	int						call_index;
 	int						numline;
 	int						column;
@@ -75,6 +78,7 @@ typedef struct 				s_parser
 {
 	int						name;
 	int						comment;
+	int						size_prog;
 	t_list_label			*undefine_label;
 	t_list_label			*curent_label;
 	t_list_label			*define_label;
@@ -82,6 +86,7 @@ typedef struct 				s_parser
 
 typedef struct 				s_function
 {
+	int						index_declaration;
 	int						index_tab;
 	int						direct;
 	int						octet;

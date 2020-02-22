@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/15 21:20:18 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/21 12:02:16 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/23 03:48:28 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,7 +71,7 @@ static void	create_token_param(t_asm *master, int *i, char *str, int start)
 			push_token(master, REGISTRE, start, i[0] - start);
 			master->column++;
 		}
-		else if (str[i[0]] && str[i[0]] == DIRECT_CHAR && (ft_isdigit(str[i[0] + 1]) /*|| (str[i[0] + 1] == '-' && ft_isdigit(str[i[0] + 2]))*/))
+		else if (str[i[0]] && str[i[0]] == DIRECT_CHAR && (ft_isdigit(str[i[0] + 1]) || (str[i[0] + 1] == '-' && ft_isdigit(str[i[0] + 2]))))	//bloc nb neg
 		{
 			i[0]++;
 			start = *i;
@@ -82,7 +82,7 @@ static void	create_token_param(t_asm *master, int *i, char *str, int start)
 			push_token(master, NUM_DIRECT, start, i[0] - start);
 			master->column++;
 		}
-		else if (str[i[0]] && (ft_isdigit(str[i[0]])/*|| (str[i[0]] == '-' && ft_isdigit(str[i[0] + 1]))*/))
+		else if (str[i[0]] && (ft_isdigit(str[i[0]]) || (str[i[0]] == '-' && ft_isdigit(str[i[0] + 1])))) // bloc nb neg
 		{
 			start = *i;
 			if (str[i[0]] == '-')

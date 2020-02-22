@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/21 15:29:10 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/21 19:48:57 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/22 09:36:28 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,6 +42,7 @@ static void	stock_opcode(t_asm *master, t_list_label *label, t_token *token)
 	(void)label;
 	
 	master->interpretor.code_champ[master->interpretor.index] = master->interpretor.function.opcode;
+	master->interpretor.function.index_declaration = master->interpretor.index;
 	master->interpretor.index++;
 	if (master->interpretor.function.octet == 1)
 	{
