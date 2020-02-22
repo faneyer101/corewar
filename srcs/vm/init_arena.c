@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/12 18:01:58 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/12 18:25:23 by nsalle      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/19 13:51:50 by nsalle      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,10 @@ void	dump_arena(t_vm *vm)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		ft_printf("%.2x ", vm->arena[i]);
+		if (!vm->arena[i])
+			ft_printf("%.2x ", vm->arena[i]);
+		else
+			ft_printf("{RED}%.2x{END} ", vm->arena[i]);
 		i++;
 		if (i % 64 == 0)
 			ft_putchar ('\n');

@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 21:45:58 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/12 18:01:40 by nsalle      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/20 15:37:22 by nsalle      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,8 @@ void	vm_init(t_vm *vm)
 	vm->nb_player = 0;
 	vm->booldump = 0;
 	vm->dump = 0;
+	vm->cycles = 0;
+	vm->cyc_todie = CYCLE_TO_DIE;
 }
 
 void	introducing(t_vm *vm)
@@ -52,4 +54,6 @@ int		main(int argc, char **argv)
 	all_checks(argc, argv, &vm);
 	introducing(&vm);
 	init_arena(&vm);
+	load_first(&vm);
+	loop(&vm);
 }
