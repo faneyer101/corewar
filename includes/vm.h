@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/10 12:13:30 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/22 17:41:42 by nsalle      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/23 17:52:32 by nsalle      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,8 +64,8 @@ void		get_code(t_vm *vm, int ip);
 
 
 /* lst_tools.c */
-t_proclist	*create_proc(uint8_t op, uint16_t pc);
-void		push_proc(uint8_t op, uint16_t pc, t_vm *vm);
+t_proclist	*create_proc(t_proclist *proc, uint16_t pc, uint8_t op);
+void		push_proc(t_vm *vm, t_proclist *proc, uint16_t pc, uint8_t op);
 
 /* loop.c */
 void		load_first(t_vm *vm);

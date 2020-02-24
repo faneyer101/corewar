@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/20 15:44:59 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/22 18:16:30 by nsalle      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/23 19:26:20 by nsalle      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,12 +58,21 @@ int		get_nbproc(t_proclist *lst)
 
 void	load_first(t_vm *vm)
 {
-	int	i;
+	int			i;
+	t_proclist *dummy;
+	int			j;
 
+	j = 0;
+	if (!(dummy = (t_proclist*)malloc(sizeof(t_proclist))))
+		exit(0);
+	while (j < REG_NUMBER)
+		dummy->reg[j++] = 0;
+	dummy->carry = 0;
 	i = 0;
 	while (i < vm->nb_player)
 	{
-		push_proc(vm->players[i].code[0], vm->players[i].start, vm);
+		dummy->reg[0] = i;
+		push_proc(vm, dummy, vm->players[i].start, vm->players[i].code[0]);
 		i++;
 	}
 }
@@ -73,6 +82,7 @@ void	loop(t_vm *vm)
 	while (vm->game)
 	{
 		check_proc(vm->beginlist, vm);
+		ft_printf("Cycle %d:\t", vm->cycles);
 		if (get_nbproc(vm->beginlist) == 0)
 			vm->game = 0;
 		vm->cycles++;

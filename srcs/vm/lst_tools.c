@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/20 17:14:27 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/22 17:49:31 by nsalle      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/23 18:06:22 by nsalle      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,13 +56,21 @@ uint16_t	get_cycle(uint8_t op)
 		return (more_opcodes(op));
 }
 
-t_proclist	*create_proc(uint8_t op, uint16_t pc)
+t_proclist	*create_proc(t_proclist *proc, uint16_t pc, uint8_t op)
 {
 	t_proclist	*new;
+	uint8_t		i;
 
+	i = 0;
 	new = NULL;
 	if (!(new = (t_proclist*)malloc(sizeof(t_proclist))))
 		exit(0);
+	while (i < REG_NUMBER)
+	{
+		new->reg[i] = proc->reg[i];
+		i++;
+	}
+	new->carry = proc->carry;
 	new->opcode = op;
 	new->pc = pc;
 	new->cycle = get_cycle(op);
@@ -70,11 +78,11 @@ t_proclist	*create_proc(uint8_t op, uint16_t pc)
 	return (new);
 }
 
-void		push_proc(uint8_t op, uint16_t pc, t_vm *vm)
+void		push_proc(t_vm *vm, t_proclist *proc, uint16_t pc, uint8_t op)
 {
 	t_proclist *new;
 
-	new = create_proc(op, pc);
+	new = create_proc(proc, pc, op);
 	if (vm->beginlist)
 		new->next = vm->beginlist;
 	vm->beginlist = new;
