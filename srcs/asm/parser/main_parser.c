@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/16 23:23:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/21 14:58:31 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/24 08:35:27 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,7 @@ void	create_token_label(t_asm *master, t_token *tlist)
 	{
 		if (tlist->kind != SEPARATOR && tlist->kind != BAD && tlist->kind != COMMENT)
 		{
-			if ((tlist->kind == LABEL_DIRECT || tlist->kind == LABEL_INDIRECT) && master->parser.define_label->name && !search_label_define(master->parser.define_label, tlist))
+			if ((tlist->kind == LABEL_DIRECT || tlist->kind == LABEL_INDIRECT) && (!master->parser.define_label->name || (master->parser.define_label->name && !search_label_define(master->parser.define_label, tlist))))
 				push_undefine_label(master, tlist);
 			if (tlist->kind == REGISTRE && ft_atoi(tlist->data) > REG_NUMBER)
 			{
@@ -77,6 +77,8 @@ void	create_token_label(t_asm *master, t_token *tlist)
 				master->parser.curent_label = master->parser.define_label;
 			}
 		}
+		else if (tlist->kind == BAD)
+			ft_printf("bad param for this function");
 		tlist = tlist->next;
 	}
 }
@@ -121,7 +123,7 @@ void	parser_label_or_function(t_asm *master, t_token **token)
 			else
 				declare_label_define(master, list);
 		}
-		else if (list->kind != COMMENT || list->kind == BAD)
+		else if (list->kind != COMMENT)
 		{
 			parser_function_and_param(master, list, 0);
 			break;

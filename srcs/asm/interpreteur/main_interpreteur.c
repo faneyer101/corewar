@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/20 04:09:47 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/23 04:22:27 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/24 08:14:36 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -219,7 +219,21 @@ static void	init_struct_function(t_asm *master)
 	master->interpretor.function.index_tab = 16;	//null de optab
 	master->interpretor.function.opcode = 16;		//null de optab
 }	
+/*
+int		verif_undefine_label(t_asm *master)
+{
+	t_list_label	*undefine;
 
+	undefine = master->parser.undefine_label;
+	while (undefine)
+	{
+		if (undefine->index_define == -1)
+			return (TRUE);
+		undefine = undefine->unext;
+	}
+	return (FALSE);
+}
+*/
 void    main_interpreteur(t_asm *master)
 {
     t_list_label    *label;
@@ -262,5 +276,7 @@ void    main_interpreteur(t_asm *master)
 		ft_printf("FREE ET EXIT 0 CAR PROG TROP GRAND\n");
 		exit (0);
 	}
+	//if (verif_undefine_label(master))	
+	//	ft_printf("TA mere la chauve\n");
 	controle(master);
 }
