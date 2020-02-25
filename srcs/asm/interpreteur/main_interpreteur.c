@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   main_interpreteur.c                              .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/02/20 04:09:47 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 21:02:52 by faneyer     ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_interpreteur.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/20 04:09:47 by faneyer           #+#    #+#             */
+/*   Updated: 2020/02/25 22:47:05 by nsalle           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../../includes/asm.h"
 
@@ -82,7 +82,7 @@ void	print_error_overflow(t_asm *master, char *msg, int index, t_token *token)
 void	interpretor_param(t_asm *master, t_token *token, t_list_label *label)
 {
 	int			index_define;
-	unsigned 	calcul;
+	int long long	calcul;
 
 	index_define = -1;
 	calcul = 0;
@@ -96,7 +96,6 @@ void	interpretor_param(t_asm *master, t_token *token, t_list_label *label)
 	{
 		if ((calcul = ft_atoi(token->data)) > UINT_MAX || (token->data[0] == '-' && ft_atoi(&token->data[1]) > UINT_MAX))
 		{
-			printf("%u\n", calcul);
 			print_error_overflow(master, "Size max on the param", 2, token);
 		}
 		else
@@ -110,7 +109,6 @@ void	interpretor_param(t_asm *master, t_token *token, t_list_label *label)
 	{
 		if ((calcul = ft_atoi(token->data)) > UINT_MAX || (token->data[0] == '-' && ft_atoi(&token->data[1]) > UINT_MAX))
 		{
-			printf("%u\n", calcul);
 			print_error_overflow(master, "Size max on the param", 4, token);
 		}
 		else
