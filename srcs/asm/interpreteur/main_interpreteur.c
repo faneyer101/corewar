@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/20 04:09:47 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 19:13:20 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/25 21:02:52 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,7 +82,7 @@ void	print_error_overflow(t_asm *master, char *msg, int index, t_token *token)
 void	interpretor_param(t_asm *master, t_token *token, t_list_label *label)
 {
 	int			index_define;
-	unsigned long calcul;
+	unsigned 	calcul;
 
 	index_define = -1;
 	calcul = 0;
@@ -94,8 +94,11 @@ void	interpretor_param(t_asm *master, t_token *token, t_list_label *label)
 	}
 	else if ((token->kind == NUM_DIRECT && master->interpretor.function.direct == 1) || token->kind == NUM_INDIRECT)
 	{
-		if ((calcul = ft_atoi(token->data)) > UINT_MAX)
-			print_error_overflow(master, "Size max", 2, token);
+		if ((calcul = ft_atoi(token->data)) > UINT_MAX || (token->data[0] == '-' && ft_atoi(&token->data[1]) > UINT_MAX))
+		{
+			printf("%u\n", calcul);
+			print_error_overflow(master, "Size max on the param", 2, token);
+		}
 		else
 		{
 			master->interpretor.code_champ[master->interpretor.index] = (calcul >> 8) & 0xFF;
@@ -105,8 +108,11 @@ void	interpretor_param(t_asm *master, t_token *token, t_list_label *label)
 	}
 	else if ((token->kind == NUM_DIRECT && master->interpretor.function.direct == 0))
 	{
-		if ((calcul = ft_atoi(token->data)) > UINT_MAX)
+		if ((calcul = ft_atoi(token->data)) > UINT_MAX || (token->data[0] == '-' && ft_atoi(&token->data[1]) > UINT_MAX))
+		{
+			printf("%u\n", calcul);
 			print_error_overflow(master, "Size max on the param", 4, token);
+		}
 		else
 		{
 			master->interpretor.code_champ[master->interpretor.index] = (calcul >> 24) & 0xFF;
