@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/10 16:33:44 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/21 12:02:26 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/25 16:14:02 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,16 +104,22 @@ void	init_token(t_asm* master)
 	master->column = 1;
 }
 
+void	error_allocation(char *function)
+{
+	ft_printf("Problem to allocate memory in the function: {RED}%s{END}\n", function);
+	exit (0);
+}
+
 int 	main_lexer(t_asm *master, int i)
 {
 	if(!(master->tab_token = (t_token**)malloc(sizeof(t_token*) * (master->numline + 1))))
-		return (ft_printf("a faire une fonction pour free avant et exit 0\n"));
+		error_allocation("master->tab_token");
     init_token(master);
     while (++i < master->size_read_total && master->buff_read[i])
     {
-		//ft_printf("MAIN LEXER |{RED}%s{END}|{GREEN}%c{END}|[%d][%d]", &master->buff_read[i], master->buff_read[i], master->numline, master->column);	
 		if (master->buff_read[i] && master->buff_read[i] == '\n')
 		{
+			//push_token(master, NEW_LINE, i, 1);
 			master->numline++;
 			master->column = 1;
             continue;
@@ -127,10 +133,7 @@ int 	main_lexer(t_asm *master, int i)
 		else if (control_label_declaration(&master->buff_read[i]))
 			create_labbel_declaration(master, &i, master->buff_read);
 		else if (check_param(master, &master->buff_read[i], 0))
-		{
 			create_token_name_funtion(master, &i, master->buff_read, -1);
-		//	printf("%d|%d|%c|\n", master->size_read_total, i, master->buff_read[i]);
-		}
 		else if (!delimiter(master->buff_read[i], "s#") && master->buff_read[i] != SEPARATOR_CHAR)
 			create_token_bad(master, &i, master->buff_read, 0);
 	}

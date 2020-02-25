@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/23 04:06:38 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/25 18:50:12 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <limits.h>
 #include<stdio.h> //////////// A EFFACER !!!!!!!!!!!!!!!!!!!!
 
 # define DSTRING '"'
@@ -113,8 +114,8 @@ typedef struct              s_asm
 {
 	int						error_lexer;
 	int						error_parser;
+	int						error_traitment;
     char                    *buff_read;
-	char					**split_read;
 	int						numline;
 	int						max_line;
 	int						column;
@@ -135,8 +136,7 @@ void                        print_error_before_read(char *msg_error, int fd, cha
 void						verif_error_first(t_asm *master, char *file);
 
 int                         init_write_file(t_asm *master, char *name);
-void						free_split(t_asm *master, int i);
-void    					free_tab_token(t_asm *master);
+
 /*
 **			LEXER Creation de token pour le parser
 */
@@ -180,8 +180,6 @@ t_list_label				*create_label_undefine(t_token *data);
 void						main_interpreteur(t_asm *master);
 void						interpretor_function(t_asm *master, t_list_label *label, t_token *token);
 
-
-
 /*
 **  Fonction de debugs // d'affichages
 */
@@ -189,6 +187,14 @@ void						interpretor_function(t_asm *master, t_list_label *label, t_token *toke
 void						print_parser(t_asm *master);
 void    					print_buff_read(t_asm *master);
 void                        print_token(t_asm *master, int i, t_token *list);
-//int    print_ret_parsing(t_asm *master);
+
+/*
+**		FREE
+*/
+
+void						free_define_label(t_asm *master);
+void						free_undefine_label(t_asm *master);
+void						free_split(t_asm *master, int i);
+void    					free_tab_token(t_asm *master);
 
 #endif

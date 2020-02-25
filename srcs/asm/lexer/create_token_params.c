@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/15 21:20:18 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/23 03:48:28 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/25 11:34:20 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,7 +54,6 @@ static void	create_token_param(t_asm *master, int *i, char *str, int start)
 		return ;
 	while (str[*i] && str[*i] != '\n')
 	{	
-//	printf("TOKEN PARAM|%c|[%d][%d]\n", str[i[0]], master->numline, master->column);
 		if (str[i[0]] && delimiter(str[i[0]], "#"))
 			return (create_token_comment(master, i, str, 0));
 		else if (str[i[0]] && str[i[0]] == SEPARATOR_CHAR && (i[0] = i[0] + 1))
@@ -99,7 +98,6 @@ static void	create_token_param(t_asm *master, int *i, char *str, int start)
 		}
 		else
 			i[0]++;
-//			printf("Create token param %d|%d|%c|\n", master->size_read_total, *i, str[*i]);
     }
 	if (str[*i] && str[*i]== '\n' && *i != master->size_read_total)
 		i[0]--;
@@ -119,17 +117,11 @@ void	create_token_name_funtion(t_asm *master, int *i, char *str, int j)
 		}
 	}
     if (j >= 17)
-	{	
-	//	printf("CREATE NAME FONCTION |%c|[%d][%d]", str[*i], master->numline, master->column);
 		return (create_token_bad(master, i, str, 0));
-	}
 	while (str[*i] && str[*i] != '\n' && delimiter(str[*i], "s"))
 		i[0]++;
     if (str[*i] && str[*i] != '\n')
-	{
-		//printf("%d|%d|%c|\n", master->size_read_total, *i, str[*i]);
 		create_token_param(master, i, str, 0);
-	}
 	else if (str[*i])
 		i[0]--;
 }

@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/16 23:23:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/24 08:35:27 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/25 17:37:55 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,7 +66,7 @@ void	create_token_label(t_asm *master, t_token *tlist)
 				push_undefine_label(master, tlist);
 			if (tlist->kind == REGISTRE && ft_atoi(tlist->data) > REG_NUMBER)
 			{
-				ft_printf("probleme of registre. need registre max %d\n", REG_NUMBER);
+				ft_printf("the maximum number of registers is %d\n", REG_NUMBER);
 				master->error_parser++;
 			}
 			else if (master->parser.curent_label)
@@ -78,7 +78,7 @@ void	create_token_label(t_asm *master, t_token *tlist)
 			}
 		}
 		else if (tlist->kind == BAD)
-			ft_printf("bad param for this function");
+			print_error_parser_param(master, "bad syntax in function", tlist->data, tlist);
 		tlist = tlist->next;
 	}
 }
@@ -98,9 +98,7 @@ void	parser_function_and_param(t_asm *master, t_token *list, int i)
 			else if (master->tab_op[i].nb_arg != nb_param(list->next))
 				print_error_parser_param(master, "too many parameters declared in function", list->data, list);
 			if (verif_type_param(master, list->next, master->tab_op[i], -1))
-			{
 				create_token_label(master, list);
-			}
 		}
 	}
 	else if (list->kind == BAD)
@@ -117,9 +115,9 @@ void	parser_label_or_function(t_asm *master, t_token **token)
 		if (list->kind == LABEL_DECLARATION)
 		{
 			if (master->parser.curent_label && !master->parser.curent_label->defaut && master->parser.define_label->name && search_label(master->parser.define_label, list->data) && list->column == 1)
-				print_error_parser_param(master, "label deja declarer", list->data, list);
+				print_error_parser_param(master, "labbel already declared", list->data, list);
 			else if (list->column > 1)
-				print_error_parser_param(master, "just one label declaration on line", list->data, list);
+				print_error_parser_param(master, "just declared one labbel per line", list->data, list);
 			else
 				declare_label_define(master, list);
 		}
@@ -160,6 +158,7 @@ int     main_parser(t_asm *master, t_token *list, int i)
     	}
 	}
 	verif_declaration_label(master, master->parser.undefine_label);
+	printf("|%d|\n", master->error_parser);
 	if (master->error_parser == 1)
 		ft_printf("{RED}%d{END} error detected\n", master->error_parser);
     else if (master->error_parser > 1)

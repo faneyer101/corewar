@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/22 23:15:10 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/25 18:50:23 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,20 +83,18 @@ void 	print_usage(void)
 }
 
 void	verif_option(t_asm *master, char **av)
-{// solution pour eviter autre parametre a trouver
+{
 	if (ft_strncmp(av[1], "-", 1) == 0)
 	{
-		if (ft_strchr(av[1], 't'))
+		if ((ft_strlen(av[1]) == 2 && av[1][1] == 't') || (ft_strlen(av[1]) == 3 && av[1][2] == 't' && av[1][1] == 'p'))
 			master->option.t = 1;
-		if (ft_strchr(av[1], 'p'))
+		if ((ft_strlen(av[1]) == 2 && av[1][1] == 'p') || (ft_strlen(av[1]) == 3 && av[1][2] == 'p' && av[1][1] == 't'))
 			master->option.p = 1;
-		if (!ft_strchr(av[1], 'p') && !ft_strchr(av[1], 't'))
+		if (master->option.p == 0 && master->option.t == 0)
 			print_usage();
 	}
 	else
 		print_usage();
-
-	
 }
 
 int	main(int ac, char **av)
@@ -121,13 +119,16 @@ int	main(int ac, char **av)
 		if (master.error_parser == 0 && master.parser.name == 1 && master.parser.comment == 1)
 		{
 			main_interpreteur(&master);
-			init_write_file(&master, av[ac - 1]);
+			if (master.error_traitment == 0)
+				init_write_file(&master, av[ac - 1]);
 		}
 		if (master.parser.name == 0)
 			ft_printf("need .name for compilation this champions\n");
 		if (master.parser.comment == 0)
 			ft_printf("need .comment for compilation this champions\n");
-		//free_token_and_buff(&master);
+		free_token_and_buff(&master);
+		free_undefine_label(&master);
+		free_define_label(&master);
 	}
 	else
 		ft_printf("{UND}Usage:{END}\n./asm [{YELL}opion{END}][{RED}file{END}]\n{YELL}Option{END}:\n	t: print token\n	p: print parser\n{RED}Extension file .s{END}\n\n");

@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/20 04:09:47 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/24 08:14:36 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/25 18:50:40 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,44 +72,52 @@ void	push_label_undefine(t_asm *master, t_token *token)
 
 }
 
+void	print_error_overflow(t_asm *master, char *msg, int index, t_token *token)
+{
+	ft_printf("interpretor[{GREEN}line:%d{END}][{GREEN}column:%d{END}]%s|{RED}%s{END}|\n", token->numline, token->column, msg, token->data);
+	master->interpretor.index += index;
+	master->error_traitment++;
+}
+
 void	interpretor_param(t_asm *master, t_token *token, t_list_label *label)
 {
 	int			index_define;
-	unsigned	calcul;
+	unsigned long calcul;
 
 	index_define = -1;
-//	ft_printf("{GREEN}START PARAM{END}|%p|%d|%s|\n", master->interpretor.wait_label, token->kind, token->data);
 	calcul = 0;
 	if (token->kind == REGISTRE)
 	{
-	//	ft_printf("{YELL}REGISTRE{END}|%p|%d|%s|\n", master->interpretor.wait_label, token->kind, token->data);
 		calcul = ft_atoi(token->data);
 		master->interpretor.code_champ[master->interpretor.index] = (calcul >> 0) & 0xFF;
 		master->interpretor.index++;
-	//	ft_printf("{YELL}REGIS END{END}|%p|%d|%s|\n", master->interpretor.wait_label, token->kind, token->data);
 	}
 	else if ((token->kind == NUM_DIRECT && master->interpretor.function.direct == 1) || token->kind == NUM_INDIRECT)
 	{
-	//	printf("NUM DIRECT\n");
-		calcul = ft_atoi(token->data);
-		master->interpretor.code_champ[master->interpretor.index] = (calcul >> 8) & 0xFF;
-		master->interpretor.code_champ[master->interpretor.index + 1] = (calcul >> 0) & 0xFF;
-		master->interpretor.index += 2;
+		if ((calcul = ft_atoi(token->data)) > UINT_MAX)
+			print_error_overflow(master, "Size max", 2, token);
+		else
+		{
+			master->interpretor.code_champ[master->interpretor.index] = (calcul >> 8) & 0xFF;
+			master->interpretor.code_champ[master->interpretor.index + 1] = (calcul >> 0) & 0xFF;
+			master->interpretor.index += 2;
+		}
 	}
 	else if ((token->kind == NUM_DIRECT && master->interpretor.function.direct == 0))
 	{
-	//	printf("NUM INDIRECT\n");
-		calcul = ft_atoi(token->data);
-		master->interpretor.code_champ[master->interpretor.index] = (calcul >> 24) & 0xFF;
-		master->interpretor.code_champ[master->interpretor.index + 1] = (calcul >> 16) & 0xFF;
-		master->interpretor.code_champ[master->interpretor.index + 2] = (calcul >> 8) & 0xFF;
-		master->interpretor.code_champ[master->interpretor.index + 3] = (calcul >> 0) & 0xFF;
-		master->interpretor.index += 4;
+		if ((calcul = ft_atoi(token->data)) > UINT_MAX)
+			print_error_overflow(master, "Size max", 4, token);
+		else
+		{
+			master->interpretor.code_champ[master->interpretor.index] = (calcul >> 24) & 0xFF;
+			master->interpretor.code_champ[master->interpretor.index + 1] = (calcul >> 16) & 0xFF;
+			master->interpretor.code_champ[master->interpretor.index + 2] = (calcul >> 8) & 0xFF;
+			master->interpretor.code_champ[master->interpretor.index + 3] = (calcul >> 0) & 0xFF;
+			master->interpretor.index += 4;
+		}
 	}
 	else if ((token->kind == LABEL_DIRECT && master->interpretor.function.direct == 1) || token->kind == LABEL_INDIRECT)
 	{
-		
-	//	ft_printf("{GREEN}START indir{END}|%p|%d|%s|\n", master->interpretor.wait_label, token->kind, token->data);
 		search_define_label(master, token, &index_define, label);
 		if (index_define >= 0)
 		{
@@ -118,16 +126,11 @@ void	interpretor_param(t_asm *master, t_token *token, t_list_label *label)
 			master->interpretor.code_champ[master->interpretor.index + 1] = ((calcul >> 0) & 0xFF);
 		}
 		else
-		{
-		//	ft_printf("{RED}PUSH UNDEFINE 1|%s|%d|[%d][%d]{END}\n", token->data, master->interpretor.function.index_tab, token->numline, token->column);
 			push_label_undefine(master, token);
-		}
 		master->interpretor.index += 2;
 	}
 	else if (token->kind == LABEL_DIRECT && master->interpretor.function.direct == 0)
 	{
-//	ft_printf("{GREEN}START direct{END}|%p|%d|%s|\n", master->interpretor.wait_label, token->kind, token->data);
-
 		search_define_label(master, token, &index_define, label);
 		if (index_define >= 0)
 		{
@@ -138,10 +141,7 @@ void	interpretor_param(t_asm *master, t_token *token, t_list_label *label)
 			master->interpretor.code_champ[master->interpretor.index + 3] = (calcul >> 0) & 0xFF;
 		}
 		else
-		{
-		//	ft_printf("{RED}PUSH UNDEFINE 2|%s|%d|[%d][%d]{END}\n", token->data, master->interpretor.function.index_tab, token->numline, token->column);
 			push_label_undefine(master, token);
-		}
 		master->interpretor.index += 4;
 	}
 	if (master->interpretor.index > CHAMP_MAX_SIZE)
@@ -271,7 +271,7 @@ void    main_interpreteur(t_asm *master)
 		}
     	label = label->dnext;
     }
-	if (master->interpretor.index >= CHAMP_MAX_SIZE)
+	if (master->interpretor.index >= CHAMP_MAX_SIZE || ft_strlen(master->interpretor.code_champ) == 0)
 	{
 		ft_printf("FREE ET EXIT 0 CAR PROG TROP GRAND\n");
 		exit (0);
