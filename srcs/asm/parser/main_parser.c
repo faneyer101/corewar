@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/16 23:23:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 17:37:55 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/25 19:42:00 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -131,7 +131,16 @@ void	parser_label_or_function(t_asm *master, t_token **token)
 	}
 }
 
-int     main_parser(t_asm *master, t_token *list, int i)
+void	main_parser_norme(t_asm *master)
+{
+	verif_declaration_label(master, master->parser.undefine_label);
+	if (master->error_parser == 1)
+		ft_printf("{RED}%d{END} error detected\n", master->error_parser);
+    else if (master->error_parser > 1)
+		ft_printf("{RED}%d{END} errors detected\n", master->error_parser);
+}
+
+void     main_parser(t_asm *master, t_token *list, int i)
 {
 	while (++i < master->numline)
 	{	
@@ -157,11 +166,5 @@ int     main_parser(t_asm *master, t_token *list, int i)
         		list = list->next;
     	}
 	}
-	verif_declaration_label(master, master->parser.undefine_label);
-	printf("|%d|\n", master->error_parser);
-	if (master->error_parser == 1)
-		ft_printf("{RED}%d{END} error detected\n", master->error_parser);
-    else if (master->error_parser > 1)
-		ft_printf("{RED}%d{END} errors detected\n", master->error_parser);
-	return (0);
+	main_parser_norme(master);
 }

@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/20 04:09:47 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 18:50:40 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/25 19:13:20 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -106,7 +106,7 @@ void	interpretor_param(t_asm *master, t_token *token, t_list_label *label)
 	else if ((token->kind == NUM_DIRECT && master->interpretor.function.direct == 0))
 	{
 		if ((calcul = ft_atoi(token->data)) > UINT_MAX)
-			print_error_overflow(master, "Size max", 4, token);
+			print_error_overflow(master, "Size max on the param", 4, token);
 		else
 		{
 			master->interpretor.code_champ[master->interpretor.index] = (calcul >> 24) & 0xFF;
@@ -267,7 +267,6 @@ void    main_interpreteur(t_asm *master)
 		//	printf("fin  MAIN |%p|\n", master->interpretor.wait_label);
 			if (token)
 				token = token->lnext;
-		
 		}
     	label = label->dnext;
     }

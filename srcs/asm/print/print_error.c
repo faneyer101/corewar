@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 01:05:17 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 11:27:12 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/25 19:25:49 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,4 +33,10 @@ void    printf_error_lexer(t_asm *master, char *msg_error)
     ft_printf("{RED}{BOLD}%s on line %d{BLUE}\n\n",
         msg_error, master->numline);
     exit(0);
+}
+
+void	print_error_allocation(char *function)
+{
+	ft_printf("Problem to allocate memory in the function: {RED}%s{END}\n", function);
+	exit (0);
 }

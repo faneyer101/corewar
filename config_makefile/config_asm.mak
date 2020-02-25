@@ -16,4 +16,5 @@ SRCFILE_ASM		+=	op.c 									\
 					asm/lexer/create_token_params.c 		\
 					asm/lexer/push_token.c 					\
 					asm/print/print_error.c 				\
+					asm/print/print.c 				\
 					asm/print/print_debug.c			

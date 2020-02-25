@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 18:50:12 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/25 19:42:17 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -130,12 +130,7 @@ typedef struct              s_asm
 }                           t_asm;
 
 
-void 						print_usage(void);
-void                        printf_error_lexer(t_asm *master, char *str_error);
-void                        print_error_before_read(char *msg_error, int fd, char *buff, char *line);
-void						verif_error_first(t_asm *master, char *file);
 
-int                         init_write_file(t_asm *master, char *name);
 
 /*
 **			LEXER Creation de token pour le parser
@@ -145,6 +140,7 @@ int 						main_lexer(t_asm *master, int i);
 int							delimiter(char c, char *analyse);
 int							cmp_label_chars(char c, int i);
 int							cheak_header(char *str);
+void						verif_error_first(t_asm *master, char *file);
 void	                    push_token(t_asm *master, t_lexeme lexeme, int index, int size);
 void    					create_token_header(t_asm *master, int *i, char *str, int start);
 void						create_token_comment(t_asm *master, int *i, char *str, int start);
@@ -155,7 +151,7 @@ void						create_token_name_funtion(t_asm *master, int *i, char *str, int j);
 **			PARSER Verif si tout est ok pour passer a l'interpreteur
 */
 
-int                         main_parser(t_asm *master, t_token *list, int i);
+void						main_parser(t_asm *master, t_token *list, int i);
 int							verif_separator(t_asm *master, t_op function, t_token *verif);
 int							verif_kind_bad(t_asm *master, t_token *list);
 int							nb_param(t_token *list);
@@ -179,14 +175,20 @@ t_list_label				*create_label_undefine(t_token *data);
 
 void						main_interpreteur(t_asm *master);
 void						interpretor_function(t_asm *master, t_list_label *label, t_token *token);
+int                         init_write_file(t_asm *master, char *name);
 
 /*
 **  Fonction de debugs // d'affichages
 */
 
+void 						print_usage(void);
 void						print_parser(t_asm *master);
 void    					print_buff_read(t_asm *master);
 void                        print_token(t_asm *master, int i, t_token *list);
+void                        print_error_before_read(char *msg_error, int fd, char *buff, char *line);
+void                        printf_error_lexer(t_asm *master, char *str_error);
+void						print_error_allocation(char *function);
+
 
 /*
 **		FREE

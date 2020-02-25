@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 04:45:56 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 12:06:32 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/25 19:24:43 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,17 +43,18 @@ void	free_undefine_label(t_asm *master)
 {
 	t_list_label	*next_label;
 
-	if (master->parser.define_label->unext)
-		next_label = master->parser.define_label->unext;
-	while (master->parser.define_label)
+	next_label = NULL;
+	if (master->parser.undefine_label && master->parser.undefine_label->unext)
+		next_label = master->parser.undefine_label->unext;
+	while (master->parser.undefine_label)
 	{
-		if (master->parser.define_label->define_parser == 0)
+		if (master->parser.undefine_label->define_parser == 0)
 		{
-			ft_strdel(&master->parser.define_label->name);
+			ft_strdel(&master->parser.undefine_label->name);
 			master->parser.define_label->unext = NULL;
-			free(master->parser.define_label);
+			free(master->parser.undefine_label);
 		}
-			master->parser.define_label = next_label;
+			master->parser.undefine_label = next_label;
 			if (next_label)
 				next_label = next_label->unext;
 			else
@@ -65,11 +66,13 @@ void	free_define_label(t_asm *master)
 {
 	t_list_label	*next_label;
 
+	next_label = NULL;
 	if (master->parser.define_label && master->parser.define_label->dnext)
 		next_label = master->parser.define_label->dnext;
 	while (master->parser.define_label)
 	{
-		ft_strdel(&master->parser.define_label->name);
+		if (master->parser.define_label->defaut == 0)
+			ft_strdel(&master->parser.define_label->name);
 		master->parser.define_label->dnext = NULL;
 		free(master->parser.define_label);
 		master->parser.define_label = next_label;

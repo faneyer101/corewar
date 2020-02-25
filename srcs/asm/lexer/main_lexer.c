@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/10 16:33:44 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 16:14:02 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/25 19:26:01 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,16 +104,12 @@ void	init_token(t_asm* master)
 	master->column = 1;
 }
 
-void	error_allocation(char *function)
-{
-	ft_printf("Problem to allocate memory in the function: {RED}%s{END}\n", function);
-	exit (0);
-}
+
 
 int 	main_lexer(t_asm *master, int i)
 {
 	if(!(master->tab_token = (t_token**)malloc(sizeof(t_token*) * (master->numline + 1))))
-		error_allocation("master->tab_token");
+		print_error_allocation("master->tab_token");
     init_token(master);
     while (++i < master->size_read_total && master->buff_read[i])
     {
