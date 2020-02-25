@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   op.h                                             .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2013/10/04 11:33:27 by zaz          #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 11:11:19 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/25 16:19:47 by nsalle      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,7 @@
 //
 #define IND_SIZE				2
 //Taille en octets de l'argument T_REG
-#define REG_SIZE				1
+#define REG_SIZE				4
 //
 #define DIR_SIZE				4
 
