@@ -1,26 +1,17 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   loop.c                                           .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/02/20 15:44:59 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/23 19:26:20 by nsalle      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   loop.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
+/*   Updated: 2020/02/25 21:10:21 by nsalle           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
 
-void	exec_proc(t_proclist *proc, t_vm *vm)
-{
-	ft_printf("I am supposed to execute my code which looks like: ");
-	int	i = 0;
-	while (i < 10)
-		ft_printf("%.2x ", vm->arena[proc->pc + i++]);
-	ft_putendl("");
-}
+#include "../../includes/vm.h"
 
 void	check_proc(t_proclist *lst, t_vm *vm)
 {
@@ -60,13 +51,13 @@ void	load_first(t_vm *vm)
 {
 	int			i;
 	t_proclist *dummy;
-	int			j;
+	t_proclist	*curs;
 
-	j = 0;
+	i = 0;
 	if (!(dummy = (t_proclist*)malloc(sizeof(t_proclist))))
 		exit(0);
-	while (j < REG_NUMBER)
-		dummy->reg[j++] = 0;
+	while (i < REG_NUMBER)
+		dummy->reg[i++] = 0;
 	dummy->carry = 0;
 	i = 0;
 	while (i < vm->nb_player)
@@ -74,6 +65,12 @@ void	load_first(t_vm *vm)
 		dummy->reg[0] = i;
 		push_proc(vm, dummy, vm->players[i].start, vm->players[i].code[0]);
 		i++;
+	}
+	curs = vm->beginlist;
+	while (curs)
+	{
+		curs->start = curs->pc;
+		curs = curs->next;
 	}
 }
 
