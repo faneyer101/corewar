@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   declare_label_define.c                           .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/02/19 16:39:45 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 19:04:05 by faneyer     ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   declare_label_define.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/19 16:39:45 by faneyer           #+#    #+#             */
+/*   Updated: 2020/02/25 23:02:38 by nsalle           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../../includes/asm.h"
 
@@ -69,9 +69,15 @@ void			declare_label_define(t_asm *master, t_token *token)
 		undefine = undefine->unext;
 	}
 	if (undefine)
+	{
+		printf("%s|%s|\n", undefine->name, token->data);
 		push_back_label_define(master, token, undefine);
+	}
 	else
+	{
+		printf("%s|\n", token->data);
 		push_back_label_define(master, token, NULL);
+	}
 }
 
 t_list_label	*create_label_undefine(t_token *data)
