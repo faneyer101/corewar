@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/15 20:36:00 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 11:16:17 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/26 19:30:28 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,10 +51,20 @@ void	create_token_comment(t_asm *master, int *i, char *str, int start)
 
 static void    create_token_string_header(t_asm *master, int *i, int start, char* str)
 {
+	int	line;
+
+	line = 0;
     i[0]++;
-	while (str[*i] /*&& str[*i] != '\n'*/ && str[*i] != DSTRING)
+	while (str[*i] /*&& str[*i] != '\n' */&& str[*i] != DSTRING)
+	{
+		if (str[*i] == '\n')
+		{
+			master->column = 1;
+			line++;
+		}
 		i[0]++;
-    if (str[*i] && str[*i] == DSTRING)
+	}
+	if (str[*i] && str[*i] == DSTRING)
 	{
 		push_token(master, HEADER_STRING, start, *i - start + 1);
 		master->column++;
@@ -65,6 +75,7 @@ static void    create_token_string_header(t_asm *master, int *i, int start, char
 		master->numline++;
 		master->column = 1;
 	}
+	master->numline += line;
 }
 
 void    create_token_header(t_asm *master, int *i, char *str, int start)

@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/10 16:33:44 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 19:26:01 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/26 15:33:20 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -98,7 +98,7 @@ void	init_token(t_asm* master)
 	int	i;
 
 	i = -1;
-	while (++i <= master->numline)
+	while (++i <= master->maxline)
         master->tab_token[i] = NULL;
 	master->numline = 1;
 	master->column = 1;
@@ -108,7 +108,7 @@ void	init_token(t_asm* master)
 
 int 	main_lexer(t_asm *master, int i)
 {
-	if(!(master->tab_token = (t_token**)malloc(sizeof(t_token*) * (master->numline + 1))))
+	if(!(master->tab_token = (t_token**)malloc(sizeof(t_token*) * (master->maxline + 1))))
 		print_error_allocation("master->tab_token");
     init_token(master);
     while (++i < master->size_read_total && master->buff_read[i])

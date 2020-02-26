@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/16 23:23:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 19:42:00 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/26 19:18:59 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,11 +62,17 @@ void	create_token_label(t_asm *master, t_token *tlist)
 	{
 		if (tlist->kind != SEPARATOR && tlist->kind != BAD && tlist->kind != COMMENT)
 		{
-			if ((tlist->kind == LABEL_DIRECT || tlist->kind == LABEL_INDIRECT) && (!master->parser.define_label->name || (master->parser.define_label->name && !search_label_define(master->parser.define_label, tlist))))
+			if ((tlist->kind == LABEL_DIRECT || tlist->kind == LABEL_INDIRECT) && 
+				((master->parser.define_label && master->parser.define_label->defaut == 1 &&
+				master->parser.define_label->dnext == NULL) ||
+				master->parser.define_label == NULL ||
+				(master->parser.define_label->name && !search_label_define(master->parser.define_label, tlist))))
+			{
 				push_undefine_label(master, tlist);
+			}
 			if (tlist->kind == REGISTRE && ft_atoi(tlist->data) > REG_NUMBER)
 			{
-				ft_printf("the maximum number of registers is %d\n", REG_NUMBER);
+				ft_printf("parser[{GREEN}line:%d{END}][{GREEN}column:%d{END}]the maximum number of registre is %d|{RED}%s{END}|\n",tlist->numline, tlist->column, REG_NUMBER, tlist->data);
 				master->error_parser++;
 			}
 			else if (master->parser.curent_label)
@@ -142,7 +148,7 @@ void	main_parser_norme(t_asm *master)
 
 void     main_parser(t_asm *master, t_token *list, int i)
 {
-	while (++i < master->numline)
+	while (++i < master->maxline)
 	{	
 		if (master->tab_token[i])
     		list = master->tab_token[i];
@@ -154,7 +160,7 @@ void     main_parser(t_asm *master, t_token *list, int i)
 				parser_header(master, &list);
 			else if (list->kind == BAD)
 			{
-				print_error_parser_param(master, "Error of syntax", list->data, list);
+				print_error_parser_param(master, "Error of syntax on start instruction", list->data, list);
 				break;
 			}
 			else if (list->kind == LABEL_DECLARATION || list->kind == FONCTION)

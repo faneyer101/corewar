@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:11:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 19:42:17 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/26 18:02:24 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -117,7 +117,7 @@ typedef struct              s_asm
 	int						error_traitment;
     char                    *buff_read;
 	int						numline;
-	int						max_line;
+	int						maxline;
 	int						column;
 	int						size_read_total;
 	t_interpretor			interpretor;

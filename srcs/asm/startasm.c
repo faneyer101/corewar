@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/04 12:08:14 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 19:44:24 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/26 18:02:06 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@ void	stock_buff(char *line, t_asm *master, int fd)
 	while (line[i])
 	{
 		if (line[i] == '\n')
-			master->numline++;
+			master->maxline++;
 		i++;
 	}
 	if (!(master->buff_read = (char*)realloc(master->buff_read, sizeof(char) * (ft_strlen(master->buff_read) + ft_strlen(line) + 1))))
@@ -39,6 +39,13 @@ int	read_file(t_asm *master, int fd, char *line, int ret)
 		return (-1);
 	}
 	master->size_read_total += ret;
+	ret = 0;
+	while (line[ret])
+	{
+		if (line[ret] == '\n')
+			master->maxline++;
+		ret++;
+	}
 	if (!(master->buff_read = ft_strdup(line)))
 		return (-1);
 	ft_bzero(line, 16);
@@ -101,6 +108,7 @@ int	main(int ac, char **av)
 	{
 		ft_bzero(&master, sizeof(t_asm));
 		master.numline++;
+		master.maxline++;
 		if (ac == 3)
 			verif_option(&master, av);
 		init_op_tab((t_op*)(master.tab_op));

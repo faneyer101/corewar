@@ -18,21 +18,21 @@ int create_namefile(char *name, char namefile[0][ft_strlen(name) + 3])
 	int i;
 
 	i = -1;
-	while (name[++i])
-	{
-		if (name[i] == '.')
-		{
-			name[i + 1] = '\0';
-			break;
-		}
-	}
+//	while (name[++i])
+//	{
+//		if (name[i] == '.')
+//		{
+//			name[i + 1] = '\0';
+//			break;
+//		}
+//	}
 	ft_strcpy(namefile[0], name);
 	i = 0;
 	while (namefile[0][i])
 		i++;
-	namefile[0][i] = 'c';
-	namefile[0][i + 1] = 'o';
-	namefile[0][i + 2] = 'r';
+	namefile[0][i - 1] = 'c';
+	namefile[0][i] = 'o';
+	namefile[0][i + 1] = 'r';
 	return (0);
 }
 
@@ -77,7 +77,7 @@ int init_write_file(t_asm *master, char *name)
 	write(fd, &master->header, sizeof(t_header));
 	//write(fd, &master->interpretor.code_champ, sizeof(unsigned char) * ft_strlen(master->interpretor.code_champ));
 	write(fd, &master->interpretor.code_champ, sizeof(unsigned char) * master->interpretor.index);
-	ft_printf("Created and writting %s done\n", namefile);
+	ft_printf("Writing output program to %s done\n", namefile);
 	close(fd);
 	return (0);
 }

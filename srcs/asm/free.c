@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 04:45:56 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 19:24:43 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/26 18:00:54 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,11 +19,13 @@ void    free_tab_token(t_asm *master)
     t_token *next_list;
 
 	i = -1;
-	while (++i < master->numline)
+	next_list = NULL;
+	while (++i < master->maxline)
 	{
 		if (master->tab_token[i] == NULL)
 			continue;
-		next_list = master->tab_token[i]->next;
+		else if (master->tab_token[i] && master->tab_token[i]->next)
+			next_list = master->tab_token[i]->next;
 		while (master->tab_token[i] != NULL)
 		{
 			free(master->tab_token[i]->data);

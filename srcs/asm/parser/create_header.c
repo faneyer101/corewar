@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/17 01:39:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/17 21:28:51 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/26 19:28:16 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,11 +21,17 @@ static void	parser_header_name(t_asm *master, t_token **token)
 	{
 		if ((ft_strlen(token[0]->data) - 2) < PROG_NAME_LENGTH && (ft_strlen(token[0]->data) - 2) > 0)
 			ft_strncpy(master->header.prog_name, &token[0]->data[1], (ft_strlen(&token[0]->data[1]) - 1));
-		else
+		else if ((ft_strlen(token[0]->data) - 2) == 0)
         {
-			ft_printf("Name too long or this name is bad (\"\"). Please give him the good name.\n");
+			ft_printf("Name is bad (\"\"). Please give him the good name.\n");
             master->error_parser++;
         }
+		else
+		{
+			ft_printf("Champion name too long (Max length %d)\n", PROG_NAME_LENGTH);
+			master->error_parser++;
+		}
+		
     }
 	else
 	{
@@ -44,6 +50,7 @@ static void	parser_header_name(t_asm *master, t_token **token)
 static void	parser_header_comment(t_asm *master, t_token **token)
 {
 	master->parser.comment = 1;
+		printf("|%s|\n", token[0]->data);
 	token[0] = token[0]->next;
 	if (token[0] && token[0]->kind == HEADER_STRING && (token[0]->next == NULL || token[0]->next->kind == COMMENT))
 	{
@@ -51,7 +58,7 @@ static void	parser_header_comment(t_asm *master, t_token **token)
 			ft_strncpy(master->header.comment, &token[0]->data[1], ft_strlen(&token[0]->data[1]) - 1);
 		else
         {
-			ft_printf("Comment too long\n");
+			ft_printf("Champion comment too long (Max length %d)\n", COMMENT_LENGTH);
             master->error_parser++;
         }
     }
@@ -63,12 +70,10 @@ static void	parser_header_comment(t_asm *master, t_token **token)
             while (token[0]->next != NULL)
 		    	token[0] = token[0]->next;
 		    ft_printf("parser[{GREEN}line:%d{END}][{GREEN}column:%d{END}]error of syntax{RED}|%s|{END}\n", token[0]->numline, token[0]->column, token[0]->data);
-			master->error_parser++;
 		}
         else
 		{
-            ft_printf("Need comment\n");
-			master->error_parser++;
+            ft_printf("Need one comment\n");
 		}
 	}
 }

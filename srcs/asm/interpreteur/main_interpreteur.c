@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main_interpreteur.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/20 04:09:47 by faneyer           #+#    #+#             */
-/*   Updated: 2020/02/25 22:47:05 by nsalle           ###   ########lyon.fr   */
-/*                                                                            */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   main_interpreteur.c                              .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2020/02/20 04:09:47 by faneyer      #+#   ##    ##    #+#       */
+/*   Updated: 2020/02/26 17:28:02 by faneyer     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
 /* ************************************************************************** */
-
 
 #include "../../../includes/asm.h"
 
@@ -96,7 +96,7 @@ void	interpretor_param(t_asm *master, t_token *token, t_list_label *label)
 	{
 		if ((calcul = ft_atoi(token->data)) > UINT_MAX || (token->data[0] == '-' && ft_atoi(&token->data[1]) > UINT_MAX))
 		{
-			print_error_overflow(master, "Size max on the param", 2, token);
+			print_error_overflow(master, "Value max: 4294967295. Size max on the param", 2, token);
 		}
 		else
 		{
@@ -109,7 +109,7 @@ void	interpretor_param(t_asm *master, t_token *token, t_list_label *label)
 	{
 		if ((calcul = ft_atoi(token->data)) > UINT_MAX || (token->data[0] == '-' && ft_atoi(&token->data[1]) > UINT_MAX))
 		{
-			print_error_overflow(master, "Size max on the param", 4, token);
+			print_error_overflow(master, "Value max: 4294967295. Size max on the param", 4, token);
 		}
 		else
 		{
@@ -274,9 +274,14 @@ void    main_interpreteur(t_asm *master)
 		}
     	label = label->dnext;
     }
-	if (master->interpretor.index >= CHAMP_MAX_SIZE || ft_strlen(master->interpretor.code_champ) == 0)
+	if (master->interpretor.index >= CHAMP_MAX_SIZE)
 	{
 		ft_printf("FREE ET EXIT 0 CAR PROG TROP GRAND\n");
+		exit (0);
+	}
+	else if (ft_strlen(master->interpretor.code_champ) == 0)
+	{
+		ft_printf("FREE ET EXIT 0 CAR PROG TROP PETIT\n");
 		exit (0);
 	}
 	//if (verif_undefine_label(master))	

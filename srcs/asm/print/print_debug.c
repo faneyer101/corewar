@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/09 01:23:48 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/19 18:54:45 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/26 18:01:57 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ void    print_token(t_asm *master, int i, t_token *list)
 	ft_printf("{CYAN}2: {RED}Comment header|{CYAN}3: {RED}String header|{CYAN}4: {RED}Label declaration|");
 	ft_printf("{CYAN}5: {RED}Label direct|{CYAN}6: {RED}Label indirect|{CYAN}7: {RED}Num direct|{CYAN}8: {RED}Num indirect|");
 	ft_printf("{CYAN}9: {RED}Comment|{CYAN}10: {RED}Fonction|{CYAN}11: {RED}Registre|{CYAN}12: {RED}Separateur|{CYAN}13: {RED}BAD|{CYAN}14: {RED}New line{END}\n");
-	while (++i < master->numline)
+	while (++i < master->maxline)
 	{	
 		if (master->tab_token[i])
     		list = master->tab_token[i];
@@ -27,7 +27,7 @@ void    print_token(t_asm *master, int i, t_token *list)
 			continue;
 		while (list)
     	{
-			if (list->kind == 13)
+			if (list->kind == BAD)
         		ft_printf("[%d]Valeur LEXEME ==> {RED}%d{END} | ", i, list->kind);
 			else
         		ft_printf("[%d]Valeur LEXEME ==> {CYAN}%d{END} | ", i, list->kind);
