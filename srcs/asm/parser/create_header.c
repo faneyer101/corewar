@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/17 01:39:22 by faneyer      #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/26 19:28:16 by faneyer     ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/26 21:25:55 by faneyer     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,7 +50,6 @@ static void	parser_header_name(t_asm *master, t_token **token)
 static void	parser_header_comment(t_asm *master, t_token **token)
 {
 	master->parser.comment = 1;
-		printf("|%s|\n", token[0]->data);
 	token[0] = token[0]->next;
 	if (token[0] && token[0]->kind == HEADER_STRING && (token[0]->next == NULL || token[0]->next->kind == COMMENT))
 	{
