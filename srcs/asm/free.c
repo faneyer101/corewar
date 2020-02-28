@@ -6,16 +6,16 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 04:45:56 by faneyer           #+#    #+#             */
-/*   Updated: 2020/02/28 09:47:32 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/02/28 16:23:58 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/asm.h"
 
-void    free_tab_token(t_asm *master)
+void	free_tab_token(t_asm *master)
 {
 	int		i;
-    t_token *next_list;
+	t_token	*next_list;
 
 	i = -1;
 	next_list = NULL;
@@ -55,11 +55,11 @@ void	free_undefine_label(t_asm *master)
 			master->parser.define_label->unext = NULL;
 			free(master->parser.undefine_label);
 		}
-			master->parser.undefine_label = next_label;
-			if (next_label)
-				next_label = next_label->unext;
-			else
-				next_label = NULL;
+		master->parser.undefine_label = next_label;
+		if (next_label)
+			next_label = next_label->unext;
+		else
+			next_label = NULL;
 	}
 }
 

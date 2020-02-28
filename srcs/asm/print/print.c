@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 18:52:42 by faneyer           #+#    #+#             */
-/*   Updated: 2020/02/28 09:47:22 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/02/28 17:57:26 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void 	print_usage(void)
 	exit(0);
 }
 
-int	print_error_parser_param(t_asm *master, char *msg_error, char *error, t_token *list)
+int	print_error_parser(t_asm *master, char *msg_error, char *error, t_token *list)
 {	
 	ft_printf("parser[{GREEN}line:%d{END}][{GREEN}column:%d{END}]%s|{RED}%s{END}|\n", list->numline, list->column, msg_error, error);
 	master->error_parser++;

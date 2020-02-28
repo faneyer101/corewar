@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 23:23:14 by faneyer           #+#    #+#             */
-/*   Updated: 2020/02/28 09:46:36 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/02/28 18:28:13 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	create_label_token(t_token *list, t_token **label)
 void	push_back_token_on_label(t_list_label *label, t_token *token)
 {
 	t_token	*llist;
-	
+
 	llist = label->info;
 	if (llist)
 	{
@@ -55,35 +55,46 @@ static t_list_label	*create_label_defaut(int define, t_token *data)
 	return (box);
 }
 
+void	norme_create_token_label(t_asm *master, t_token *tlist)
+{
+	if (tlist->kind == REGISTRE && ft_atoi(tlist->data) > REG_NUMBER)
+	{
+		ft_printf("parser[{GREEN}line:%d{END}][{GREEN}column:%d{END}]",
+		tlist->numline, tlist->column);
+		ft_printf("the maximum number of registre is %d|{RED}%s{END}|",
+		REG_NUMBER, tlist->data);
+		ft_printf("\n");
+		master->error_parser++;
+	}
+	else if (master->parser.curent_label)
+		push_back_token_on_label(master->parser.curent_label, tlist);
+	else
+	{
+		master->parser.define_label = create_label_defaut(0, tlist);
+		master->parser.curent_label = master->parser.define_label;
+	}
+}
+
 void	create_token_label(t_asm *master, t_token *tlist)
 {
 	while (tlist)
 	{
-		if (tlist->kind != SEPARATOR && tlist->kind != BAD && tlist->kind != COMMENT)
+		if (tlist->kind != SEPARATOR && tlist->kind != BAD &&
+		tlist->kind != COMMENT)
 		{
-			if ((tlist->kind == LABEL_DIRECT || tlist->kind == LABEL_INDIRECT) && 
-				((master->parser.define_label && master->parser.define_label->defaut == 1 &&
-				master->parser.define_label->dnext == NULL) ||
-				master->parser.define_label == NULL ||
-				(master->parser.define_label->name && !search_label_define(master->parser.define_label, tlist))))
-			{
+			if ((tlist->kind == LABEL_DIRECT ||
+			tlist->kind == LABEL_INDIRECT) && ((master->parser.define_label &&
+			master->parser.define_label->defaut == 1 &&
+			master->parser.define_label->dnext == NULL) ||
+			master->parser.define_label == NULL ||
+			(master->parser.define_label->name &&
+			!search_label_define(master->parser.define_label, tlist))))
 				push_undefine_label(master, tlist);
-			}
-			if (tlist->kind == REGISTRE && ft_atoi(tlist->data) > REG_NUMBER)
-			{
-				ft_printf("parser[{GREEN}line:%d{END}][{GREEN}column:%d{END}]the maximum number of registre is %d|{RED}%s{END}|\n",tlist->numline, tlist->column, REG_NUMBER, tlist->data);
-				master->error_parser++;
-			}
-			else if (master->parser.curent_label)
-				push_back_token_on_label(master->parser.curent_label, tlist);
-			else
-			{
-				master->parser.define_label = create_label_defaut(0, tlist);
-				master->parser.curent_label = master->parser.define_label;
-			}
+			norme_create_token_label(master, tlist);
 		}
 		else if (tlist->kind == BAD)
-			print_error_parser_param(master, "bad syntax in function", tlist->data, tlist);
+			print_error_parser(master, "bad syntax in function",
+			tlist->data, tlist);
 		tlist = tlist->next;
 	}
 }
@@ -94,45 +105,53 @@ void	parser_function_and_param(t_asm *master, t_token *list, int i)
 	{
 		i = -1;
 		while (++i < 17)
-			if (ft_strncmp(master->tab_op[i].name, list->data, ft_strlen(list->data)) == 0)
-				break;
-		if (!verif_kind_bad(master, list) && verif_separator(master, master->tab_op[i], list))
+			if (ft_strncmp(master->tab_op[i].name, list->data,
+			ft_strlen(list->data)) == 0)
+				break ;
+		if (!verif_kind_bad(master, list) &&
+		verif_separator(master, master->tab_op[i], list, 0))
 		{
-			if (list->next == NULL || master->tab_op[i].nb_arg > nb_param(list->next))
-				print_error_parser_param(master, "missing declared parameters in function", list->data, list);
+			if (list->next == NULL ||
+			master->tab_op[i].nb_arg > nb_param(list->next))
+				print_error_parser(master,
+				"missing declared parameters in function", list->data, list);
 			else if (master->tab_op[i].nb_arg != nb_param(list->next))
-				print_error_parser_param(master, "too many parameters declared in function", list->data, list);
+				print_error_parser(master,
+				"too many parameters declared in function", list->data, list);
 			if (verif_type_param(master, list->next, master->tab_op[i], -1))
 				create_token_label(master, list);
 		}
 	}
 	else if (list->kind == BAD)
-		print_error_parser_param(master, "error name function", list->data, list);
+		print_error_parser(master, "error name function", list->data, list);
 }
 
-void	parser_label_or_function(t_asm *master, t_token **token)
+void	parser_label_or_function(t_asm *m, t_token **token)
 {
-	t_token			*list;
+	t_token			*l;
 
-	list = token[0];
-	while (list)
+	l = token[0];
+	while (l)
 	{
-		if (list->kind == LABEL_DECLARATION)
+		if (l->kind == LABEL_DECLARATION)
 		{
-			if (master->parser.curent_label && !master->parser.curent_label->defaut && master->parser.define_label->name && search_label(master->parser.define_label, list->data) && list->column == 1)
-				print_error_parser_param(master, "labbel already declared", list->data, list);
-			else if (list->column > 1)
-				print_error_parser_param(master, "just declared one labbel per line", list->data, list);
+			if (m->parser.curent_label && !m->parser.curent_label->defaut &&
+			m->parser.define_label->name && l->column == 1 &&
+			search_label(m->parser.define_label, l->data))
+				print_error_parser(m, "labbel already declared", l->data, l);
+			else if (l->column > 1)
+				print_error_parser(m, "just declared one labbel per line",
+				l->data, l);
 			else
-				declare_label_define(master, list);
+				declare_label_define(m, l);
 		}
-		else if (list->kind != COMMENT)
+		else if (l->kind != COMMENT)
 		{
-			parser_function_and_param(master, list, 0);
-			break;
+			parser_function_and_param(m, l, 0);
+			break ;
 		}
-		if (list)
-			list = list->next;
+		if (l)
+			l = l->next;
 	}
 }
 
@@ -141,35 +160,40 @@ void	main_parser_norme(t_asm *master)
 	verif_declaration_label(master, master->parser.undefine_label);
 	if (master->error_parser == 1)
 		ft_printf("{RED}%d{END} error detected\n", master->error_parser);
-    else if (master->error_parser > 1)
+	else if (master->error_parser > 1)
 		ft_printf("{RED}%d{END} errors detected\n", master->error_parser);
 }
 
-void     main_parser(t_asm *master, t_token *list, int i)
+void	norme_main_print_bad(t_asm *m, t_token *l)
 {
-	while (++i < master->maxline)
-	{	
-		if (master->tab_token[i])
-    		list = master->tab_token[i];
+	print_error_parser(m, "Error of syntax on start instruction", l->data, l);
+}
+
+void	main_parser(t_asm *m, t_token *list, int i)
+{
+	while (++i < m->maxline)
+	{
+		if (m->tab_token[i])
+			list = m->tab_token[i];
 		else
-			continue;
+			continue ;
 		while (list && list->kind != COMMENT)
-    	{
+		{
 			if (list->kind == HEADER_NAME || list->kind == HEADER_COMMENT)
-				parser_header(master, &list);
+				parser_header(m, &list);
 			else if (list->kind == BAD)
 			{
-				print_error_parser_param(master, "Error of syntax on start instruction", list->data, list);
-				break;
+				norme_main_print_bad(m, list);
+				break ;
 			}
 			else if (list->kind == LABEL_DECLARATION || list->kind == FONCTION)
 			{
-				parser_label_or_function(master, &list);
-				break;
+				parser_label_or_function(m, &list);
+				break ;
 			}
 			if (list)
-        		list = list->next;
-    	}
+				list = list->next;
+		}
 	}
-	main_parser_norme(master);
+	main_parser_norme(m);
 }

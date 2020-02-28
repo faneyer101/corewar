@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:11:22 by faneyer           #+#    #+#             */
-/*   Updated: 2020/02/28 09:48:06 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/02/28 20:17:29 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,11 +151,10 @@ void						create_token_name_funtion(t_asm *master, int *i, char *str, int j);
 */
 
 void						main_parser(t_asm *master, t_token *list, int i);
-int							verif_separator(t_asm *master, t_op function, t_token *verif);
+int							verif_separator(t_asm *master, t_op function, t_token *verif, int i);
 int							verif_kind_bad(t_asm *master, t_token *list);
 int							nb_param(t_token *list);
 int							search_label(t_list_label *label, char *str);
-int							print_error_parser_param(t_asm *master, char *msg_error, char *error, t_token *list);
 int							print_error_parser_label(t_asm *master, char *msg_error, char *error, t_list_label *list);
 int							verif_type_param(t_asm *master, t_token *list, t_op function, int i);
 int							search_label_define(t_list_label *begin_define, t_token *data);
@@ -172,8 +171,8 @@ t_list_label				*create_label_undefine(t_token *data);
 **			INTERPRETEUR
 */
 
-void						main_interpreteur(t_asm *master);
-void						interpretor_function(t_asm *master, t_list_label *label, t_token *token);
+void						main_interpreteur(t_asm *master, t_token *token);
+void						interpretor_function(t_asm *master, t_token *token);
 int                         init_write_file(t_asm *master, char *name);
 
 /*
@@ -187,7 +186,7 @@ void                        print_token(t_asm *master, int i, t_token *list);
 void                        print_error_before_read(char *msg_error, int fd, char *buff, char *line);
 void                        printf_error_lexer(t_asm *master, char *str_error);
 void						print_error_allocation(char *function);
-
+int							print_error_parser(t_asm *master, char *msg_error, char *error, t_token *list);
 
 /*
 **		FREE

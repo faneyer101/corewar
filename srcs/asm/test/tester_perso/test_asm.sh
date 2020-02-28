@@ -17,7 +17,6 @@ valid=(
 "Octobre_Rouge_V4.2"
 "Rainbow_dash"
 "Survivor"
-####################
 "THUNDER"
 "Varimathras"
 "Wall"
@@ -31,13 +30,11 @@ valid=(
 "champ"
 "comment_len_2048"
 "corelol"
-#######################
 "darksasuke"
 "doge"
 "dubo"
 "empty_namecomment"
 "end_comment"
-###########################
 "ex"
 "ex1"
 "flipped_name_comment"
@@ -59,7 +56,6 @@ valid=(
 "mise_a_jour_windows95"
 "mortel"
 "name_len_128"
-########################
 "neg_indirect_error"
 "nl_at_header"
 "nl_at_header_flipped"
@@ -143,11 +139,11 @@ then
         else
 	        printf "\n|-> \033[31m${map} K.O.\033[0m\n"
         fi
+        read -p "Press enter key for next test or exit with [ctrl + c]"
 		rm -rf valid/${map}.cor
 		rm -rf valid2/${map}.cor
 		echo > xxd
 		echo > zaz_xxd
-        read -p "Press any key for next test: "
     done
 elif [ $1 -eq 2 ]
 then
@@ -158,6 +154,6 @@ then
             ./asm error/${map}.s
 			printf "\033[036m############# GOOD ##############\033[0m\n"
 			./zaz_asm error2/${map}.s
-        	read -p "Press any key for next test: "
+            read -p "Press enter key for next test or exit with [ctrl + c]"
     done
 fi	
