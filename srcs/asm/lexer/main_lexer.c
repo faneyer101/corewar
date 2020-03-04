@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 16:33:44 by faneyer           #+#    #+#             */
-/*   Updated: 2020/02/28 16:34:35 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/03/04 13:04:35 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,19 @@ void	create_labbel_declaration(t_asm *master, int *i, char *str)
 	int	start;
 
 	start = *i;
-	while (str[*i] && str[*i] != LABEL_CHAR)
+	while (str[*i] && str[*i] != LABEL_CHAR && cmp_label_chars(str[*i], 0))
 		i[0]++;
-	push_token(master, LABEL_DECLARATION, start, *i - start);
-	master->column++;
+	if (str[*i] == LABEL_CHAR)
+	{	
+		push_token(master, LABEL_DECLARATION, start, *i - start);
+		master->column++;
+	}
+	else
+	{
+		i[0] = start;
+		create_token_bad(master, i, str, 0);
+	}
+	
 }
 
 void	init_token(t_asm *master)

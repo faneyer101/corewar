@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:08:14 by faneyer           #+#    #+#             */
-/*   Updated: 2020/02/28 20:17:51 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/03/04 21:17:00 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,25 +94,28 @@ void	verif_option(t_asm *master, char **av)
 {
 	int	i;
 
-	if (ft_strncmp(av[1], "-", 1) == 0 && ft_strlen(av[1]) <= 3)
+	if (ft_strncmp(av[1], "-", 1) == 0 && ft_strlen(av[1]) <= 3 && av[1][1])
 	{
 		i = 1;
 		while (av[1][i])
 		{
-			if (av[1][i] == 't')
+			if (av[1][i] == 'l')
 				master->option.t = 1;
-			if (av[1][i] == 'p')
+			else if (av[1][i] == 'p')
 				master->option.p = 1;
-			if (av[1][i] != 'p' && av[1][i] != 't')
+			else
 			{
 				print_usage();
-				break ;
+				exit (0);
 			}
 			i++;
 		}
 	}
 	else
+	{
 		print_usage();
+		exit (0);
+	}
 }
 
 void	end_asm(t_asm *master, char **av, int ac)
@@ -124,9 +127,9 @@ void	end_asm(t_asm *master, char **av, int ac)
 		if (master->error_traitment == 0)
 			init_write_file(master, av[ac - 1]);
 	}
-	if (master->parser.name == 0)
+	if (master->parser.name == 0 && master->error_parser == 0 && master->error_lexer == 0)
 		ft_printf("need .name for compilation this champions\n");
-	if (master->parser.comment == 0)
+	if (master->parser.comment == 0 && master->error_parser == 0 && master->error_lexer == 0)
 		ft_printf("need .comment for compilation this champions\n");
 	free_undefine_label(master);
 	free_define_label(master);

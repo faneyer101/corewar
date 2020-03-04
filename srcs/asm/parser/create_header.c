@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 01:39:22 by faneyer           #+#    #+#             */
-/*   Updated: 2020/02/28 17:50:33 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/03/04 14:40:08 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ static void	parser_header_name(t_asm *master, t_token **token)
 	if (token[0] && token[0]->kind == HEADER_STRING &&
 	(token[0]->next == NULL || token[0]->next->kind == COMMENT))
 	{
-		if ((ft_strlen(token[0]->data) - 2) < PROG_NAME_LENGTH &&
+		if ((ft_strlen(token[0]->data) - 2) <= PROG_NAME_LENGTH &&
 		(ft_strlen(token[0]->data) - 2) > 0)
 			ft_strncpy(master->header.prog_name, &token[0]->data[1],
 			(ft_strlen(&token[0]->data[1]) - 1));
 		else if ((ft_strlen(token[0]->data) - 2) == 0)
 		{
-			ft_printf("Name is bad (\"\"). Please give him the good name.\n");
+			ft_printf("Name is empty (\"\"). Please give him the good name.\n");
 			master->error_parser++;
 		}
 		else
@@ -61,7 +61,7 @@ static void	parser_header_comment(t_asm *master, t_token **token)
 	if (token[0] && token[0]->kind == HEADER_STRING &&
 	(token[0]->next == NULL || token[0]->next->kind == COMMENT))
 	{
-		if ((ft_strlen(token[0]->data) - 2) < COMMENT_LENGTH)
+		if ((ft_strlen(token[0]->data) - 2) <= COMMENT_LENGTH)
 			ft_strncpy(master->header.comment, &token[0]->data[1],
 			ft_strlen(&token[0]->data[1]) - 1);
 		else

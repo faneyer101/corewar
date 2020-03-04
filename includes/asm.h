@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:11:22 by faneyer           #+#    #+#             */
-/*   Updated: 2020/02/28 20:17:29 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/03/04 14:43:57 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,8 @@ int							print_error_parser(t_asm *master, char *msg_error, char *error, t_toke
 
 void						free_define_label(t_asm *master);
 void						free_undefine_label(t_asm *master);
-void						free_split(t_asm *master, int i);
 void    					free_tab_token(t_asm *master);
+void						free_token_and_buff(t_asm *master);
+
 
 #endif

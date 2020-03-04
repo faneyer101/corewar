@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 04:09:47 by faneyer           #+#    #+#             */
-/*   Updated: 2020/02/28 20:39:13 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/03/04 14:54:23 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,11 @@ t_token *token, t_list_label *label)
 
 void	size_champ_max(t_asm *master)
 {
-	ft_printf("{RED}SIZE TOO LONG{END} %d. Size Max: %d\nA FREEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!\n",
+	ft_printf("{RED}SIZE TOO LONG{END} %d. Size Max: %d\n",
 	master->interpretor.index, CHAMP_MAX_SIZE);
+	free_undefine_label(master);
+	free_define_label(master);
+	free_token_and_buff(master);
 	exit(0);
 }
 
@@ -259,12 +262,18 @@ void	controle(t_asm *master)
 	label = master->interpretor.wait_label;
 	if (master->interpretor.index >= CHAMP_MAX_SIZE)
 	{
-		ft_printf("FREE ET EXIT 0 CAR PROG TROP GRAND\n");
+		free_undefine_label(master);
+		free_define_label(master);
+		free_token_and_buff(master);
+		ft_printf("Champion program too long\n");
 		exit(0);
 	}
 	else if (ft_strlen(master->interpretor.code_champ) == 0)
 	{
-		ft_printf("FREE ET EXIT 0 CAR PROG TROP PETIT\n");
+		free_undefine_label(master);
+		free_define_label(master);
+		free_token_and_buff(master);
+		ft_printf("champion program is null\n");
 		exit(0);
 	}
 	while (label)

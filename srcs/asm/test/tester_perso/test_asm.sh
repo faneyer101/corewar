@@ -24,7 +24,6 @@ valid=(
 "aff_no_OCP"
 "barriere"
 "bee_gees"
-"big_feet"
 "bigzork"
 "casimir"
 "champ"
@@ -33,7 +32,6 @@ valid=(
 "darksasuke"
 "doge"
 "dubo"
-"empty_namecomment"
 "end_comment"
 "ex"
 "ex1"
@@ -79,8 +77,10 @@ valid=(
 )
 ##################      CHAMPION INVALIDE
 invalid=(
+"big_feet"
 "comment_len_2049"
 "direct_param_no_value"
+"empty_namecomment"
 "four_arg_malloc_free_pointer_error"
 "header_double_comments"
 "header_double_names"
@@ -128,8 +128,9 @@ then
     for map in ${valid[*]}
     do
         clear
+        printf "\033[032m${map}\033[0m\n"
 		printf "\033[035m############# MOI  ##############\033[0m\n"
-        ./asm valid/${map}.s
+        Valgrind ./asm valid/${map}.s
 		printf "\033[036m############# GOOD ##############\033[0m\n"
 		./zaz_asm valid2/${map}.s
         xxd -a -g 1 valid/${map}.cor > xxd
@@ -150,8 +151,9 @@ then
     for map in ${invalid[*]}
         do
             clear
+            printf "\033[032m${map}\033[0m\n"
 			printf "\033[035m############# MOI  ##############\033[0m\n"
-            ./asm error/${map}.s
+            Valgrind ./asm error/${map}.s
 			printf "\033[036m############# GOOD ##############\033[0m\n"
 			./zaz_asm error2/${map}.s
             read -p "Press enter key for next test or exit with [ctrl + c]"
