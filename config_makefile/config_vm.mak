@@ -5,4 +5,6 @@ SRCFILE_VM		=	vm/main.c						\
 					vm/loop.c						\
 					vm/lst_tools.c					\
 					vm/instruct1.c					\
-					vm/digitools.c
+					vm/digitools.c					\
+					vm/ld.c							\
+					vm/sti.c

@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/02/25 21:10:21 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/04 06:37:57 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	load_first(t_vm *vm)
 	i = 0;
 	while (i < vm->nb_player)
 	{
-		dummy->reg[0] = i;
+		dummy->reg[1] = (i + 1) * -1;
 		push_proc(vm, dummy, vm->players[i].start, vm->players[i].code[0]);
 		i++;
 	}
@@ -83,6 +83,15 @@ void	loop(t_vm *vm)
 		if (get_nbproc(vm->beginlist) == 0)
 			vm->game = 0;
 		vm->cycles++;
+		if (vm->booldump)
+		{
+			vm->dump--;
+			if (!vm->dump)
+			{
+				dump_arena(vm);
+				exit (0);
+			}
+		}
 	}
 	//check_winner();
 }

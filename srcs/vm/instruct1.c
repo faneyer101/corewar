@@ -6,17 +6,73 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/02/25 22:17:15 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/04 06:51:57 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../includes/vm.h"
 
-// void	live(t_proclist *proc, t_vm *vm)
-// {
-    
-// }
+int		get_paramval(t_vm *vm, t_proclist *proc, uint8_t code, int dsize)
+{
+	int	rep;
+	int	toreach;
+
+	rep = 0;
+	if (code == REG_CODE)
+	{
+		rep = vm->arena[proc->pc + proc->curs];
+		proc->curs += 1;
+	}
+	if (code == IND_CODE)
+	{
+		toreach = maptoi(vm, proc->pc + proc->curs, 2);
+		rep = maptoi(vm, toreach, 4);
+		proc->curs += 2;
+	}
+	if (code == DIR_CODE)
+	{
+		rep = maptoi(vm, proc->pc + proc->curs, dsize);
+		proc->curs += dsize;
+	}
+	return (rep);
+}
+
+uint8_t	compute_params(t_proclist *proc, uint8_t nbp, uint8_t dsize)
+{
+	uint8_t	i;
+	uint8_t	rep;
+
+	i = 0;
+	rep = 0;
+	while (i < nbp)
+	{
+		if (proc->param[i] == REG_CODE)
+			rep += 1;
+		if (proc->param[i] == DIR_CODE)
+			rep += dsize;
+		if (proc->param[i] == IND_CODE)
+			rep += 2;
+		i++;
+	}
+	return (rep);
+}
+
+uint8_t	get_param(uint8_t c1, uint8_t c2)
+{
+	uint8_t	rep;
+
+	rep = 0;
+	if (c1 == 0 && c2 == 0)
+		return (0);
+	if (c1 == 0 && c2 == 1)
+		return (REG_CODE);
+	if (c1 == 1 && c2 == 0)
+		return (DIR_CODE);
+	if (c1 == 1 && c2 == 1)
+		return (IND_CODE);
+	return (0);
+}
 
 void	carryhandler(t_proclist *proc, uint32_t val)
 {
@@ -27,38 +83,9 @@ void	carryhandler(t_proclist *proc, uint32_t val)
 	ft_printf("My carry is now: %d\n", proc->carry);
 }
 
-void    ld(t_proclist *proc, t_vm *vm)
-{
-	uint8_t	tomove;
-	uint8_t toreach;
-	uint8_t	reg;
-	
-
-	proc->ocp = binstring(vm->arena[proc->pc + 1]);
-	tomove = 2;
-	reg = 0;
-	if (proc->ocp[0] == 1 && proc->ocp[1]  == 0)
-	{
-		tomove += 5;
-		reg = vm->arena[proc->pc + 6];
-		proc->reg[reg] = maptoi(vm, proc->pc + 2, 4);
-		ft_printf("Loading the value %d in my r%d\n", proc->reg[reg], reg);
-	}
-	else if (proc->ocp[0] == 1 && proc->ocp[1]  == 1)
-	{
-		tomove += 3;
-		reg = vm->arena[proc->pc] + 4;
-		toreach = maptoi(vm, proc->pc , 2);
-		proc->reg[reg] = maptoi(vm, toreach, 4);
-		ft_printf("Loading the value %d in my r%d\n", proc->reg[reg], reg);
-	}
-	proc->pc += tomove;
-	carryhandler(proc, proc->reg[reg]);
-}
-
 void	zjmp(t_proclist *proc, t_vm *vm)
 {
-	int	tojump;
+	short	tojump;
 
 	tojump = 0;
 	if (proc->carry)
@@ -66,8 +93,9 @@ void	zjmp(t_proclist *proc, t_vm *vm)
 		tojump = maptoi(vm, proc->pc + 1, 2) % IDX_MOD;
 		proc->pc += tojump;
 	}
+	else
+		proc->pc += 2;
 	ft_printf("I made a %d long jump to the relative adress->%d\n\n", tojump, proc->pc);
-	ft_printf("ADRESSE DU STI : %.2x case numero %d\n", vm->arena[proc->pc - 73], proc->pc - 73);
 }
 
 void	exec_proc(t_proclist *proc, t_vm *vm)
@@ -82,7 +110,8 @@ void	exec_proc(t_proclist *proc, t_vm *vm)
 		ld(proc, vm);
 	if (proc->opcode == 9)
 		zjmp(proc, vm);
-	if ()
+	if (proc->opcode == 0x0b)
+		sti(proc, vm);
 	proc->opcode = vm->arena[proc->pc];
 	proc->cycle = get_cycle(proc->opcode);
 	ft_printf("\nMy new opcode is: %.2x\n", proc->opcode);
