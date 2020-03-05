@@ -6,12 +6,21 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/04 06:37:57 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/05 17:37:56 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../includes/vm.h"
+
+void	carryhandler(t_proclist *proc, uint32_t val)
+{
+	if (!val)
+		proc->carry = 1;
+	else
+		proc->carry = 0;
+	ft_printf("My carry is now: %d\n", proc->carry);
+}
 
 void	check_proc(t_proclist *lst, t_vm *vm)
 {
@@ -79,10 +88,11 @@ void	loop(t_vm *vm)
 	while (vm->game)
 	{
 		check_proc(vm->beginlist, vm);
-		ft_printf("Cycle %d:\t", vm->cycles);
+		ft_printf("Cycle %d:\t", vm->cycles + 1);
 		if (get_nbproc(vm->beginlist) == 0)
 			vm->game = 0;
 		vm->cycles++;
+		vm->linf.cyc_since_last++;
 		if (vm->booldump)
 		{
 			vm->dump--;

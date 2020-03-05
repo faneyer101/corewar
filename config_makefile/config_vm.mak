@@ -7,4 +7,7 @@ SRCFILE_VM		=	vm/main.c						\
 					vm/instruct1.c					\
 					vm/digitools.c					\
 					vm/ld.c							\
-					vm/sti.c
+					vm/sti.c						\
+					vm/instructools.c				\
+					vm/add_sub.c					\
+					vm/ldi.c

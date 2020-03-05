@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:23:03 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/04 06:54:20 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/05 19:29:07 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,19 @@ void	sti(t_proclist *proc, t_vm *vm)
 		reg = vm->arena[proc->pc + 2];
 		if (proc->param[1] == DIR_CODE)
 			toput = get_paramval(vm, proc, DIR_CODE, 2);
-		if (proc->param[1] == IND_CODE)
+		else if (proc->param[1] == IND_CODE)
 			toput = get_paramval(vm, proc, IND_CODE, 2);
-		if (proc->param[1] == REG_CODE)
+		else if (proc->param[1] == REG_CODE)
 			toput = get_paramval(vm, proc, REG_CODE, 2);
 		ft_printf("Reg value is %d, so reg[reg] = %x\n", reg, proc->reg[reg]);
 		if (proc->param[2] == DIR_CODE)
 			toput += get_paramval(vm, proc, DIR_CODE, 2);
-		if (proc->param[2] == REG_CODE)
+		else if (proc->param[2] == REG_CODE)
 			toput += get_paramval(vm, proc, REG_CODE, 2);
 		write_onmap(vm, proc->pc + toput % IDX_MOD, proc->reg[reg]);
 	}
-	ft_printf("I have to put the value %d (%x), to the adress %d", proc->reg[reg], proc->reg[reg], proc->pc + toput % IDX_MOD);
+	ft_printf("TOPUT = %d\n", toput);
+	ft_printf("Mon PC est: %d\n\n", proc->pc);
+	ft_printf("STI: I have to put the value %d (%x), to the adress %d\n", proc->reg[reg], proc->reg[reg], proc->pc + toput % IDX_MOD);
 	proc->pc += proc->tomove;
 }

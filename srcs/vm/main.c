@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/02/09 21:45:58 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/20 15:37:22 by nsalle      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/09 21:45:58 by nsalle            #+#    #+#             */
+/*   Updated: 2020/03/05 10:18:02 by nsalle           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../includes/vm.h"
 
@@ -27,7 +27,9 @@ void	vm_init(t_vm *vm)
 	vm->booldump = 0;
 	vm->dump = 0;
 	vm->cycles = 0;
-	vm->cyc_todie = CYCLE_TO_DIE;
+	vm->linf.cyc_since_last = 0;
+	vm->linf.liv_since_last = 0;
+	vm->linf.todie = CYCLE_TO_DIE;
 }
 
 void	introducing(t_vm *vm)

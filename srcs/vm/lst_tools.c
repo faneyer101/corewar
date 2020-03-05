@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   lst_tools.c                                      .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/02/20 17:14:27 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/25 16:32:28 by nsalle      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lst_tools.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/20 17:14:27 by nsalle            #+#    #+#             */
+/*   Updated: 2020/03/05 14:09:14 by nsalle           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../includes/vm.h"
 
@@ -17,14 +17,16 @@ uint16_t	more_opcodes(uint8_t op)
 {
 	if (op == 12)
 		return (800);
-	if (op == 13)
+	else if (op == 13)
 		return (10);
-	if (op == 14)
+	else if (op == 14)
 		return (50);
-	if (op == 15)
+	else if (op == 15)
 		return (1000);
-	if (op == 16)
+	else if (op == 16)
 		return (2);
+	else
+		return (1);
 	return (0);
 }
 
@@ -32,25 +34,25 @@ uint16_t	get_cycle(uint8_t op)
 {
 	if (op == 1)
 		return (10);
-	if (op == 2)
+	else if (op == 2)
 		return (5);
-	if (op == 3)
+	else if (op == 3)
 		return (5);
-	if (op == 4)
+	else if (op == 4)
 		return (10);
-	if (op == 5)
+	else if (op == 5)
 		return (10);
-	if (op == 6)
+	else if (op == 6)
 		return (6);
-	if (op == 7)
+	else if (op == 7)
 		return (6);
-	if (op == 8)
+	else if (op == 8)
 		return (6);
-	if (op == 9)
+	else if (op == 9)
 		return (20);
-	if (op == 10)
+	else if (op == 10)
 		return (25);
-	if (op == 11)
+	else if (op == 11)
 		return (25);
 	else
 		return (more_opcodes(op));
@@ -73,6 +75,7 @@ t_proclist	*create_proc(t_proclist *proc, uint16_t pc, uint8_t op)
 	new->carry = proc->carry;
 	new->opcode = op;
 	new->pc = pc;
+	new->alive = 0;
 	new->cycle = get_cycle(op);
 	new->next = NULL;
 	return (new);

@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 20:17:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/04 05:20:15 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/04 20:10:32 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void    		ld(t_proclist *proc, t_vm *vm)
 		{
 			reg = vm->arena[proc->pc + 6];
 			if (reg > 0 && reg < 17)
-				proc->reg[reg] = maptoi(vm, proc->pc + 2, 4) % IDX_MOD;
-			ft_printf("Loading the value %d in my r%d\n", proc->reg[reg], reg);
+				proc->reg[reg] = maptoi(vm, proc->pc + 2, 4);
+			ft_printf("DIRECT: Loading the value %d in my r%d\n", proc->reg[reg], reg);
 		}
 		else if (proc->param[0] == IND_CODE)
 		{
@@ -85,7 +85,7 @@ void    		ld(t_proclist *proc, t_vm *vm)
 				proc->reg[reg] = maptoi(vm, proc->pc + 2, 4);
 			toreach = maptoi(vm, proc->pc , 2) % IDX_MOD;
 			proc->reg[reg] = maptoi(vm, toreach, 4);
-			ft_printf("Loading the value %d in my r%d\n", proc->reg[reg], reg);
+			ft_printf("INDIRECT: Loading the value %d in my r%d\n", proc->reg[reg], reg);
 		}
 	}
 	proc->pc += proc->tomove;
