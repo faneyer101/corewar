@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 16:33:44 by faneyer           #+#    #+#             */
-/*   Updated: 2020/03/04 13:04:35 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/03/06 22:30:44 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void	create_labbel_declaration(t_asm *master, int *i, char *str)
 		i[0] = start;
 		create_token_bad(master, i, str, 0);
 	}
-	
 }
 
 void	init_token(t_asm *master)
@@ -115,7 +114,7 @@ void	init_token(t_asm *master)
 
 	if (!(master->tab_token = (t_token**)malloc(sizeof(t_token*) *
 	(master->maxline + 1))))
-		print_error_allocation("master->tab_token");
+		print_error_allocation(master, "master->tab_token");
 	i = -1;
 	while (++i <= master->maxline)
 		master->tab_token[i] = NULL;

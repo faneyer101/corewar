@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:11:22 by faneyer           #+#    #+#             */
-/*   Updated: 2020/03/04 14:43:57 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/03/06 22:29:35 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,9 +128,6 @@ typedef struct              s_asm
     t_op                    tab_op[17];
 }                           t_asm;
 
-
-
-
 /*
 **			LEXER Creation de token pour le parser
 */
@@ -176,7 +173,7 @@ void						interpretor_function(t_asm *master, t_token *token);
 int                         init_write_file(t_asm *master, char *name);
 
 /*
-**  Fonction de debugs // d'affichages
+**  		Fonction de debugs // d'affichages
 */
 
 void 						print_usage(void);
@@ -185,7 +182,7 @@ void    					print_buff_read(t_asm *master);
 void                        print_token(t_asm *master, int i, t_token *list);
 void                        print_error_before_read(char *msg_error, int fd, char *buff, char *line);
 void                        printf_error_lexer(t_asm *master, char *str_error);
-void						print_error_allocation(char *function);
+void						print_error_allocation(t_asm *master, char *function);
 int							print_error_parser(t_asm *master, char *msg_error, char *error, t_token *list);
 
 /*
@@ -196,6 +193,4 @@ void						free_define_label(t_asm *master);
 void						free_undefine_label(t_asm *master);
 void    					free_tab_token(t_asm *master);
 void						free_token_and_buff(t_asm *master);
-
-
 #endif

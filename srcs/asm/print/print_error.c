@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 01:05:17 by faneyer           #+#    #+#             */
-/*   Updated: 2020/02/28 09:47:17 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/03/05 17:58:04 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    print_error_before_read(char *msg_error, int fd, char *buff, char *line)
     if (fd > 0)
         close(fd);
     ft_printf("%s", msg_error);
-    exit(0);
+    exit(1);
 }
 
 void    printf_error_lexer(t_asm *master, char *msg_error)
@@ -34,8 +34,9 @@ void    printf_error_lexer(t_asm *master, char *msg_error)
     exit(0);
 }
 
-void	print_error_allocation(char *function)
+void	print_error_allocation(t_asm *master, char *function)
 {
+	ft_strdel(&master->buff_read);
 	ft_printf("Problem to allocate memory in the function: {RED}%s{END}\n", function);
-	exit (0);
+	exit (1);
 }

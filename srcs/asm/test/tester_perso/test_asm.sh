@@ -118,11 +118,13 @@ invalid=(
 "zother_3"
 "zother_4"
 )
-if [ -n "$1"]
+if [ ! "$1" ]
 then
-	echo "argument attendu"
-	echo "1: champion valide"
-	echo "2: champion invalide"
+	clear
+	printf "\033[032margument attendu\033[0m\n"
+	printf "\033[031m1:\033[0m champion valide\n"
+	printf "\033[031m2:\033[0m champion invalide\n"
+	printf "\033[031mNo other\033[0m\n"
 elif [ $1 -eq 1 ]
 then
     for map in ${valid[*]}
@@ -133,8 +135,8 @@ then
         Valgrind ./asm valid/${map}.s
 		printf "\033[036m############# GOOD ##############\033[0m\n"
 		./zaz_asm valid2/${map}.s
-        xxd -a -g 1 valid/${map}.cor > xxd
-		xxd -a -g 1 valid2/${map}.cor > zaz_xxd
+        xxd valid/${map}.cor > xxd
+		xxd valid2/${map}.cor > zaz_xxd
         if diff xxd zaz_xxd;then  
             printf "\n|-> \033[32m${map} OK\033[0m\n"
         else
@@ -158,4 +160,10 @@ then
 			./zaz_asm error2/${map}.s
             read -p "Press enter key for next test or exit with [ctrl + c]"
     done
+else
+	clear
+	printf "\033[032margument attendu\033[0m\n"
+	printf "\033[031m1:\033[0m champion valide\n"
+	printf "\033[031m2:\033[0m champion invalide\n"
+	printf "\033[031mNo other\033[0m\n"
 fi	
