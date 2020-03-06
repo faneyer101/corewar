@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 16:32:18 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/05 18:52:18 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/06 16:58:26 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 void		write_onmap(t_vm *vm, int adress, uint32_t val)
 {
+	while (adress < 0)
+		adress += MEM_SIZE;
+	if (adress > MEM_SIZE)
+		adress %= MEM_SIZE;
 	vm->arena[adress + 3] = val;
 	vm->arena[adress + 2] = val >> 8;
 	vm->arena[adress + 1] = val >> 16;

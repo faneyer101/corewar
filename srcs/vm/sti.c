@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:23:03 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/05 19:29:07 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/06 17:48:18 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,18 @@ void	sti(t_proclist *proc, t_vm *vm)
 		else if (proc->param[1] == IND_CODE)
 			toput = get_paramval(vm, proc, IND_CODE, 2);
 		else if (proc->param[1] == REG_CODE)
-			toput = get_paramval(vm, proc, REG_CODE, 2);
-		ft_printf("Reg value is %d, so reg[reg] = %x\n", reg, proc->reg[reg]);
+			toput = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
+		ft_printf("Toput first adress = %d\n", toput);
 		if (proc->param[2] == DIR_CODE)
+		{
 			toput += get_paramval(vm, proc, DIR_CODE, 2);
+			ft_printf("2nd adress = %d DIRECT\n", toput);
+		}
 		else if (proc->param[2] == REG_CODE)
-			toput += get_paramval(vm, proc, REG_CODE, 2);
+		{
+			toput += proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
+			ft_printf("2nd adress = %d REG\n", proc->reg[get_paramval(vm, proc, REG_CODE, 2)]);
+		}
 		write_onmap(vm, proc->pc + toput % IDX_MOD, proc->reg[reg]);
 	}
 	ft_printf("TOPUT = %d\n", toput);

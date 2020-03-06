@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/05 17:37:56 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/06 19:14:03 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void	check_proc(t_proclist *lst, t_vm *vm)
 	curs = lst;
 	while (curs)
 	{
+		if (curs->cycle == 0)
+			exec_proc(curs, vm);
 		if (curs->cycle > 0)
 		{
 			curs->cycle--;
-			if (curs->cycle == 0)
-				exec_proc(curs, vm);
 		}
 		curs = curs->next;
 	}
@@ -48,7 +48,7 @@ int		get_nbproc(t_proclist *lst)
 	count = 0;
 	while (curs)
 	{
-		if (curs->cycle)
+		if (curs)
 			count++;
 		curs = curs->next;
 	}
@@ -88,7 +88,7 @@ void	loop(t_vm *vm)
 	while (vm->game)
 	{
 		check_proc(vm->beginlist, vm);
-		ft_printf("Cycle %d:\t", vm->cycles + 1);
+		ft_printf("{RED}Cycle{END} %d:\t", vm->cycles + 1);
 		if (get_nbproc(vm->beginlist) == 0)
 			vm->game = 0;
 		vm->cycles++;

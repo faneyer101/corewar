@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/05 18:05:07 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/06 22:29:24 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 
 void	fork_l(t_proclist *proc, t_vm *vm)
 {
-	int	target;
+	short	target;
 
 	target = maptoi(vm, proc->pc + 1, 2) + proc->pc;
 	target %= IDX_MOD;
 	ft_printf("Forking at adress %d\n", target);
 	push_proc(vm, proc, target, vm->arena[target]);
+	vm->beginlist->cycle--;
 	proc->pc += 3;
 }
 
@@ -41,18 +42,29 @@ void	live(t_proclist *proc, t_vm *vm)
 
 void	zjmp(t_proclist *proc, t_vm *vm)
 {
-	short	tojump;
+	short		tojump;
+	short		tmp;
 
 	tojump = 0;
+	tmp = 0;
 	if (proc->carry)
 	{
-		tojump = maptoi(vm, proc->pc + 1, 2) % IDX_MOD;
+		tojump = maptoi(vm, proc->pc + 1, 2);
+		ft_printf("adress before jump: %d\n", proc->pc);
+		tojump %= IDX_MOD;
+		tmp = proc->pc;
+		if (proc->pc + tojump < 0)
+			proc->pc += MEM_SIZE;
 		proc->pc += tojump;
-		proc->pc %= IDX_MOD;
+		ft_printf("adress after jump: %d\n", proc->pc);
+		ft_printf("tojump = %d\n", tojump);
 	}
 	else
-		proc->pc += 2;
-	ft_printf(" zjmp: I made a %d long jump to the relative adress->%d From %d\n", tojump, proc->pc, proc->pc - tojump);
+	{
+		proc->pc += 3;
+		ft_printf("Jump failed because carry 0\n");
+	}
+	ft_printf("zjmp: adress->%d so i jumped %d\n", proc->pc, proc->pc - tmp);
 }
 
 // void	exec_more(t_proclist *proc, t_vm *vm)
@@ -62,10 +74,13 @@ void	zjmp(t_proclist *proc, t_vm *vm)
 
 void	exec_proc(t_proclist *proc, t_vm *vm)
 {
-	// int	i = 0;
-	// while (i < 10)
-	// 	ft_printf("%.2x ", vm->arena[proc->pc + i++]);
-	//	ft_putendl("");
+	int	i = 0;
+	if (proc->opcode > 0 && proc->opcode < 17)
+	{
+		while (i < 10)
+			ft_printf("%.2x ", vm->arena[proc->pc + i++]);
+		ft_putendl("");
+	}
     if (proc->opcode == 1)
 	 	live(proc, vm);
 	else if (proc->opcode == 2)

@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 12:25:23 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/05 18:05:33 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/06 18:28:24 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ void	sub(t_proclist *proc, t_vm *vm)
 		reg1 = vm->arena[proc->pc + 2];
 		reg2 = vm->arena[proc->pc + 3];
 		reg3 = vm->arena[proc->pc + 4];
-		proc->reg[reg3] = proc->reg[reg2] - proc->reg[reg1];
-		ft_printf("Substracting r%d (%d) to r%d (%d)\n", reg2, proc->reg[reg2], reg1, proc->reg[reg1]);
-		ft_printf("Storing the value %d in my r%d\n", proc->reg[reg2] - proc->reg[reg1], reg3);
+		proc->reg[reg3] = proc->reg[reg1] - proc->reg[reg2];
+		ft_printf("Substracting r%d (%d) to r%d (%d)\n", reg1, proc->reg[reg1], reg2, proc->reg[reg2]);
+		ft_printf("Storing the value %d in my r%d\n", proc->reg[reg1] - proc->reg[reg2], reg3);
 		carryhandler(proc, proc->reg[reg1] + proc->reg[reg2]);
 	}
 	proc->pc += proc->tomove;
