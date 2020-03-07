@@ -10,4 +10,5 @@ SRCFILE_VM		=	vm/main.c						\
 					vm/sti.c						\
 					vm/instructools.c				\
 					vm/add_sub.c					\
-					vm/ldi.c
+					vm/ldi.c						\
+					vm/deathcheck.c

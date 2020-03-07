@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/06 19:14:03 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/07 18:14:38 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,12 @@ void	loop(t_vm *vm)
 	{
 		check_proc(vm->beginlist, vm);
 		ft_printf("{RED}Cycle{END} %d:\t", vm->cycles + 1);
-		if (get_nbproc(vm->beginlist) == 0)
-			vm->game = 0;
 		vm->cycles++;
 		vm->linf.cyc_since_last++;
+		if (get_nbproc(vm->beginlist) == 0)
+			break ;
+		if (vm->linf.cyc_since_last == vm->linf.todie)
+			deathcheck(vm);
 		if (vm->booldump)
 		{
 			vm->dump--;

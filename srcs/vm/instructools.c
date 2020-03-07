@@ -6,11 +6,20 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 10:51:26 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/05 16:02:15 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/07 21:18:18 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
+
+short	get_reach(short val)
+{
+	if (val > MEM_SIZE)
+		return (val % MEM_SIZE);
+	else if (val < 0)
+		return (val + MEM_SIZE);
+	return (val);	
+}
 
 int		get_paramval(t_vm *vm, t_proclist *proc, uint8_t code, int dsize)
 {

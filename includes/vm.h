@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/05 17:45:10 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/07 21:19:10 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ typedef struct      	s_proclist
 
 typedef struct      	s_live
 {
-	int					todie;
+	short				todie;
 	uint64_t			liv_since_last;
-	uint32_t			cyc_since_last;
+	short				cyc_since_last;
 	uint8_t				lastalive;
 }                   	t_live;
 
@@ -95,11 +95,15 @@ void		carryhandler(t_proclist *proc, uint32_t val);
 int			get_paramval(t_vm *vm, t_proclist *proc, uint8_t code, int dsize);
 uint8_t		get_param(uint8_t c1, uint8_t c2);
 uint8_t		compute_params(t_proclist *proc, uint8_t nbp, uint8_t dsize);
+short		get_reach(short val);
 
 /* digitools.c */
 char		*binstring(uint8_t toparse);
 uint32_t	maptoi(t_vm *vm, int i, uint8_t size);
 void		write_onmap(t_vm *vm, int adress, uint32_t val);
+
+/* deathcheck.c */
+void		deathcheck(t_vm *vm);
 
 void		init_arena(t_vm *vm);
 
@@ -110,5 +114,6 @@ void		sti(t_proclist *proc, t_vm *vm);
 void		add(t_proclist *proc, t_vm *vm);
 void		sub(t_proclist *proc, t_vm *vm);
 void		ldi(t_proclist *proc, t_vm *vm);
+
 
 #endif

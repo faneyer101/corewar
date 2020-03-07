@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/06 18:07:43 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/07 21:19:54 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 
 void    ldi(t_proclist *proc, t_vm *vm)
 {
-    short toadd;
-    short toadd2;
-    int reg;
+    short	toadd;
+    short	toadd2;
+	short	sum;
+    int		reg;
 
     toadd = 0;
     toadd2 = 0;
@@ -54,12 +55,13 @@ void    ldi(t_proclist *proc, t_vm *vm)
             toadd2 = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
         else if (proc->param[0] == DIR_CODE)
             toadd2 = get_paramval(vm, proc, DIR_CODE, 2);
+		sum = get_reach((toadd + toadd2) % IDX_MOD);
 		reg = get_paramval(vm, proc, REG_CODE, 2);
 		if (reg > 0 && reg < 17)
 		{
-			proc->reg[reg] = maptoi(vm, toadd % IDX_MOD + toadd2 % IDX_MOD + proc->pc, 4);
-			ft_printf("Loading the value from %d and %d to my r%d", toadd % IDX_MOD, toadd2 % IDX_MOD, reg);
-			ft_printf(" (Source with pc: %d)\n", toadd % IDX_MOD + toadd2 % IDX_MOD + proc->pc);
+			proc->reg[reg] = maptoi(vm, sum + proc->pc, 4);
+			ft_printf("Loading the value from %d and %d to my r%d", toadd, toadd2, reg);
+			ft_printf(" (Source with pc: %d)\n", sum + proc->pc);
         }
 		proc->pc += proc->tomove;
     }

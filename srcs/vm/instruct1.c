@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/06 22:29:24 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/07 20:25:27 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ void	live(t_proclist *proc, t_vm *vm)
 	uint32_t	player;
 
 	proc->alive = 1;
+	vm->linf.liv_since_last++;
 	player = maptoi(vm, proc->pc + 1, 4);
-	ft_printf("I performed a live\n");
+	ft_printf("I performed a live (%d live since last ctd)\n", vm->linf.liv_since_last);
 	if (player * -1 <= vm->nb_player)
 	{
 		ft_printf("Player %d said he is alive\n", player * -1);
