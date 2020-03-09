@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 17:14:27 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/06 19:06:59 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/09 13:29:54 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,9 @@ void		push_proc(t_vm *vm, t_proclist *proc, uint16_t pc, uint8_t op)
 	if (vm->beginlist)
 		new->next = vm->beginlist;
 	vm->beginlist = new;
+	if (new->next)
+		new->id = new->next->id + 1;
+	else
+		new->id = 1;
 	ft_printf("Pushed a proc, opcode: %.2x pc = %d, %d cycles cooldown\n", op, pc, new->cycle);
 }

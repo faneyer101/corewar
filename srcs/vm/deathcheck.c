@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 17:33:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/07 19:39:52 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/09 17:24:22 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		reduce_ctc(t_vm *vm)
 {
 	ft_printf("%d live since last check, CTC is reduced to %d",
 		vm->linf.liv_since_last, vm->linf.todie - CYCLE_DELTA);
-	vm->linf.liv_since_last -= CYCLE_DELTA;
+	vm->linf.todie -= CYCLE_DELTA;
 	vm->linf.liv_since_last = 0;
 }
 
@@ -50,7 +50,7 @@ void		deathcheck(t_vm *vm)
 	{
 		if (!curr->alive)
 		{
-			ft_printf("\n\n\n\n\n\nOne process must die now\n\n\n\n\n\n");
+			ft_printf("\n\n\n\n\n\nOne process must die now (P\t%d)\n\n\n\n\n\n", curr->id);
 			curr = kill_this(vm, curr, prev);
 		}
 		else

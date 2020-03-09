@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:23:03 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/07 20:39:19 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/09 21:07:50 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 	uint8_t	i;
 	uint8_t	j;
 
-	proc->ocp = binstring(vm->arena[proc->pc + 1]);
+	proc->ocp = binstring(vm->arena[get_reach(proc->pc + 1)]);
 	proc->tomove = 2;
 	i = 0;
 	j = 0;
@@ -44,7 +44,7 @@ void	sti(t_proclist *proc, t_vm *vm)
 	toput = 0;
 	if (check_ocp(proc, vm))
 	{
-		reg = vm->arena[proc->pc + 2];
+		reg = vm->arena[get_reach(proc->pc + 2)];
 		if (proc->param[1] == DIR_CODE)
 			toput = get_paramval(vm, proc, DIR_CODE, 2);
 		else if (proc->param[1] == IND_CODE)
@@ -64,9 +64,10 @@ void	sti(t_proclist *proc, t_vm *vm)
 		}
 		write_onmap(vm, proc->pc + toput % IDX_MOD, proc->reg[reg]);
 	}
-	ft_printf("TOPUT = %d\n", toput);
+	ft_printf("{CYAN}P\t%d{END} TOPUT = %d\n", proc->id, toput);
 	ft_printf("Mon PC est: %d\n\n", proc->pc);
 	ft_printf("STI: I have to put the value %d (%x), to the adress %d\n", proc->reg[reg], proc->reg[reg], proc->pc + toput % IDX_MOD);
 	//carryhandler(proc, toput)
-	proc->pc += proc->tomove;
+	//proc->pc += proc->tomove;
+	proc->pc = get_reach(proc->pc + proc->tomove);
 }

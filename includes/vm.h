@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/07 21:19:10 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/09 21:29:27 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct      	s_proclist
 {
 	struct s_proclist	*next;
 	char				*ocp;
+	uint32_t			id;
 	uint8_t				tomove;
 	uint8_t				curs;
 	uint32_t			start;
@@ -95,7 +96,7 @@ void		carryhandler(t_proclist *proc, uint32_t val);
 int			get_paramval(t_vm *vm, t_proclist *proc, uint8_t code, int dsize);
 uint8_t		get_param(uint8_t c1, uint8_t c2);
 uint8_t		compute_params(t_proclist *proc, uint8_t nbp, uint8_t dsize);
-short		get_reach(short val);
+short		get_reach(int val);
 
 /* digitools.c */
 char		*binstring(uint8_t toparse);
@@ -110,10 +111,14 @@ void		init_arena(t_vm *vm);
 /* Instructions */
 void		ld(t_proclist *proc, t_vm *vm);
 void		lld(t_proclist *proc, t_vm *vm);
+void		st(t_proclist *proc, t_vm *vm);
 void		sti(t_proclist *proc, t_vm *vm);
 void		add(t_proclist *proc, t_vm *vm);
 void		sub(t_proclist *proc, t_vm *vm);
 void		ldi(t_proclist *proc, t_vm *vm);
-
+void		lldi(t_proclist *proc, t_vm *vm);
+void		xor(t_proclist *proc, t_vm *vm);
+void		and(t_proclist *proc, t_vm *vm);
+void		or(t_proclist *proc, t_vm *vm);
 
 #endif

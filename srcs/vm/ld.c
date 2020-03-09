@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 20:17:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/06 18:09:56 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/09 13:32:33 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void    		lld(t_proclist *proc, t_vm *vm)
 		{
 			reg = vm->arena[proc->pc] + 4;
 			if (reg > 0 && reg < 17)
-				proc->reg[reg] = maptoi(vm, proc->pc + 2, 4);
-			toreach = maptoi(vm, proc->pc + 2, 2);
+				proc->reg[reg] = maptoi(vm, get_reach(proc->pc + 2), 4);
+			toreach = maptoi(vm, get_reach(proc->pc + 2), 2);
 			proc->reg[reg] = maptoi(vm, toreach, 4);
 			ft_printf("Loading the value %d in my r%d\n", proc->reg[reg], reg);
 		}
@@ -73,21 +73,22 @@ void    		ld(t_proclist *proc, t_vm *vm)
 	{
 		if (proc->param[0] == DIR_CODE)
 		{
-			reg = vm->arena[proc->pc + 6];
+			reg = vm->arena[get_reach(proc->pc + 6)];
 			if (reg > 0 && reg < 17)
-				proc->reg[reg] = maptoi(vm, proc->pc + 2, 4);
-			ft_printf("DIRECT: Loading the value %d in my r%d\n", proc->reg[reg], reg);
+				proc->reg[reg] = maptoi(vm, get_reach(proc->pc + 2), 4);
+			ft_printf("{CYAN}P\t%d{END} DIRECT: Loading the value %d in my r%d\n", proc->id, proc->reg[reg], reg);
 		}
 		else if (proc->param[0] == IND_CODE)
 		{
-			reg = vm->arena[proc->pc] + 4;
+			reg = vm->arena[get_reach(proc->pc + 4)];
 			if (reg > 0 && reg < 17)
-				proc->reg[reg] = maptoi(vm, proc->pc + 2, 4);
-			toreach = maptoi(vm, proc->pc , 2) % IDX_MOD;
-			proc->reg[reg] = maptoi(vm, toreach, 4);
-			ft_printf("INDIRECT: Loading the value %d in my r%d\n", proc->reg[reg], reg);
+				proc->reg[reg] = maptoi(vm, get_reach(proc->pc + 2), 4);
+			toreach = maptoi(vm, get_reach(proc->pc), 2) % IDX_MOD;
+			proc->reg[reg] = maptoi(vm, get_reach(toreach), 4);
+			ft_printf("{CYAN}P\t%d{END} INDIRECT: Loading the value %d in my r%d\n", proc->id, proc->reg[reg], reg);
 		}
 	}
-	proc->pc += proc->tomove;
+	//proc->pc += proc->tomove;
+	proc->pc = get_reach(proc->pc + proc->tomove);
 	carryhandler(proc, proc->reg[reg]);
 }

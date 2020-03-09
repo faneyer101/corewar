@@ -6,18 +6,22 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 10:51:26 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/07 21:18:18 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/09 13:01:17 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-short	get_reach(short val)
+short	get_reach(int val)
 {
-	if (val > MEM_SIZE)
+	if (val >= MEM_SIZE)
 		return (val % MEM_SIZE);
 	else if (val < 0)
-		return (val + MEM_SIZE);
+	{
+		while (val < 0)
+			val += MEM_SIZE;
+		return (val);
+	}
 	return (val);	
 }
 
@@ -29,18 +33,18 @@ int		get_paramval(t_vm *vm, t_proclist *proc, uint8_t code, int dsize)
 	rep = 0;
 	if (code == REG_CODE)
 	{
-		rep = vm->arena[proc->pc + proc->curs];
+		rep = vm->arena[get_reach(proc->pc + proc->curs)];
 		proc->curs += 1;
 	}
 	if (code == IND_CODE)
 	{
-		toreach = maptoi(vm, proc->pc + proc->curs, 2);
+		toreach = maptoi(vm, get_reach(proc->pc + proc->curs), 2);
 		rep = maptoi(vm, toreach, 4);
 		proc->curs += 2;
 	}
 	if (code == DIR_CODE)
 	{
-		rep = maptoi(vm, proc->pc + proc->curs, dsize);
+		rep = maptoi(vm, get_reach(proc->pc + proc->curs), dsize);
 		proc->curs += dsize;
 	}
 	return (rep);

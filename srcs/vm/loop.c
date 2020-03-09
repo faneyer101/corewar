@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/07 18:14:38 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/09 17:10:03 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,5 @@ void	loop(t_vm *vm)
 			}
 		}
 	}
-	//check_winner();
+	ft_printf("\nThe winner is: %x\n", vm->linf.lastalive);
 }

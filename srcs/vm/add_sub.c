@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 12:25:23 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/06 18:28:24 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/09 13:34:50 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static uint8_t check_regvalue(t_proclist *proc, t_vm *vm)
 	i = 0;
 	while (i < 3)
 	{
-		if (vm->arena[proc->pc + proc->curs] > 16 ||
-			vm->arena[proc->pc + proc->curs] < 1)
+		if (vm->arena[get_reach(proc->pc + proc->curs)] > 16 ||
+			vm->arena[get_reach(proc->pc + proc->curs)] < 1)
 			return (1);
 		i++;
 		proc->curs++;
@@ -61,15 +61,16 @@ void	add(t_proclist *proc, t_vm *vm)
 
 	if (check_ocp(proc, vm))
 	{
-		reg1 = vm->arena[proc->pc + 2];
-		reg2 = vm->arena[proc->pc + 3];
-		reg3 = vm->arena[proc->pc + 4];
+		reg1 = vm->arena[get_reach(proc->pc + 2)];
+		reg2 = vm->arena[get_reach(proc->pc + 3)];
+		reg3 = vm->arena[get_reach(proc->pc + 4)];
 		proc->reg[reg3] = proc->reg[reg1] + proc->reg[reg2];
-		ft_printf("Adding r%d (%d) to r%d (%d)\n", reg1, proc->reg[reg1], reg2, proc->reg[reg2]);
+		ft_printf("{CYAN}P\t%d{END} Adding r%d (%d) to r%d (%d)\n", proc->id, reg1, proc->reg[reg1], reg2, proc->reg[reg2]);
 		ft_printf("Storing the value %d in my r%d\n", proc->reg[reg1] + proc->reg[reg2], reg3);
 		carryhandler(proc, proc->reg[reg1] + proc->reg[reg2]);
 	}
-	proc->pc += proc->tomove;
+	//proc->pc += proc->tomove;
+	proc->pc = get_reach(proc->pc + proc->tomove);
 }
 
 void	sub(t_proclist *proc, t_vm *vm)
@@ -80,13 +81,14 @@ void	sub(t_proclist *proc, t_vm *vm)
 
 	if (check_ocp(proc, vm))
 	{
-		reg1 = vm->arena[proc->pc + 2];
-		reg2 = vm->arena[proc->pc + 3];
-		reg3 = vm->arena[proc->pc + 4];
+		reg1 = vm->arena[get_reach(proc->pc + 2)];
+		reg2 = vm->arena[get_reach(proc->pc + 3)];
+		reg3 = vm->arena[get_reach(proc->pc + 4)];
 		proc->reg[reg3] = proc->reg[reg1] - proc->reg[reg2];
-		ft_printf("Substracting r%d (%d) to r%d (%d)\n", reg1, proc->reg[reg1], reg2, proc->reg[reg2]);
+		ft_printf("{CYAN}P\t%d{END} Substracting r%d (%d) to r%d (%d)\n", proc->id, reg1, proc->reg[reg1], reg2, proc->reg[reg2]);
 		ft_printf("Storing the value %d in my r%d\n", proc->reg[reg1] - proc->reg[reg2], reg3);
 		carryhandler(proc, proc->reg[reg1] + proc->reg[reg2]);
 	}
-	proc->pc += proc->tomove;
+	//proc->pc += proc->tomove;
+	proc->pc = get_reach(proc->pc + proc->tomove);
 }
