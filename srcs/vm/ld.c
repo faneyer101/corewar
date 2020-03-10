@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 20:17:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/09 13:32:33 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 16:58:05 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void    		lld(t_proclist *proc, t_vm *vm)
 			if (reg > 0 && reg < 17)
 				proc->reg[reg] = maptoi(vm, proc->pc + 2, 4);
 			ft_printf("Loading the value %d in my r%d\n", proc->reg[reg], reg);
+			carryhandler(proc, proc->reg[reg]);
 		}
 		else if (proc->param[0] == IND_CODE)
 		{
@@ -57,10 +58,10 @@ void    		lld(t_proclist *proc, t_vm *vm)
 			toreach = maptoi(vm, get_reach(proc->pc + 2), 2);
 			proc->reg[reg] = maptoi(vm, toreach, 4);
 			ft_printf("Loading the value %d in my r%d\n", proc->reg[reg], reg);
+			carryhandler(proc, proc->reg[reg]);
 		}
 	}
 	proc->pc += proc->tomove;
-	carryhandler(proc, proc->reg[reg]);
 }
 
 void    		ld(t_proclist *proc, t_vm *vm)
@@ -77,6 +78,7 @@ void    		ld(t_proclist *proc, t_vm *vm)
 			if (reg > 0 && reg < 17)
 				proc->reg[reg] = maptoi(vm, get_reach(proc->pc + 2), 4);
 			ft_printf("{CYAN}P\t%d{END} DIRECT: Loading the value %d in my r%d\n", proc->id, proc->reg[reg], reg);
+			carryhandler(proc, proc->reg[reg]);
 		}
 		else if (proc->param[0] == IND_CODE)
 		{
@@ -86,9 +88,9 @@ void    		ld(t_proclist *proc, t_vm *vm)
 			toreach = maptoi(vm, get_reach(proc->pc), 2) % IDX_MOD;
 			proc->reg[reg] = maptoi(vm, get_reach(toreach), 4);
 			ft_printf("{CYAN}P\t%d{END} INDIRECT: Loading the value %d in my r%d\n", proc->id, proc->reg[reg], reg);
+			carryhandler(proc, proc->reg[reg]);
 		}
 	}
 	//proc->pc += proc->tomove;
 	proc->pc = get_reach(proc->pc + proc->tomove);
-	carryhandler(proc, proc->reg[reg]);
 }

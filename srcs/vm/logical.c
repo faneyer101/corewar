@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 19:42:18 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/09 20:36:47 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 18:01:36 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	xor(t_proclist *proc, t_vm *vm)
 	int	param2;
 	int	reg;
 
+	proc->curs = 2;
 	if (check_ocp(proc, vm))
 	{
 		if (proc->param[0] == REG_CODE)
@@ -55,6 +56,7 @@ void	xor(t_proclist *proc, t_vm *vm)
 		reg = get_paramval(vm, proc, REG_CODE, 4);
 		proc->reg[reg] = param1 ^ param2;
 		ft_printf("{CYAN}P\t%d{END} AND r%d = %d ^ %d", proc->id, reg, param1, param2);
+		carryhandler(proc, proc->reg[reg]);
 	}
 	proc->pc = get_reach(proc->pc + proc->tomove);
 }
@@ -65,6 +67,7 @@ void	or(t_proclist *proc, t_vm *vm)
 	int	param2;
 	int	reg;
 
+	proc->curs = 2;
 	if (check_ocp(proc, vm))
 	{
 		if (proc->param[0] == REG_CODE)
@@ -82,6 +85,7 @@ void	or(t_proclist *proc, t_vm *vm)
 		reg = get_paramval(vm, proc, REG_CODE, 4);
 		proc->reg[reg] = param1 | param2;
 		ft_printf("{CYAN}P\t%d{END} AND r%d = %d | %d", proc->id, reg, param1, param2);
+		carryhandler(proc, proc->reg[reg]);
 	}
 	proc->pc = get_reach(proc->pc + proc->tomove);
 }
@@ -92,6 +96,7 @@ void	and(t_proclist *proc, t_vm *vm)
 	int	param2;
 	int	reg;
 
+	proc->curs = 2;
 	if (check_ocp(proc, vm))
 	{
 		if (proc->param[0] == REG_CODE)
@@ -99,16 +104,17 @@ void	and(t_proclist *proc, t_vm *vm)
 		else if (proc->param[0] == DIR_CODE)
 			param1 = get_paramval(vm, proc, DIR_CODE, 4);
 		else
-			param1 = get_paramval(vm, proc, DIR_CODE, 4);
+			param1 = get_paramval(vm, proc, IND_CODE, 4);
 		if (proc->param[1] == REG_CODE)
 			param2 = proc->reg[get_paramval(vm, proc, REG_CODE, 4)];
 		else if (proc->param[1] == DIR_CODE)
 			param2 = get_paramval(vm, proc, DIR_CODE, 4);
 		else
-			param2 = get_paramval(vm, proc, DIR_CODE, 4);
+			param2 = get_paramval(vm, proc, IND_CODE, 4);
 		reg = get_paramval(vm, proc, REG_CODE, 4);
 		proc->reg[reg] = param1 & param2;
 		ft_printf("{CYAN}P\t%d{END} AND r%d = %d & %d", proc->id, reg, param1, param2);
+		carryhandler(proc, proc->reg[reg]);
 	}
 	proc->pc = get_reach(proc->pc + proc->tomove);
 }

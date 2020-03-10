@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/09 17:10:03 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 16:55:04 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	carryhandler(t_proclist *proc, uint32_t val)
 		proc->carry = 1;
 	else
 		proc->carry = 0;
-	ft_printf("My carry is now: %d\n", proc->carry);
+	ft_printf("{RED}My carry is now: %d (P%d){END}\n", proc->carry, proc->id);
 }
 
 void	check_proc(t_proclist *lst, t_vm *vm)
@@ -29,12 +29,12 @@ void	check_proc(t_proclist *lst, t_vm *vm)
 	curs = lst;
 	while (curs)
 	{
-		if (curs->cycle == 0)
-			exec_proc(curs, vm);
 		if (curs->cycle > 0)
 		{
 			curs->cycle--;
 		}
+		if (curs->cycle == 0)
+			exec_proc(curs, vm);
 		curs = curs->next;
 	}
 }
@@ -87,8 +87,8 @@ void	loop(t_vm *vm)
 {
 	while (vm->game)
 	{
-		check_proc(vm->beginlist, vm);
 		ft_printf("{RED}Cycle{END} %d:\t", vm->cycles + 1);
+		check_proc(vm->beginlist, vm);
 		vm->cycles++;
 		vm->linf.cyc_since_last++;
 		if (get_nbproc(vm->beginlist) == 0)

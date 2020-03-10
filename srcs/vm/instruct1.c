@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/09 21:29:53 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 16:09:59 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	fork_(t_proclist *proc, t_vm *vm)
 	target %= IDX_MOD;
 	ft_printf("{CYAN}P\t%d{END} Forking at adress %d\n", proc->id, target);
 	push_proc(vm, proc, get_reach(target), vm->arena[get_reach(target)]);
-	vm->beginlist->cycle--;
+	//vm->beginlist->cycle--;
 	proc->pc = get_reach(proc->pc + 3);
 }
 
@@ -33,7 +33,7 @@ void	live(t_proclist *proc, t_vm *vm)
 	vm->linf.liv_since_last++;
 	player = maptoi(vm, get_reach(proc->pc + 1), 4);
 	ft_printf("{CYAN}P\t%d{END} I performed a live (%d live since last ctd, ctd = %d)\n", proc->id, vm->linf.liv_since_last, vm->linf.todie);
-	ft_printf("My PC is %d\n", proc->pc);
+	ft_printf("My PC is %d and my carry is %d\n", proc->pc, proc->carry);
 	if (player * -1 <= vm->nb_player)
 	{
 		ft_printf("Player %d said he is alive\n", player * -1);

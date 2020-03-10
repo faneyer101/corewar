@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/09 16:03:20 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 16:28:54 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	lldi(t_proclist *proc, t_vm *vm)
 			carryhandler(proc, sum);
         }
     }
+    else
+        ft_printf("{CYAN}I'm P%d and my carry is %d, i failed lldi because of wrong ocp\n{END}", proc->id, proc->carry);
 	proc->pc += proc->tomove;
 }
 
