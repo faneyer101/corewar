@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/10 16:55:04 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/12 16:17:34 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ void	load_first(t_vm *vm)
 	curs = vm->beginlist;
 	while (curs)
 	{
+		ft_printf("Pk curs n'est pas nul ? %p\n", curs);
+		ft_printf("Pk next n'est pas nul ? %p\n", curs->next);
+		ft_printf("Passage dans loadfirst, proc->pc = %d Il y a %d players\n", curs->pc, vm->nb_player);
 		curs->start = curs->pc;
 		curs = curs->next;
 	}
@@ -89,6 +92,7 @@ void	loop(t_vm *vm)
 	{
 		ft_printf("{RED}Cycle{END} %d:\t", vm->cycles + 1);
 		check_proc(vm->beginlist, vm);
+		get_opcode(vm);
 		vm->cycles++;
 		vm->linf.cyc_since_last++;
 		if (get_nbproc(vm->beginlist) == 0)
@@ -105,5 +109,4 @@ void	loop(t_vm *vm)
 			}
 		}
 	}
-	ft_printf("\nThe winner is: %x\n", vm->linf.lastalive);
 }

@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:23:03 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/09 21:07:50 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/12 12:39:22 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	sti(t_proclist *proc, t_vm *vm)
 	}
 	ft_printf("{CYAN}P\t%d{END} TOPUT = %d\n", proc->id, toput);
 	ft_printf("Mon PC est: %d\n\n", proc->pc);
-	ft_printf("STI: I have to put the value %d (%x), to the adress %d\n", proc->reg[reg], proc->reg[reg], proc->pc + toput % IDX_MOD);
+	ft_printf("STI: I have to put the value %d (%.8x), to the adress %d\n", proc->reg[reg], proc->reg[reg], proc->pc + toput % IDX_MOD);
 	//carryhandler(proc, toput)
 	//proc->pc += proc->tomove;
 	proc->pc = get_reach(proc->pc + proc->tomove);

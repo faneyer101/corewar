@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 17:14:27 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/11 16:43:44 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/12 14:52:53 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_proclist	*create_proc(t_proclist *proc, uint16_t pc, uint8_t op)
 	new = NULL;
 	if (!(new = (t_proclist*)malloc(sizeof(t_proclist))))
 		exit(0);
+	ft_bzero(new, sizeof(t_proclist));
 	while (i < REG_NUMBER)
 	{
 		new->reg[i] = proc->reg[i];
@@ -90,7 +91,6 @@ void		push_proc(t_vm *vm, t_proclist *proc, uint16_t pc, uint8_t op)
 		new->next = vm->beginlist;
 	vm->beginlist = new;
 	new->id = vm->pid_tracker++;
-	// else
-	// 	new->id = 1;
 	ft_printf("Pushed a proc, opcode: %.2x pc = %d, %d cycles cooldown\n", op, pc, new->cycle);
+	ft_printf("New proc id = %d\n", new->id);
 }

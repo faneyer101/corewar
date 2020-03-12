@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/11 14:21:19 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/12 16:42:27 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	fork_(t_proclist *proc, t_vm *vm, uint8_t lfork)
 {
 	short	target;
 
-	target = maptoi(vm, get_reach(proc->pc + 1), 2) + proc->pc;
+	target = maptoi(vm, get_reach(proc->pc + 1), 2);
 	if (!lfork)
 		target %= IDX_MOD;
-	ft_printf("{CYAN}P\t%d{END} Forking at adress %d\n", proc->id, target);
-	push_proc(vm, proc, get_reach(target), vm->arena[get_reach(target)]);
+	ft_printf("{CYAN}P\t%d{END} Forking at adress %d\n", get_reach(proc->id + proc->pc), target);
+	push_proc(vm, proc, get_reach(target + proc->pc), vm->arena[get_reach(target + proc->pc)]);
 	proc->pc = get_reach(proc->pc + 3);
 }
 
@@ -115,6 +115,5 @@ void	exec_proc(t_proclist *proc, t_vm *vm)
 		ldi(proc, vm);
 	else
 		exec_more(proc, vm);
-	proc->opcode = vm->arena[proc->pc];
-	proc->cycle = get_cycle(proc->opcode);
+	push_active(proc, vm);
 }

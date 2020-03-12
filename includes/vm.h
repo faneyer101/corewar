@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/11 16:42:32 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/12 16:17:05 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 typedef struct      	s_proclist
 {
 	struct s_proclist	*next;
+	struct s_proclist	*activenext;
 	char				*ocp;
 	uint32_t			id;
 	uint8_t				tomove;
@@ -66,8 +67,9 @@ typedef struct      	s_vm
 	uint8_t				nb_player;
 	uint8_t				lastalive;
 	t_proclist			*proclist;
-	uint32_t			pid_tracker;
 	t_proclist			*beginlist;
+	t_proclist			*beginactive;
+	uint32_t			pid_tracker;
 	t_player			players[MAX_PLAYERS];
 	uint64_t			cycles;
 	uint8_t				game;
@@ -80,7 +82,7 @@ void		check_realsize(t_vm *vm, int ip);
 void		get_code(t_vm *vm, int ip);
 
 /* init_arena.c */
-void	dump_arena(t_vm *vm);
+void		dump_arena(t_vm *vm);
 
 /* lst_tools.c */
 t_proclist	*create_proc(t_proclist *proc, uint16_t pc, uint8_t op);
@@ -108,6 +110,10 @@ void		write_onmap(t_vm *vm, int adress, uint32_t val);
 void		deathcheck(t_vm *vm);
 
 void		init_arena(t_vm *vm);
+
+/* active_tools.c */
+void		get_opcode(t_vm *vm);
+void		push_active(t_proclist *proc, t_vm *vm);
 
 /* Instructions */
 void		ld(t_proclist *proc, t_vm *vm);
