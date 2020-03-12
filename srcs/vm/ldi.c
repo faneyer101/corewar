@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/10 16:28:54 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/11 18:19:39 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	lldi(t_proclist *proc, t_vm *vm)
         }
     }
     else
-        ft_printf("{CYAN}I'm P%d and my carry is %d, i failed lldi because of wrong ocp\n{END}", proc->id, proc->carry);
-	proc->pc += proc->tomove;
+        ft_printf("{CYAN}I'm P%d and my carry is %d, i failed lldi because of wrong ocp. Advancing %d\n{END}", proc->id, proc->carry, proc->tomove);
+	proc->pc = get_reach(proc->pc + proc->tomove);
 }
 
 void    ldi(t_proclist *proc, t_vm *vm)
@@ -103,5 +103,6 @@ void    ldi(t_proclist *proc, t_vm *vm)
 			ft_printf(" (Source with pc: %d)\n", sum + proc->pc);
         }
     }
-	proc->pc += proc->tomove;
+	//proc->pc += proc->tomove;
+    proc->pc = get_reach(proc->pc + proc->tomove);
 }

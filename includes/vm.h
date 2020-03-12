@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/09 21:29:27 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/11 16:42:32 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct      	s_vm
 	uint8_t				nb_player;
 	uint8_t				lastalive;
 	t_proclist			*proclist;
+	uint32_t			pid_tracker;
 	t_proclist			*beginlist;
 	t_player			players[MAX_PLAYERS];
 	uint64_t			cycles;
@@ -120,5 +121,6 @@ void		lldi(t_proclist *proc, t_vm *vm);
 void		xor(t_proclist *proc, t_vm *vm);
 void		and(t_proclist *proc, t_vm *vm);
 void		or(t_proclist *proc, t_vm *vm);
+void		aff(t_proclist *proc, t_vm *vm);
 
 #endif

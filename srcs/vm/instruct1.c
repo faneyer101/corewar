@@ -6,22 +6,22 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/10 16:09:59 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/11 14:21:19 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../includes/vm.h"
 
-void	fork_(t_proclist *proc, t_vm *vm)
+void	fork_(t_proclist *proc, t_vm *vm, uint8_t lfork)
 {
 	short	target;
 
 	target = maptoi(vm, get_reach(proc->pc + 1), 2) + proc->pc;
-	target %= IDX_MOD;
+	if (!lfork)
+		target %= IDX_MOD;
 	ft_printf("{CYAN}P\t%d{END} Forking at adress %d\n", proc->id, target);
 	push_proc(vm, proc, get_reach(target), vm->arena[get_reach(target)]);
-	//vm->beginlist->cycle--;
 	proc->pc = get_reach(proc->pc + 3);
 }
 
@@ -32,7 +32,7 @@ void	live(t_proclist *proc, t_vm *vm)
 	proc->alive = 1;
 	vm->linf.liv_since_last++;
 	player = maptoi(vm, get_reach(proc->pc + 1), 4);
-	ft_printf("{CYAN}P\t%d{END} I performed a live (%d live since last ctd, ctd = %d)\n", proc->id, vm->linf.liv_since_last, vm->linf.todie);
+	ft_printf("{CYAN}P\t%d{END} I performed a live %.4x (%d live since last ctd, ctd = %d)\n", proc->id, player, vm->linf.liv_since_last, vm->linf.todie);
 	ft_printf("My PC is %d and my carry is %d\n", proc->pc, proc->carry);
 	if (player * -1 <= vm->nb_player)
 	{
@@ -60,7 +60,6 @@ void	zjmp(t_proclist *proc, t_vm *vm)
 	}
 	else
 	{
-		//proc->pc += 3;
 		proc->pc = get_reach(proc->pc + 3);
 		ft_printf("{CYAN}P\t%d{END} Jump failed because carry 0\n", proc->id);
 	}
@@ -72,9 +71,15 @@ void	exec_more(t_proclist *proc, t_vm *vm)
 	if (proc->opcode == 0x0b)
 		sti(proc, vm);
 	else if (proc->opcode == 0x0c)
-		fork_(proc, vm);
+		fork_(proc, vm, 0);
+	else if (proc->opcode == 0x0d)
+		lld(proc, vm);
 	else if (proc->opcode == 0x0e)
 		lldi(proc, vm);
+	else if (proc->opcode == 0x0f)
+		fork_(proc, vm, 1);
+	else if (proc->opcode == 0x10)
+		aff(proc, vm);
 	else
 		proc->pc = get_reach(proc->pc + 1);
 }

@@ -6,7 +6,7 @@
 /*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 17:33:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/10 19:42:16 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/11 11:35:53 by nsalle           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_proclist	*kill_this(t_vm *vm, t_proclist *curr, t_proclist *prev)
 	if (!prev)
 		return (vm->beginlist);
 	else
-		return (prev->next);
+		return (prev);
 	return (0);
 }
 

@@ -13,4 +13,5 @@ SRCFILE_VM		=	vm/main.c						\
 					vm/ldi.c						\
 					vm/deathcheck.c					\
 					vm/logical.c					\
-					vm/st.c
+					vm/st.c							\
+					vm/aff.c
