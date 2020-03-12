@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/12 16:17:05 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/03/12 16:46:07 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ typedef struct      	s_vm
 	t_live				linf;
 	int					dump;
 	unsigned char		booldump;
+	unsigned char		option_n;
+	unsigned char		verbose;
 	unsigned char		arena[MEM_SIZE];
 	uint8_t				nb_player;
 	uint8_t				lastalive;
