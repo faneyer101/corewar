@@ -60,7 +60,8 @@ void	pf_flag_manager_f(long double f, t_printf *pf)
 		else
 		{
 			pf->finf = 1;
-			if (f == -(1.0 / 0))
+			if (f == -(1.0))
+			//if (f == -(1.0 / 0))
 				pf->finf = 2;
 		}
 	}

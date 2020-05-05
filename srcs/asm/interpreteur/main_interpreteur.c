@@ -187,10 +187,8 @@ void	size_champ_max(t_asm *master)
 
 void	interpretor_param(t_asm *master, t_token *token, t_list_label *label)
 {
-	int				index_define;
 	int long long	calcul;
 
-	index_define = -1;
 	calcul = 0;
 	if (token->kind == REGISTRE)
 		norme_registre(master, &calcul, token);

@@ -59,7 +59,6 @@ void    print_buff_read(t_asm *master)
 
 void	print_parser(t_asm *master)
 {
-	int				i;
 	t_list_label	*label;
 	t_token			*info;
 
@@ -67,7 +66,6 @@ void	print_parser(t_asm *master)
 	ft_printf("{CYAN}2: {RED}Comment header|{CYAN}3: {RED}String header|{CYAN}4: {RED}Label declaration|");
 	ft_printf("{CYAN}5: {RED}Label direct|{CYAN}6: {RED}Label indirect|{CYAN}7: {RED}Num direct|{CYAN}8: {RED}Num indirect|");
 	ft_printf("{CYAN}9: {RED}Comment|{CYAN}10: {RED}Fonction|{CYAN}11: {RED}Registre|{CYAN}12: {RED}Separateur|{CYAN}13: {RED}BAD|{CYAN}14: {RED}New line{END}\n");
-	i = 0;
 	label = master->parser.define_label;
 	while (label)
 	{

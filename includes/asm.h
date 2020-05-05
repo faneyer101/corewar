@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <limits.h>
 #include<stdio.h> //////////// A EFFACER !!!!!!!!!!!!!!!!!!!!
+///// A voir dans tools_f2.c (printf) division par 0 pas supporter avec compi clang-9
 
 # define DSTRING '"'
 # define DNEGATIF '-'

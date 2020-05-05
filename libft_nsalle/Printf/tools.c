@@ -50,8 +50,8 @@ void		pf_buffer_alloc(char **buff, int len, t_printf *pf)
 {
 	int		biggest;
 
-	biggest = len > (int)pf->width ? len : pf->width;
-	biggest = (int)pf->precival > biggest ? pf->precival : biggest;
+	biggest = len > (int)pf->width ? len : (int)pf->width;
+	biggest = (int)pf->precival > biggest ? (int)pf->precival : biggest;
 	if (!(*buff = ft_memalloc(sizeof(char) * biggest + 3)))
 		exit(-1);
 }

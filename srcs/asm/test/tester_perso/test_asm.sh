@@ -132,7 +132,8 @@ then
         clear
         printf "\033[032m${map}\033[0m\n"
 		printf "\033[035m############# MOI  ##############\033[0m\n"
-        Valgrind ./asm valid/${map}.s
+        valgrind --leak-check=full --track-origins=yes ./asm valid/${map}.s
+		#Valgrind ./asm valid/${map}.s
 		printf "\033[036m############# GOOD ##############\033[0m\n"
 		./zaz_asm valid2/${map}.s
         xxd valid/${map}.cor > xxd
@@ -142,7 +143,8 @@ then
         else
 	        printf "\n|-> \033[31m${map} K.O.\033[0m\n"
         fi
-        read -p "Press enter key for next test or exit with [ctrl + c]"
+		echo "Press enter key for next test or exit with [ctrl + c]"
+		read a
 		rm -rf valid/${map}.cor
 		rm -rf valid2/${map}.cor
 		echo > xxd
@@ -158,7 +160,9 @@ then
             Valgrind ./asm error/${map}.s
 			printf "\033[036m############# GOOD ##############\033[0m\n"
 			./zaz_asm error2/${map}.s
-            read -p "Press enter key for next test or exit with [ctrl + c]"
+			echo "Press enter key for next test or exit with [ctrl + c]"
+			read a
+            #read -p "Press enter key for next test or exit with [ctrl + c]"
     done
 else
 	clear
