@@ -72,9 +72,6 @@ uint8_t	compute_params(t_proclist *proc, uint8_t nbp, uint8_t dsize)
 
 uint8_t	get_param(uint8_t c1, uint8_t c2)
 {
-	uint8_t	rep;
-
-	rep = 0;
 	if (c1 == 0 && c2 == 0)
 		return (0);
 	if (c1 == 0 && c2 == 1)

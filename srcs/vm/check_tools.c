@@ -15,11 +15,11 @@
 
 void	get_code(t_vm *vm, int ip)
 {
-	int				i;
+	//int				i;
 	int				toread;
 	unsigned char	trash[MEM_SIZE];
 
-	i = 0;
+	//i = 0;
 	close(vm->players[ip].fd);
 	vm->players[ip].fd = open(vm->players[ip].pname, O_RDONLY);
 	toread = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;

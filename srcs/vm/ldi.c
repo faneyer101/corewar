@@ -66,8 +66,6 @@ void	lldi(t_proclist *proc, t_vm *vm)
 			carryhandler(proc, sum);
         }
     }
-    else
-        ft_printf("{CYAN}I'm P%d and my carry is %d, i failed lldi because of wrong ocp. Advancing %d\n{END}", proc->id, proc->carry, proc->tomove);
 	proc->pc = get_reach(proc->pc + proc->tomove);
 }
 
