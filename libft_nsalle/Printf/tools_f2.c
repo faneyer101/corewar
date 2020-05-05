@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 16:23:37 by nsalle            #+#    #+#             */
-/*   Updated: 2020/02/28 09:50:57 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/05/05 18:15:24 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	pf_flag_manager_f(long double f, t_printf *pf)
 		{
 			pf->finf = 1;
 			if (f == -(1.0))
-			//if (f == -(1.0 / 0))
 				pf->finf = 2;
 		}
 	}
