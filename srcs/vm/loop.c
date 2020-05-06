@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/05 18:54:53 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 12:58:51 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void	loop(t_vm *vm)
 {
 	while (vm->game)
 	{
-		ft_printf("{RED}It is now cycle{END} %d\n", vm->cycles + 1);
+		if (vm->verbose)
+			cycle_verbose(vm);
 		check_proc(vm->beginlist, vm);
 		get_opcode(vm);
 		vm->cycles++;
