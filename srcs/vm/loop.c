@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/12 16:17:34 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/05/05 18:54:53 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		get_nbproc(t_proclist *lst)
 			count++;
 		curs = curs->next;
 	}
-	ft_printf("There are %d processes running\n", count);
+	//ft_printf("There are %d processes running\n", count);
 	return (count);
 }
 
@@ -78,9 +78,6 @@ void	load_first(t_vm *vm)
 	curs = vm->beginlist;
 	while (curs)
 	{
-		ft_printf("Pk curs n'est pas nul ? %p\n", curs);
-		ft_printf("Pk next n'est pas nul ? %p\n", curs->next);
-		ft_printf("Passage dans loadfirst, proc->pc = %d Il y a %d players\n", curs->pc, vm->nb_player);
 		curs->start = curs->pc;
 		curs = curs->next;
 	}
@@ -90,7 +87,7 @@ void	loop(t_vm *vm)
 {
 	while (vm->game)
 	{
-		ft_printf("{RED}Cycle{END} %d:\t", vm->cycles + 1);
+		ft_printf("{RED}It is now cycle{END} %d\n", vm->cycles + 1);
 		check_proc(vm->beginlist, vm);
 		get_opcode(vm);
 		vm->cycles++;

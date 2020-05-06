@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:23:03 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/12 12:39:22 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 11:46:45 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,39 +34,59 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 	return (1);
 }
 
-void	sti(t_proclist *proc, t_vm *vm)
+static void	verbose(short t[2], short reg, t_proclist *proc, t_vm *vm)
+{
+	int	i;
+
+	i = 0;
+	ft_printf("{CYAN}P\t%d{END} | sti r%d %d %d\n", proc->id, reg, t[0], t[1]);
+	ft_printf("\t  | -> Store to %d + %d = %d ", t[0], t[1], t[0] + t[1]);
+	ft_printf("(with pc and mod %d)\n", proc->pc + (t[0] + t[1]) % IDX_MOD);
+	ft_printf("ADV %d (0x%.4x -> 0x%.4x) ", proc->tomove, proc->pc,
+		get_reach(proc->pc + proc->tomove));
+	while (i < proc->tomove)
+	{
+		ft_printf("%.2x ", vm->arena[get_reach(proc->pc + i)]);
+		i++;
+	}
+	ft_putendl("");
+}
+
+void		sti(t_proclist *proc, t_vm *vm)
 {
 	uint8_t	reg;
-	short	toput;
+	short	toput[2];
+	//short	toput;
+	//short	toput2;
 
 	proc->curs = 3;
 	reg = 0;
-	toput = 0;
+	//toput = 0;
 	if (check_ocp(proc, vm))
 	{
 		reg = vm->arena[get_reach(proc->pc + 2)];
 		if (proc->param[1] == DIR_CODE)
-			toput = get_paramval(vm, proc, DIR_CODE, 2);
+			toput[0] = get_paramval(vm, proc, DIR_CODE, 2);
 		else if (proc->param[1] == IND_CODE)
-			toput = get_paramval(vm, proc, IND_CODE, 2);
+			toput[0] = get_paramval(vm, proc, IND_CODE, 2);
 		else if (proc->param[1] == REG_CODE)
-			toput = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
-		ft_printf("Toput first adress = %d\n", toput);
+			toput[0] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
+		//ft_printf("Toput first adress = %d\n", toput);
 		if (proc->param[2] == DIR_CODE)
 		{
-			toput += get_paramval(vm, proc, DIR_CODE, 2);
-			ft_printf("2nd adress = %d DIRECT\n", toput);
+			toput[1] = get_paramval(vm, proc, DIR_CODE, 2);
+			//ft_printf("2nd adress = %d DIRECT\n", toput2);
 		}
 		else if (proc->param[2] == REG_CODE)
 		{
-			toput += proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
-			ft_printf("2nd adress = %d REG\n", proc->reg[get_paramval(vm, proc, REG_CODE, 2)]);
+			toput[1] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
+			//ft_printf("2nd adress = %d REG\n", proc->reg[get_paramval(vm, proc, REG_CODE, 2)]);
 		}
-		write_onmap(vm, proc->pc + toput % IDX_MOD, proc->reg[reg]);
+		write_onmap(vm, proc->pc + (toput[0] + toput[1]) % IDX_MOD, proc->reg[reg]);
 	}
-	ft_printf("{CYAN}P\t%d{END} TOPUT = %d\n", proc->id, toput);
-	ft_printf("Mon PC est: %d\n\n", proc->pc);
-	ft_printf("STI: I have to put the value %d (%.8x), to the adress %d\n", proc->reg[reg], proc->reg[reg], proc->pc + toput % IDX_MOD);
+	if (vm->verbose)
+		verbose(toput, reg, proc, vm);
+	//ft_printf("STI: I have to put the value %d (%.8x), to the adress %d\n", proc->reg[reg], proc->reg[reg], proc->pc + toput % IDX_MOD);
 	//carryhandler(proc, toput)
 	//proc->pc += proc->tomove;
 	proc->pc = get_reach(proc->pc + proc->tomove);

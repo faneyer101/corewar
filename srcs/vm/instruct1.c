@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruct1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/12 16:42:27 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/05/05 18:59:18 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ void	exec_more(t_proclist *proc, t_vm *vm)
 
 void	exec_proc(t_proclist *proc, t_vm *vm)
 {
-	int	i = 0;
+/* 	int	i = 0;
 	if (proc->opcode > 0 && proc->opcode < 17)
 	{
 		while (i < 10)
 			ft_printf("%.2x ", vm->arena[get_reach(proc->pc + i++)]);
 		ft_putendl("");
-	}
+	} */
     if (proc->opcode == 1)
 	 	live(proc, vm);
 	else if (proc->opcode == 2)

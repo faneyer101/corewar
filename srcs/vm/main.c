@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 21:45:58 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/12 13:36:29 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/05/05 19:39:17 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	vm_init(t_vm *vm)
 	vm->linf.liv_since_last = 0;
 	vm->game = 1;
 	vm->linf.todie = CYCLE_TO_DIE;
+	vm->verbose = 1;
 }
 
 void	introducing(t_vm *vm)
