@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   digitools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 16:32:18 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/12 12:38:51 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 12:11:23 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void		write_onmap(t_vm *vm, int adress, uint32_t val)
 	vm->arena[get_reach(adress + 2)] = val >> 8;
 	vm->arena[get_reach(adress + 1)] = val >> 16;
 	vm->arena[adress] = val >> 24;
-	ft_printf("Writing %.4x to adress %d\n", val, adress);
+	if (vm->verbose == 2)
+		ft_printf("{YELL}Writing %.4x to adress %d{END}\n", val, adress);
 }
 
 uint32_t	maptoi(t_vm *vm, int i, uint8_t size)
