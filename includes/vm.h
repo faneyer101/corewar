@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/12 16:46:07 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 12:38:30 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,9 @@ void		init_arena(t_vm *vm);
 /* active_tools.c */
 void		get_opcode(t_vm *vm);
 void		push_active(t_proclist *proc, t_vm *vm);
+
+/* verbose_tools.c */
+void		print_map_part(t_vm *vm, t_proclist *proc);
 
 /* Instructions */
 void		ld(t_proclist *proc, t_vm *vm);
