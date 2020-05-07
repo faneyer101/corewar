@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 12:25:23 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 05:13:28 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 22:13:45 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-static uint8_t check_regvalue(t_proclist *proc, t_vm *vm)
+static uint8_t	check_regvalue(t_proclist *proc, t_vm *vm)
 {
 	uint8_t	i;
 
@@ -53,41 +53,53 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 	return (1);
 }
 
-void	add(t_proclist *proc, t_vm *vm)
+static void		verbose(t_vm *vm, t_proclist *proc, uint8_t val[3], int mode)
 {
-	uint8_t	reg1;
-	uint8_t	reg2;
-	uint8_t	reg3;
+	if (vm->verbose == 2)
+		ft_printf("{CYAN}");
+	ft_printf("P%5d ", proc->id);
+	if (vm->verbose == 2)
+		ft_printf("{END}");
+	if (mode)
+		ft_printf("| sub r%d r%d r%d\n", val[0], val[1], val[2]);
+	else
+		ft_printf("| add r%d r%d r%d\n", val[0], val[1], val[2]);
+	ft_printf("ADV 5 (%#.4x -> %#.4x) ", proc->pc,
+		get_reach(proc->pc + 5));
+	proc->tomove = 5;
+	print_map_part(vm, proc);
+}
+
+void			add(t_proclist *proc, t_vm *vm)
+{
+	uint8_t	reg[3];
 
 	if (check_ocp(proc, vm))
 	{
-		reg1 = vm->arena[get_reach(proc->pc + 2)];
-		reg2 = vm->arena[get_reach(proc->pc + 3)];
-		reg3 = vm->arena[get_reach(proc->pc + 4)];
-		proc->reg[reg3] = proc->reg[reg1] + proc->reg[reg2];
-		ft_printf("{CYAN}P\t%d{END} Adding r%d (%d) to r%d (%d)\n", proc->id, reg1, proc->reg[reg1], reg2, proc->reg[reg2]);
-		ft_printf("Storing the value %d in my r%d\n", proc->reg[reg1] + proc->reg[reg2], reg3);
-		carryhandler(vm, proc, proc->reg[reg1] + proc->reg[reg2]);
+		reg[0] = vm->arena[get_reach(proc->pc + 2)];
+		reg[1] = vm->arena[get_reach(proc->pc + 3)];
+		reg[2] = vm->arena[get_reach(proc->pc + 4)];
+		proc->reg[reg[2]] = proc->reg[reg[0]] + proc->reg[reg[1]];
+		if (vm->verbose)
+			verbose(vm, proc, reg, 0);
+		carryhandler(vm, proc, proc->reg[reg[0]] + proc->reg[reg[1]]);
 	}
-	//proc->pc += proc->tomove;
 	proc->pc = get_reach(proc->pc + proc->tomove);
 }
 
-void	sub(t_proclist *proc, t_vm *vm)
+void			sub(t_proclist *proc, t_vm *vm)
 {
-	uint8_t	reg1;
-	uint8_t	reg2;
-	uint8_t	reg3;
+	uint8_t	reg[3];
 
 	if (check_ocp(proc, vm))
 	{
-		reg1 = vm->arena[get_reach(proc->pc + 2)];
-		reg2 = vm->arena[get_reach(proc->pc + 3)];
-		reg3 = vm->arena[get_reach(proc->pc + 4)];
-		proc->reg[reg3] = proc->reg[reg1] - proc->reg[reg2];
-		ft_printf("{CYAN}P\t%d{END} Substracting r%d (%d) to r%d (%d)\n", proc->id, reg1, proc->reg[reg1], reg2, proc->reg[reg2]);
-		ft_printf("Storing the value %d in my r%d\n", proc->reg[reg1] - proc->reg[reg2], reg3);
-		carryhandler(vm, proc, proc->reg[reg1] + proc->reg[reg2]);
+		reg[0] = vm->arena[get_reach(proc->pc + 2)];
+		reg[1] = vm->arena[get_reach(proc->pc + 3)];
+		reg[2] = vm->arena[get_reach(proc->pc + 4)];
+		proc->reg[reg[2]] = proc->reg[reg[0]] - proc->reg[reg[1]];
+		if (vm->verbose)
+			verbose(vm, proc, reg, 1);
+		carryhandler(vm, proc, proc->reg[reg[0]] + proc->reg[reg[1]]);
 	}
 	//proc->pc += proc->tomove;
 	proc->pc = get_reach(proc->pc + proc->tomove);

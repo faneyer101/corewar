@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 12:25:32 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 22:28:05 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ void		push_active(t_proclist *proc, t_vm *vm);
 /* verbose_tools.c */
 void		print_map_part(t_vm *vm, t_proclist *proc);
 void		cycle_verbose(t_vm *vm);
+void		fork_verbose(t_vm *vm, t_proclist *proc,
+				uint8_t lfork, short target);
 
 /* Instructions */
 void		ld(t_proclist *proc, t_vm *vm);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deathcheck.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 17:33:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/12 16:27:48 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 22:39:01 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,14 @@ void		endofgame(t_vm *vm)
 
 void		reduce_ctc(t_vm *vm)
 {
-	ft_printf("%d live since last check, CTC is reduced to %d",
-		vm->linf.liv_since_last, vm->linf.todie - CYCLE_DELTA);
+	if (vm->verbose == 2)
+		ft_printf("{YELL}%d live since last check\n{END}",
+			vm->linf.liv_since_last);
+	if (vm->verbose == 2)
+		ft_printf("{YELL}");
+	ft_printf("Cycle to die is now %d\n", vm->linf.todie - CYCLE_DELTA);
+	if (vm->verbose == 2)
+		ft_printf("{END}");
 	vm->linf.todie -= CYCLE_DELTA;
 	vm->linf.liv_since_last = 0;
 }
@@ -48,8 +54,6 @@ void		deathcheck(t_vm *vm)
 
 	curr = vm->beginlist;
 	prev = NULL;
-	ft_printf("\n\n\n\nIt is now time to kill some processes (CTC = %hd)\n\n\n\n",
-		vm->linf.todie);
 	if (vm->linf.liv_since_last > NBR_LIVE)
 		reduce_ctc(vm);
 	while (curr)

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 05:13:38 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 23:03:47 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,75 +32,84 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 	return (1);
 }
 
-void	lldi(t_proclist *proc, t_vm *vm)
+static void		verbose(t_vm *vm, t_proclist *proc, short val[3], int ldi)
 {
-	short	toadd;
-    short	toadd2;
-	short	sum;
-    int		reg;
-
-    toadd = 0;
-    toadd2 = 0;
-    reg = 0;
-    proc->curs = 2;
-	sum = 0;
-    if (check_ocp(proc, vm))
+    if (vm->verbose)
     {
-        if (proc->param[0] == REG_CODE)
-            toadd = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
-        else if (proc->param[0] == DIR_CODE)
-            toadd = get_paramval(vm, proc, DIR_CODE, 2);
-        else if (proc->param[0] == IND_CODE)
-            toadd = get_paramval(vm, proc, IND_CODE, 2);
-        if (proc->param[0] == REG_CODE)
-            toadd2 = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
-        else if (proc->param[0] == DIR_CODE)
-            toadd2 = get_paramval(vm, proc, DIR_CODE, 2);
-		sum = toadd + toadd2;
-		reg = get_paramval(vm, proc, REG_CODE, 2);
-		if (reg > 0 && reg < 17)
-		{
-			proc->reg[reg] = maptoi(vm, get_reach(sum + proc->pc), 4);
-			ft_printf("{CYAN}P\t%d{END} LLDI Loading the value from %d and %d to my r%d", proc->id, toadd, toadd2, reg);
-			ft_printf(" (Source with pc: %d)\n", sum + proc->pc);
-			carryhandler(vm, proc, sum);
-        }
+        if (vm->verbose == 2)
+            ft_printf("{CYAN}");
+        ft_printf("P%5d ", proc->id);
+        if (vm->verbose == 2)
+            ft_printf("{END}");
+        if (ldi)
+            ft_printf("| ldi %d %d r%d\n", val[0], val[1], val[2]);
+        else
+            ft_printf("| lldi %d %d r%d\n", val[0], val[1], val[2]);
+        ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
+            val[0], val[1], val[0] + val[1],
+            get_reach(proc->pc + (val[0] + val[1])));
+        ft_printf("ADV %d (%#.4x -> %#.4x) ", proc->tomove, proc->pc,
+            get_reach(proc->pc + proc->tomove));
+        print_map_part(vm, proc);
     }
-	proc->pc = get_reach(proc->pc + proc->tomove);
 }
 
-void    ldi(t_proclist *proc, t_vm *vm)
+void	        lldi(t_proclist *proc, t_vm *vm)
 {
-    short	toadd;
-    short	toadd2;
+	short   var[3];
 	short	sum;
-    int		reg;
 
-    toadd = 0;
-    toadd2 = 0;
-    reg = 0;
     proc->curs = 2;
     if (check_ocp(proc, vm))
     {
         if (proc->param[0] == REG_CODE)
-            toadd = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
+            var[0] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
         else if (proc->param[0] == DIR_CODE)
-            toadd = get_paramval(vm, proc, DIR_CODE, 2);
+            var[0] = get_paramval(vm, proc, DIR_CODE, 2);
         else if (proc->param[0] == IND_CODE)
-            toadd = get_paramval(vm, proc, IND_CODE, 2);
+            var[0] = get_paramval(vm, proc, IND_CODE, 2);
         if (proc->param[0] == REG_CODE)
-            toadd2 = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
+            var[1] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
         else if (proc->param[0] == DIR_CODE)
-            toadd2 = get_paramval(vm, proc, DIR_CODE, 2);
-		sum = toadd % IDX_MOD + toadd2 % IDX_MOD;
-		reg = get_paramval(vm, proc, REG_CODE, 2);
-		if (reg > 0 && reg < 17)
+            var[1] = get_paramval(vm, proc, DIR_CODE, 2);
+		sum = var[0] + var[1];
+		var[2] = get_paramval(vm, proc, REG_CODE, 2);
+		if (var[2] > 0 && var[2] < 17)
 		{
-			proc->reg[reg] = maptoi(vm, get_reach(sum + proc->pc), 4);
-			ft_printf("{CYAN}P\t%d{END} LDI Loading the value from %d and %d to my r%d", proc->id, toadd, toadd2, reg);
-			ft_printf(" (Source with pc: %d)\n", sum + proc->pc);
+			proc->reg[var[2]] = maptoi(vm, get_reach(sum + proc->pc), 4);
+            verbose(vm, proc, var, 0);
         }
     }
-	//proc->pc += proc->tomove;
+    proc->pc = get_reach(proc->pc + proc->tomove);
+}
+
+
+
+void            ldi(t_proclist *proc, t_vm *vm)
+{
+    short   var[3];
+	short	sum;
+
+    proc->curs = 2;
+    if (check_ocp(proc, vm))
+    {
+        if (proc->param[0] == REG_CODE)
+            var[0] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
+        else if (proc->param[0] == DIR_CODE)
+            var[0] = get_paramval(vm, proc, DIR_CODE, 2);
+        else if (proc->param[0] == IND_CODE)
+            var[0] = get_paramval(vm, proc, IND_CODE, 2);
+        if (proc->param[0] == REG_CODE)
+            var[1] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
+        else if (proc->param[0] == DIR_CODE)
+            var[1] = get_paramval(vm, proc, DIR_CODE, 2);
+		sum = var[0] % IDX_MOD + var[1] % IDX_MOD;
+		var[2] = get_paramval(vm, proc, REG_CODE, 2);
+		if (var[2] > 0 && var[2] < 17)
+		{
+			proc->reg[var[2]] = maptoi(vm, get_reach(sum + proc->pc), 4);
+            verbose(vm, proc, var, 1);
+        }
+    }
     proc->pc = get_reach(proc->pc + proc->tomove);
 }

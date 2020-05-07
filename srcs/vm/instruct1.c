@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 13:22:25 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 22:33:43 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void		fork_(t_proclist *proc, t_vm *vm, uint8_t lfork)
 	target = maptoi(vm, get_reach(proc->pc + 1), 2);
 	if (!lfork)
 		target %= IDX_MOD;
-	ft_printf("{CYAN}P\t%d{END} Forking at adress %d\n", get_reach(proc->id + proc->pc), target);
-	push_proc(vm, proc, get_reach(target + proc->pc), vm->arena[get_reach(target + proc->pc)]);
+	if (vm->verbose)
+		fork_verbose(vm, proc, lfork, target);
+	push_proc(vm, proc, get_reach(target + proc->pc),
+		vm->arena[get_reach(target + proc->pc)]);
 	proc->pc = get_reach(proc->pc + 3);
 }
 
@@ -34,7 +36,7 @@ static void	live_verbose(t_vm *vm, t_proclist *proc, uint32_t player)
 		ft_printf("{END}");
 	ft_printf("| live %d\n", player);
 	ft_printf("ADV 5 (%#.4x -> %#.4x) ", proc->pc,
-		get_reach(proc->pc + proc->tomove));
+		get_reach(proc->pc + 5));
 	proc->tomove = 5;
 	print_map_part(vm, proc);
 }
@@ -46,7 +48,8 @@ void		live(t_proclist *proc, t_vm *vm)
 	proc->alive = 1;
 	vm->linf.liv_since_last++;
 	player = maptoi(vm, get_reach(proc->pc + 1), 4);
-	live_verbose(vm, proc, player);
+	if (vm->verbose)
+		live_verbose(vm, proc, player);
 	if (player * -1 <= vm->nb_player)
 	{
 		if (vm->verbose == 2)
