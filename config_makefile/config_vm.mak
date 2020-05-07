@@ -12,7 +12,9 @@ SRCFILE_VM		=	vm/main.c						\
 					vm/add_sub.c					\
 					vm/ldi.c						\
 					vm/deathcheck.c					\
-					vm/logical.c					\
+					vm/and.c						\
+					vm/or.c							\
+					vm/xor.c						\
 					vm/st.c							\
 					vm/aff.c						\
 					vm/active_tools.c				\

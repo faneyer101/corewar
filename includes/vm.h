@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/06 13:00:32 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 05:08:28 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void		loop(t_vm *vm);
 
 /* instructools.c */
 void		exec_proc(t_proclist *proc, t_vm *vm);
-void		carryhandler(t_proclist *proc, uint32_t val);
+void		carryhandler(t_vm *vm, t_proclist *proc, uint32_t val);
 int			get_paramval(t_vm *vm, t_proclist *proc, uint8_t code, int dsize);
 uint8_t		get_param(uint8_t c1, uint8_t c2);
 uint8_t		compute_params(t_proclist *proc, uint8_t nbp, uint8_t dsize);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_sub.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 12:25:23 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/10 15:39:39 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 05:13:28 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	add(t_proclist *proc, t_vm *vm)
 		proc->reg[reg3] = proc->reg[reg1] + proc->reg[reg2];
 		ft_printf("{CYAN}P\t%d{END} Adding r%d (%d) to r%d (%d)\n", proc->id, reg1, proc->reg[reg1], reg2, proc->reg[reg2]);
 		ft_printf("Storing the value %d in my r%d\n", proc->reg[reg1] + proc->reg[reg2], reg3);
-		carryhandler(proc, proc->reg[reg1] + proc->reg[reg2]);
+		carryhandler(vm, proc, proc->reg[reg1] + proc->reg[reg2]);
 	}
 	//proc->pc += proc->tomove;
 	proc->pc = get_reach(proc->pc + proc->tomove);
@@ -87,7 +87,7 @@ void	sub(t_proclist *proc, t_vm *vm)
 		proc->reg[reg3] = proc->reg[reg1] - proc->reg[reg2];
 		ft_printf("{CYAN}P\t%d{END} Substracting r%d (%d) to r%d (%d)\n", proc->id, reg1, proc->reg[reg1], reg2, proc->reg[reg2]);
 		ft_printf("Storing the value %d in my r%d\n", proc->reg[reg1] - proc->reg[reg2], reg3);
-		carryhandler(proc, proc->reg[reg1] + proc->reg[reg2]);
+		carryhandler(vm, proc, proc->reg[reg1] + proc->reg[reg2]);
 	}
 	//proc->pc += proc->tomove;
 	proc->pc = get_reach(proc->pc + proc->tomove);

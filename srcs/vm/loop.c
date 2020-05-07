@@ -6,20 +6,22 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/06 12:58:51 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 05:10:56 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../includes/vm.h"
 
-void	carryhandler(t_proclist *proc, uint32_t val)
+void	carryhandler(t_vm *vm, t_proclist *proc, uint32_t val)
 {
 	if (!val)
 		proc->carry = 1;
 	else
 		proc->carry = 0;
-	ft_printf("{RED}My carry is now: %d (P%d){END}\n", proc->carry, proc->id);
+	if (vm->verbose == 2)
+		ft_printf("{RED}My carry is now: %d (P%d){END}\n",
+			proc->carry, proc->id);
 }
 
 void	check_proc(t_proclist *lst, t_vm *vm)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ldi.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/11 18:19:39 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 05:13:38 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	lldi(t_proclist *proc, t_vm *vm)
 			proc->reg[reg] = maptoi(vm, get_reach(sum + proc->pc), 4);
 			ft_printf("{CYAN}P\t%d{END} LLDI Loading the value from %d and %d to my r%d", proc->id, toadd, toadd2, reg);
 			ft_printf(" (Source with pc: %d)\n", sum + proc->pc);
-			carryhandler(proc, sum);
+			carryhandler(vm, proc, sum);
         }
     }
 	proc->pc = get_reach(proc->pc + proc->tomove);
