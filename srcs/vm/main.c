@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 21:45:58 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 12:57:37 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 13:17:31 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	vm_init(t_vm *vm)
 	vm->linf.liv_since_last = 0;
 	vm->game = 1;
 	vm->linf.todie = CYCLE_TO_DIE;
-	vm->verbose = 1;
+	vm->verbose = 2;
 }
 
 void	introducing(t_vm *vm)

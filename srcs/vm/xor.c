@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 13:43:31 by user42            #+#    #+#             */
-/*   Updated: 2020/05/07 05:13:00 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 13:06:09 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		verbose(t_vm *vm, t_proclist *proc, int par[3])
 {
 	if (vm->verbose == 2)
 		ft_printf("{CYAN}");
-	ft_printf("P\t%d ", proc->id);
+	ft_printf("P%5d ", proc->id);
 	if (vm->verbose == 2)
 		ft_printf("{END}");
 	ft_printf("| xor %d %d r%d\n", par[0], par[1], par[2]);
