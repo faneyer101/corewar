@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   all_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:03:05 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 20:15:11 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 20:32:07 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	check_nullbytes(t_vm *vm, int ip)
 	}
 }
 
-void	check_magic(char **av, t_vm *vm)
+void	check_magic(t_vm *vm)
 {
 	int	i;
 	int	ip;
@@ -112,9 +112,9 @@ void	check_magic(char **av, t_vm *vm)
 	i += (vm->booldump) ? 2 : 0;
 	while (ip < vm->nb_player)
 	{
-		if (av[i][0] == '-')
-			i += 2;
-		vm->players[ip].fd = open(av[i], O_RDONLY);
+		//if (av[i][0] == '-')
+		//	i += 2;
+		vm->players[ip].fd = open(vm->players[ip].pname, O_RDONLY);
 		read(vm->players[ip].fd, vm->players[ip].magic, 4);
 		read(vm->players[ip].fd, vm->players[ip].name, PROG_NAME_LENGTH);
 		check_nullbytes(vm, ip);
@@ -260,7 +260,7 @@ void	all_checks(int argc, char **av, t_vm *vm)
 	check_bad_option(argc, av, vm);
 	stock_option_n(argc, av, vm);
 	//check_filenames(argc, av, vm);
-	check_magic(av, vm);
+	check_magic(vm);
 	printf("verbose %d | dump %d ==> %d\n", vm->verbose, vm->booldump, vm->dump);
 	while (i < vm->nb_player + 1)
 	{
