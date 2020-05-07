@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 05:08:28 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 12:25:32 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,5 +134,6 @@ void		xor(t_proclist *proc, t_vm *vm);
 void		and(t_proclist *proc, t_vm *vm);
 void		or(t_proclist *proc, t_vm *vm);
 void		aff(t_proclist *proc, t_vm *vm);
+void		zjmp(t_proclist *proc, t_vm *vm);
 
 #endif

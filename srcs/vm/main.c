@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 21:45:58 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/06 12:53:54 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 12:57:37 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	introducing(t_vm *vm)
 	ft_printf("Introducing contestants...\n");
 	while (i < vm->nb_player)
 	{
-		ft_printf("* Player %d, wheighing %d bytes,",
+		ft_printf("* Player %d, weighing %d bytes,",
 			i + 1, vm->players[i].size);
 		ft_printf(" \"%s\" ", vm->players[i].name);
 		ft_printf("(\"%s\") !\n", vm->players[i].comment);

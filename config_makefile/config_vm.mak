@@ -17,5 +17,6 @@ SRCFILE_VM		=	vm/main.c						\
 					vm/xor.c						\
 					vm/st.c							\
 					vm/aff.c						\
+					vm/zjmp.c						\
 					vm/active_tools.c				\
 					vm/verbose_tools.c

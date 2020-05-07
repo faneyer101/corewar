@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 20:17:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 05:17:02 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 12:51:27 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void		verbose(t_vm *vm, t_proclist *proc, uint8_t val, int mode)
 {
 	if (vm->verbose == 2)
 		ft_printf("{CYAN}");
-	ft_printf("P\t%d ", proc->id);
+	ft_printf("P%5d ", proc->id);
 	if (vm->verbose == 2)
 		ft_printf("{END}");
 	if (mode)
