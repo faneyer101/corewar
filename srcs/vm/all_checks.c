@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:03:05 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 17:07:47 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 17:58:48 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	check_dump(int argc, char **av, t_vm *vm)
 	int	i;
 
 	i = (vm->verbose) ? 2 : 1;
-	printf("test dump %d|%s\n", i, av[i]);
+	//printf("test dump %d|%s\n", i, av[i]);
 	if (argc > i && !(ft_strcmp(av[i], "-dump")))
 	{
 		j = 0;
@@ -181,7 +181,7 @@ void	swap_player(char *name_player, t_vm *vm, int player)
 	
 		i++;
 	}
-	printf ("player %d existe. On deplace en joueur %d\n", player, i);
+//	printf ("player %d existe. On deplace en joueur %d\n", player, i);
 	ft_strcpy(tmp, vm->players[player].name);
 	ft_strcpy(vm->players[player].name, name_player);
 	ft_strcpy(vm->players[i].name, tmp);
@@ -212,7 +212,7 @@ void	stock_option_n(int argc, char **av, t_vm *vm)
 			}
 			else if (vm->players[player - 1].name[0] != '\0')
 			{
-				printf ("avant swap %s ==> %s\n", vm->players[player - 1].name, av[i + 2]);
+			//	printf ("avant swap %s ==> %s\n", vm->players[player - 1].name, av[i + 2]);
 				swap_player(av[i + 2], vm, player - 1);
 			}
 			else
@@ -235,10 +235,11 @@ void	stock_option_n(int argc, char **av, t_vm *vm)
 
 void	all_checks(int argc, char **av, t_vm *vm)
 {
-	int i = 0;
+	int i = 1;
 	
 	if (argc < 2)
 		usage();
+	vm->verbose = 0;
 	check_verbos(av, vm);
 	check_dump(argc, av, vm);
 	check_bad_option(argc, av, vm);
@@ -246,10 +247,10 @@ void	all_checks(int argc, char **av, t_vm *vm)
 	//check_filenames(argc, av, vm);
 	check_magic(av, vm);
 	printf("verbose %d | dump %d ==> %d\n", vm->verbose, vm->booldump, vm->dump);
-	while (i < MAX_PLAYERS)
+	while (i < MAX_PLAYERS + 1)
 	{
-		printf ("joueur numero %d ==> %s\n", i, vm->players[i].name);
+		printf ("joueur numero %d ==> %s\n", i, vm->players[i - 1].name);
 		i++;
 	}
-	exit (0);
+	//exit (0);
 }
