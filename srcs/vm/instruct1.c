@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 22:33:43 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/08 11:03:13 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static void	live_verbose(t_vm *vm, t_proclist *proc, uint32_t player)
 	if (vm->verbose == 2)
 		ft_printf("{END}");
 	ft_printf("| live %d\n", player);
-	ft_printf("ADV 5 (%#.4x -> %#.4x) ", proc->pc,
-		get_reach(proc->pc + 5));
+	//ft_printf("ADV 5 (%#.4x -> %#.4x) ", proc->pc,
+	//	get_reach(proc->pc + 5));
 	proc->tomove = 5;
 	print_map_part(vm, proc);
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 23:03:47 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/08 11:14:31 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,21 @@ static void		verbose(t_vm *vm, t_proclist *proc, short val[3], int ldi)
 {
     if (vm->verbose)
     {
-        if (vm->verbose == 2)
-            ft_printf("{CYAN}");
-        ft_printf("P%5d ", proc->id);
-        if (vm->verbose == 2)
-            ft_printf("{END}");
-        if (ldi)
-            ft_printf("| ldi %d %d r%d\n", val[0], val[1], val[2]);
-        else
-            ft_printf("| lldi %d %d r%d\n", val[0], val[1], val[2]);
-        ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
-            val[0], val[1], val[0] + val[1],
-            get_reach(proc->pc + (val[0] + val[1])));
-        ft_printf("ADV %d (%#.4x -> %#.4x) ", proc->tomove, proc->pc,
-            get_reach(proc->pc + proc->tomove));
+        if (val[2] > 0 && val[2] < 17)
+        {
+            if (vm->verbose == 2)
+                ft_printf("{CYAN}");
+            ft_printf("P%5d ", proc->id);
+            if (vm->verbose == 2)
+                ft_printf("{END}");
+            if (ldi)
+                ft_printf("| ldi %d %d r%d\n", val[0], val[1], val[2]);
+            else
+                ft_printf("| lldi %d %d r%d\n", val[0], val[1], val[2]);
+            ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
+                val[0], val[1], val[0] + val[1],
+                get_reach(proc->pc + (val[0] + val[1])));
+        }
         print_map_part(vm, proc);
     }
 }
@@ -75,15 +76,13 @@ void	        lldi(t_proclist *proc, t_vm *vm)
 		sum = var[0] + var[1];
 		var[2] = get_paramval(vm, proc, REG_CODE, 2);
 		if (var[2] > 0 && var[2] < 17)
-		{
 			proc->reg[var[2]] = maptoi(vm, get_reach(sum + proc->pc), 4);
-            verbose(vm, proc, var, 0);
-        }
+        verbose(vm, proc, var, 0);
     }
+    else
+        print_map_part(vm, proc);
     proc->pc = get_reach(proc->pc + proc->tomove);
 }
-
-
 
 void            ldi(t_proclist *proc, t_vm *vm)
 {
@@ -106,10 +105,10 @@ void            ldi(t_proclist *proc, t_vm *vm)
 		sum = var[0] % IDX_MOD + var[1] % IDX_MOD;
 		var[2] = get_paramval(vm, proc, REG_CODE, 2);
 		if (var[2] > 0 && var[2] < 17)
-		{
 			proc->reg[var[2]] = maptoi(vm, get_reach(sum + proc->pc), 4);
-            verbose(vm, proc, var, 1);
-        }
+        verbose(vm, proc, var, 1);
     }
+    else
+        print_map_part(vm, proc);
     proc->pc = get_reach(proc->pc + proc->tomove);
 }

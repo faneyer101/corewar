@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 12:25:23 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 22:13:45 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/08 11:02:43 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ static void		verbose(t_vm *vm, t_proclist *proc, uint8_t val[3], int mode)
 		ft_printf("| sub r%d r%d r%d\n", val[0], val[1], val[2]);
 	else
 		ft_printf("| add r%d r%d r%d\n", val[0], val[1], val[2]);
-	ft_printf("ADV 5 (%#.4x -> %#.4x) ", proc->pc,
-		get_reach(proc->pc + 5));
+	//ft_printf("ADV 5 (%#.4x -> %#.4x) ", proc->pc,
+	//	get_reach(proc->pc + 5));
 	proc->tomove = 5;
 	print_map_part(vm, proc);
 }

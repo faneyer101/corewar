@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 20:17:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 12:51:27 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/08 11:19:26 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,19 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 
 static void		verbose(t_vm *vm, t_proclist *proc, uint8_t val, int mode)
 {
-	if (vm->verbose == 2)
-		ft_printf("{CYAN}");
-	ft_printf("P%5d ", proc->id);
-	if (vm->verbose == 2)
-		ft_printf("{END}");
-	if (mode)
-		ft_printf("| lld %d r%d\n", proc->reg[val], val);
-	else
-		ft_printf("| ld %d r%d\n", proc->reg[val], val);
-	ft_printf("ADV %d (0x%.4x -> 0x%.4x) ", proc->tomove, proc->pc,
-		get_reach(proc->pc + proc->tomove));
-	print_map_part(vm, proc);
+	if (vm->verbose)
+	{
+		if (vm->verbose == 2)
+			ft_printf("{CYAN}");
+		ft_printf("P%5d ", proc->id);
+		if (vm->verbose == 2)
+			ft_printf("{END}");
+		if (mode)
+			ft_printf("| lld %d r%d\n", proc->reg[val], val);
+		else
+			ft_printf("| ld %d r%d\n", proc->reg[val], val);
+		//print_map_part(vm, proc);
+	}
 }
 
 void    		lld(t_proclist *proc, t_vm *vm)
@@ -72,10 +73,10 @@ void    		lld(t_proclist *proc, t_vm *vm)
 			toreach = maptoi(vm, get_reach(proc->pc + 2), 2);
 			proc->reg[reg] = maptoi(vm, toreach, 4);
 		}
-		if (vm->verbose)
-			verbose(vm, proc, reg, 1);
+		verbose(vm, proc, reg, 1);
 		carryhandler(vm, proc, proc->reg[reg]);
 	}
+	print_map_part(vm, proc);
 	proc->pc += proc->tomove;
 }
 
@@ -101,9 +102,9 @@ void    		ld(t_proclist *proc, t_vm *vm)
 			toreach = maptoi(vm, get_reach(proc->pc), 2) % IDX_MOD;
 			proc->reg[reg] = maptoi(vm, get_reach(toreach), 4);
 		}
-		if (vm->verbose)
-			verbose(vm, proc, reg, 0);
+		verbose(vm, proc, reg, 0);
 		carryhandler(vm, proc, proc->reg[reg]);
 	}
+	print_map_part(vm, proc);
 	proc->pc = get_reach(proc->pc + proc->tomove);
 }

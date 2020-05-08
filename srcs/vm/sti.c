@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:23:03 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 12:54:46 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/08 11:01:44 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static void	verbose(short t[2], short reg, t_proclist *proc, t_vm *vm)
 		ft_printf("{END}");
 	ft_printf("       | -> store to %d + %d = %d ", t[0], t[1], t[0] + t[1]);
 	ft_printf("(with pc and mod %d)\n", proc->pc + (t[0] + t[1]) % IDX_MOD);
-	ft_printf("ADV %d (0x%.4x -> 0x%.4x) ", proc->tomove, proc->pc,
-		get_reach(proc->pc + proc->tomove));
-	print_map_part(vm, proc);
+	//ft_printf("ADV %d (0x%.4x -> 0x%.4x) ", proc->tomove, proc->pc,
+	//	get_reach(proc->pc + proc->tomove));
+	//print_map_part(vm, proc);
 }
 
 void		sti(t_proclist *proc, t_vm *vm)
@@ -71,5 +71,7 @@ void		sti(t_proclist *proc, t_vm *vm)
 			verbose(toput, reg, proc, vm);
 		write_onmap(vm, proc->pc + (toput[0] + toput[1]) % IDX_MOD, proc->reg[reg]);
 	}
+	if (vm->verbose)
+		print_map_part(vm, proc);
 	proc->pc = get_reach(proc->pc + proc->tomove);
 }
