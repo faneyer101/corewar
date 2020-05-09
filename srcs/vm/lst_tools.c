@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 17:14:27 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/09 12:22:59 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/09 15:22:48 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,7 @@ void		push_proc(t_vm *vm, t_proclist *proc, uint16_t pc, uint8_t op)
 		new->next = vm->beginlist;
 	vm->beginlist = new;
 	new->id = vm->pid_tracker++;
+	if (vm->verbose == 2)
+		ft_printf("{GREEN}New proc id = %d{END}\n", new->id);
 	new->last_alive = proc->last_alive;
 }

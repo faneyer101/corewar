@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/09 12:02:38 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/09 14:13:56 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void		fork_(t_proclist *proc, t_vm *vm, uint8_t lfork)
 	short	target;
 
 	target = maptoi(vm, get_reach(proc->pc + 1), 2);
-	if (!lfork)
-		target %= IDX_MOD;
 	if (vm->verbose)
 		fork_verbose(vm, proc, lfork, target);
+	if (!lfork)
+		target %= IDX_MOD;
 	push_proc(vm, proc, get_reach(target + proc->pc),
 		vm->arena[get_reach(target + proc->pc)]);
 	proc->pc = get_reach(proc->pc + 3);

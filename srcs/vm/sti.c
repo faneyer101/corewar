@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:23:03 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/08 11:01:44 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/09 14:09:45 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,40 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 	return (1);
 }
 
-static void	verbose(short t[2], short reg, t_proclist *proc, t_vm *vm)
+static int	regcheck(t_vm *vm, t_proclist *proc, int reg)
 {
-	if (vm->verbose == 2)
-		ft_printf("{CYAN}");
-	ft_printf("P%5d | sti r%d %d %d\n", proc->id, reg, t[0], t[1]);
-	if (vm->verbose == 2)
-		ft_printf("{END}");
-	ft_printf("       | -> store to %d + %d = %d ", t[0], t[1], t[0] + t[1]);
-	ft_printf("(with pc and mod %d)\n", proc->pc + (t[0] + t[1]) % IDX_MOD);
-	//ft_printf("ADV %d (0x%.4x -> 0x%.4x) ", proc->tomove, proc->pc,
-	//	get_reach(proc->pc + proc->tomove));
-	//print_map_part(vm, proc);
+	int	reg2;
+
+	reg2 = 0;
+	if (reg < 0 || reg > 15)
+		return (0);
+	if (proc->param[2] == REG_CODE)
+	{
+		proc->curs -= 1;
+		reg2 = get_paramval(vm, proc, REG_CODE, 2);
+		if (reg2 < 0 || reg2 > 15)
+		return (0);
+	}
+	return (1);
+}
+
+static void	verbose(short t[2], int reg, t_proclist *proc, t_vm *vm)
+{
+	if (regcheck(vm, proc, reg))
+	{
+		if (vm->verbose == 2)
+			ft_printf("{CYAN}");
+		ft_printf("P%5d | sti r%d %d %d\n", proc->id, reg, t[0], t[1]);
+		if (vm->verbose == 2)
+			ft_printf("{END}");
+		ft_printf("       | -> store to %d + %d = %d ", t[0], t[1], t[0] + t[1]);
+		ft_printf("(with pc and mod %d)\n", proc->pc + (t[0] + t[1]) % IDX_MOD);
+	}
 }
 
 void		sti(t_proclist *proc, t_vm *vm)
 {
-	uint8_t	reg;
+	int		reg;
 	short	toput[2];
 
 	proc->curs = 3;
@@ -69,7 +86,8 @@ void		sti(t_proclist *proc, t_vm *vm)
 			toput[1] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
 		if (vm->verbose)
 			verbose(toput, reg, proc, vm);
-		write_onmap(vm, proc->pc + (toput[0] + toput[1]) % IDX_MOD, proc->reg[reg]);
+		if (regcheck(vm, proc, reg))
+			write_onmap(vm, proc->pc + (toput[0] + toput[1]) % IDX_MOD, proc->reg[reg]);
 	}
 	if (vm->verbose)
 		print_map_part(vm, proc);

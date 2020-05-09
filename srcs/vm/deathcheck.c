@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 17:33:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/09 12:32:00 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/09 15:21:46 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,32 @@ void		reduce_ctc(t_vm *vm)
 
 t_proclist	*kill_this(t_vm *vm, t_proclist *curr, t_proclist *prev)
 {
-	if (!prev)
-		vm->beginlist = curr->next;
-	else
-		prev->next = curr->next;
-	ft_strdel(&curr->ocp);
-	free(curr);
-	if (!prev)
-		return (vm->beginlist);
-	else
-		return (prev);
+	if (vm->cycles - curr->last_alive > vm->linf.todie)
+	{
+		if (!prev)
+			vm->beginlist = curr->next;
+		else
+			prev->next = curr->next;
+		ft_strdel(&curr->ocp);
+		free(curr);
+		if (!prev)
+			return (vm->beginlist);
+		else
+			return (prev);
+	}
 	return (0);
 }
 
 void		death_verbose(t_vm *vm, t_proclist *proc)
 {
-	if (vm->verbose)
+	if (vm->cycles - proc->last_alive > vm->linf.todie)
 	{
-		ft_printf("Process %d hasn't lived ", proc->id);
-		ft_printf("for %d cycles ", vm->cycles - proc->last_alive - 1);
-		ft_printf("(CTD %d)\n", vm->linf.todie);
+		if (vm->verbose)
+		{
+			ft_printf("Process %d hasn't lived ", proc->id);
+			ft_printf("for %d cycles ", vm->cycles - proc->last_alive - 1);
+			ft_printf("(CTD %d)\n", vm->linf.todie);
+		}
 	}
 }
 
@@ -71,7 +77,7 @@ void		deathcheck(t_vm *vm)
 	prev = NULL;
 	while (curr)
 	{
-		if (!curr->alive)
+		if (!curr->alive && vm->cycles - curr->last_alive > vm->linf.todie)
 		{
 			death_verbose(vm, curr);
 			curr = kill_this(vm, curr, prev);
