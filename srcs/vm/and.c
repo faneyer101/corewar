@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 13:42:31 by user42            #+#    #+#             */
-/*   Updated: 2020/05/08 11:03:41 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/09 12:07:59 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ static void		verbose(t_vm *vm, t_proclist *proc, int par[3])
 	if (vm->verbose == 2)
 		ft_printf("{END}");
 	ft_printf("| and %d %d r%d\n", par[0], par[1], par[2]);
-	//ft_printf("ADV %d (%#.4x -> %#.4x) ", proc->tomove, proc->pc,
-	//	get_reach(proc->pc + proc->tomove));
-	print_map_part(vm, proc);
 }
 
 static uint8_t	regcheck(t_proclist *proc, t_vm *vm, int par[3])
@@ -93,5 +90,6 @@ void			and(t_proclist *proc, t_vm *vm)
 		par[2] = get_paramval(vm, proc, REG_CODE, 4);
 		regcheck(proc, vm, par);
 	}
+	print_map_part(vm, proc);
 	proc->pc = get_reach(proc->pc + proc->tomove);
 }

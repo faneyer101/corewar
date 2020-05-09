@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 22:28:05 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/09 11:45:06 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ typedef struct      	s_proclist
 	uint16_t			pc;
 	uint8_t				carry;
 	uint8_t				alive;
-	int					reg[REG_NUMBER];
 	uint8_t				param[4];
+	int					last_alive;
+	int					reg[REG_NUMBER];
 }                   	t_proclist;
 
 typedef struct      	s_live

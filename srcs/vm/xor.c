@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 13:43:31 by user42            #+#    #+#             */
-/*   Updated: 2020/05/07 13:06:09 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/09 12:08:36 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ void	xor(t_proclist *proc, t_vm *vm)
 		par[2] = get_paramval(vm, proc, REG_CODE, 4);
 		regcheck(proc, vm, par);
 	}
+	print_map_part(vm, proc);
 	proc->pc = get_reach(proc->pc + proc->tomove);
 }

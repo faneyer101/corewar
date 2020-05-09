@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/08 11:03:13 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/09 12:02:38 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ static void	live_verbose(t_vm *vm, t_proclist *proc, uint32_t player)
 	if (vm->verbose == 2)
 		ft_printf("{END}");
 	ft_printf("| live %d\n", player);
-	//ft_printf("ADV 5 (%#.4x -> %#.4x) ", proc->pc,
-	//	get_reach(proc->pc + 5));
 	proc->tomove = 5;
-	print_map_part(vm, proc);
 }
 
 void		live(t_proclist *proc, t_vm *vm)
@@ -46,16 +43,19 @@ void		live(t_proclist *proc, t_vm *vm)
 	uint32_t	player;
 
 	proc->alive = 1;
+	proc->last_alive = vm->cycles;
 	vm->linf.liv_since_last++;
 	player = maptoi(vm, get_reach(proc->pc + 1), 4);
 	if (vm->verbose)
 		live_verbose(vm, proc, player);
 	if (player * -1 <= vm->nb_player)
 	{
-		if (vm->verbose == 2)
-			ft_printf("{GREEN}Player %d said he is alive{END}\n", player * -1);
+		if (vm->verbose)
+			ft_printf("Player %d (%s) is said to be alive\n",
+				player * -1, vm->players[(player * -1) - 1].name);
 		vm->lastalive = player * -1;
 	}
+	print_map_part(vm, proc);
 	proc->pc = get_reach(proc->pc + 5);
 }
 

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 17:33:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 22:39:01 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/09 12:32:00 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 void		endofgame(t_vm *vm)
 {
-	ft_printf("Contestant %d has won !\n", vm->lastalive);
+	if (vm->verbose == 2)
+		ft_printf("{UND}{GREEN}");
+	ft_printf("Contestant %d, ", vm->lastalive);
+	ft_printf("\"%s\", has won !\n", vm->players[vm->lastalive -1].name);
+	if (vm->verbose == 2)
+		ft_printf("{END}");
 	exit (0);
 }
 
@@ -47,6 +52,16 @@ t_proclist	*kill_this(t_vm *vm, t_proclist *curr, t_proclist *prev)
 	return (0);
 }
 
+void		death_verbose(t_vm *vm, t_proclist *proc)
+{
+	if (vm->verbose)
+	{
+		ft_printf("Process %d hasn't lived ", proc->id);
+		ft_printf("for %d cycles ", vm->cycles - proc->last_alive - 1);
+		ft_printf("(CTD %d)\n", vm->linf.todie);
+	}
+}
+
 void		deathcheck(t_vm *vm)
 {
 	t_proclist	*curr;
@@ -54,13 +69,11 @@ void		deathcheck(t_vm *vm)
 
 	curr = vm->beginlist;
 	prev = NULL;
-	if (vm->linf.liv_since_last > NBR_LIVE)
-		reduce_ctc(vm);
 	while (curr)
 	{
 		if (!curr->alive)
 		{
-			ft_printf("\n\n\n\n\n\nOne process must die now (P\t%d)\n\n\n\n\n\n", curr->id);
+			death_verbose(vm, curr);
 			curr = kill_this(vm, curr, prev);
 			if (prev == NULL)
 				continue;
@@ -70,6 +83,8 @@ void		deathcheck(t_vm *vm)
 		prev = curr;
 		curr = curr->next;
 	}
+	if (vm->linf.liv_since_last > NBR_LIVE)
+		reduce_ctc(vm);
 	vm->linf.liv_since_last = 0;
 	vm->linf.cyc_since_last = 0;
 	if (!vm->beginlist)
