@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/10 11:41:49 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 17:59:54 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@ void	check_proc(t_proclist *lst, t_vm *vm)
 	while (curs)
 	{
 		if (curs->cycle > 0)
-		{
 			curs->cycle--;
-		}
 		if (curs->cycle == 0)
-			exec_proc(curs, vm);
+		{
+			//if (curs->opcode == vm->arena[curs->pc])
+				exec_proc(curs, vm);
+			//else
+				//curs->pc = get_reach(curs->pc + 1);
+		}
 		curs = curs->next;
 	}
 }
@@ -95,8 +98,6 @@ void	loop(t_vm *vm)
 		get_opcode(vm);
 		vm->cycles++;
 		vm->linf.cyc_since_last++;
-		if (get_nbproc(vm->beginlist) == 0)
-			break ;
 		if (vm->linf.cyc_since_last == vm->linf.todie)
 			deathcheck(vm);
 		if (vm->booldump)

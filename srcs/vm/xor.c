@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 13:43:31 by user42            #+#    #+#             */
-/*   Updated: 2020/05/09 14:10:50 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 15:54:36 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static uint8_t	regcheck(t_proclist *proc, t_vm *vm, int par[3])
 			p = get_paramval(vm, proc, DIR_CODE, 4);
 		else
 			p = get_paramval(vm, proc, IND_CODE, 4);
-		if (proc->param[i] == REG_CODE && (p < 0 || p > 15))
+		if (proc->param[i] == REG_CODE && (p < 1 || p > 16))
 			return (0);
 		i++;
 	}
