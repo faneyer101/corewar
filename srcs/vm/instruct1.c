@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/09 14:13:56 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 11:58:29 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		live(t_proclist *proc, t_vm *vm)
 	player = maptoi(vm, get_reach(proc->pc + 1), 4);
 	if (vm->verbose)
 		live_verbose(vm, proc, player);
-	if (player * -1 <= vm->nb_player)
+	if (player * -1 <= vm->nb_player && player * -1 > 0)
 	{
 		if (vm->verbose)
 			ft_printf("Player %d (%s) is said to be alive\n",

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:23:03 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/09 14:09:45 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 12:50:13 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,19 @@ static int	regcheck(t_vm *vm, t_proclist *proc, int reg)
 	int	reg2;
 
 	reg2 = 0;
-	if (reg < 0 || reg > 15)
+	if (reg < 1 || reg > REG_NUMBER)
 		return (0);
 	if (proc->param[2] == REG_CODE)
 	{
 		proc->curs -= 1;
 		reg2 = get_paramval(vm, proc, REG_CODE, 2);
-		if (reg2 < 0 || reg2 > 15)
-		return (0);
+		if (reg2 < 1 || reg2 > REG_NUMBER)
+			return (0);
 	}
 	return (1);
 }
 
-static void	verbose(short t[2], int reg, t_proclist *proc, t_vm *vm)
+static void	verbose(int t[2], int reg, t_proclist *proc, t_vm *vm)
 {
 	if (regcheck(vm, proc, reg))
 	{
@@ -68,20 +68,20 @@ static void	verbose(short t[2], int reg, t_proclist *proc, t_vm *vm)
 void		sti(t_proclist *proc, t_vm *vm)
 {
 	int		reg;
-	short	toput[2];
+	int		toput[2];
 
 	proc->curs = 3;
 	if (check_ocp(proc, vm))
 	{
 		reg = vm->arena[get_reach(proc->pc + 2)];
 		if (proc->param[1] == DIR_CODE)
-			toput[0] = get_paramval(vm, proc, DIR_CODE, 2);
+			toput[0] = (short)get_paramval(vm, proc, DIR_CODE, 2);
 		else if (proc->param[1] == IND_CODE)
 			toput[0] = get_paramval(vm, proc, IND_CODE, 2);
 		else if (proc->param[1] == REG_CODE)
 			toput[0] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
 		if (proc->param[2] == DIR_CODE)
-			toput[1] = get_paramval(vm, proc, DIR_CODE, 2);
+			toput[1] = (short)get_paramval(vm, proc, DIR_CODE, 2);
 		else if (proc->param[2] == REG_CODE)
 			toput[1] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
 		if (vm->verbose)

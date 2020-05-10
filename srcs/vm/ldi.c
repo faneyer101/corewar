@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/08 11:14:31 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 12:44:15 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 		j += 2;
 	}
 	proc->tomove += compute_params(proc, 3, 2);
-	if (proc->param[1] == REG_CODE || proc->param[2] != REG_CODE)
+    if (proc->param[0] == 0 || proc->param[1] == 0 || proc->param[2] == 0)
+        return (0);
+	else if (proc->param[1] == IND_CODE || proc->param[2] != REG_CODE)
 		return (0);
 	return (1);
 }
@@ -69,9 +71,9 @@ void	        lldi(t_proclist *proc, t_vm *vm)
             var[0] = get_paramval(vm, proc, DIR_CODE, 2);
         else if (proc->param[0] == IND_CODE)
             var[0] = get_paramval(vm, proc, IND_CODE, 2);
-        if (proc->param[0] == REG_CODE)
+        if (proc->param[1] == REG_CODE)
             var[1] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
-        else if (proc->param[0] == DIR_CODE)
+        else if (proc->param[1] == DIR_CODE)
             var[1] = get_paramval(vm, proc, DIR_CODE, 2);
 		sum = var[0] + var[1];
 		var[2] = get_paramval(vm, proc, REG_CODE, 2);
@@ -98,9 +100,9 @@ void            ldi(t_proclist *proc, t_vm *vm)
             var[0] = get_paramval(vm, proc, DIR_CODE, 2);
         else if (proc->param[0] == IND_CODE)
             var[0] = get_paramval(vm, proc, IND_CODE, 2);
-        if (proc->param[0] == REG_CODE)
+        if (proc->param[1] == REG_CODE)
             var[1] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
-        else if (proc->param[0] == DIR_CODE)
+        else if (proc->param[1] == DIR_CODE)
             var[1] = get_paramval(vm, proc, DIR_CODE, 2);
 		sum = var[0] % IDX_MOD + var[1] % IDX_MOD;
 		var[2] = get_paramval(vm, proc, REG_CODE, 2);

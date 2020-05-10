@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 20:17:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/08 11:19:26 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/10 12:18:29 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,18 @@ static void		verbose(t_vm *vm, t_proclist *proc, uint8_t val, int mode)
 {
 	if (vm->verbose)
 	{
-		if (vm->verbose == 2)
-			ft_printf("{CYAN}");
-		ft_printf("P%5d ", proc->id);
-		if (vm->verbose == 2)
-			ft_printf("{END}");
-		if (mode)
-			ft_printf("| lld %d r%d\n", proc->reg[val], val);
-		else
-			ft_printf("| ld %d r%d\n", proc->reg[val], val);
-		//print_map_part(vm, proc);
+		if (val > 0 && val < 17)
+		{
+			if (vm->verbose == 2)
+				ft_printf("{CYAN}");
+			ft_printf("P%5d ", proc->id);
+			if (vm->verbose == 2)
+				ft_printf("{END}");
+			if (mode)
+				ft_printf("| lld %d r%d\n", proc->reg[val], val);
+			else
+				ft_printf("| ld %d r%d\n", proc->reg[val], val);
+		}
 	}
 }
 
@@ -69,9 +71,10 @@ void    		lld(t_proclist *proc, t_vm *vm)
 		{
 			reg = vm->arena[proc->pc] + 4;
 			if (reg > 0 && reg < 17)
-				proc->reg[reg] = maptoi(vm, get_reach(proc->pc + 2), 4);
-			toreach = maptoi(vm, get_reach(proc->pc + 2), 2);
-			proc->reg[reg] = maptoi(vm, toreach, 4);
+			{
+				toreach = maptoi(vm, get_reach(proc->pc + 2), 2);
+				proc->reg[reg] = maptoi(vm, toreach, 4);
+			}
 		}
 		verbose(vm, proc, reg, 1);
 		carryhandler(vm, proc, proc->reg[reg]);
