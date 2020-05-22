@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 20:56:23 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/08 11:15:51 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/22 17:48:00 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,5 @@ void	st(t_proclist *proc, t_vm *vm)
 			write_onmap(vm, proc->pc + param, proc->reg[reg]);
 		}
 	}
-	else
-		print_map_part(vm, proc);
-	proc->pc = get_reach(proc->pc + proc->tomove);
+	print_map_part(vm, proc);
 }

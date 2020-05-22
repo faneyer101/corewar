@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 17:33:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/09 15:21:46 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/22 22:04:17 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,19 @@ t_proclist	*kill_this(t_vm *vm, t_proclist *curr, t_proclist *prev)
 	return (0);
 }
 
-void		death_verbose(t_vm *vm, t_proclist *proc)
+void		refresh_ctd(t_vm *vm)
 {
-	if (vm->cycles - proc->last_alive > vm->linf.todie)
+	if (vm->linf.liv_since_last > NBR_LIVE)
+		reduce_ctc(vm);
+	else
+		vm->linf.checks++;
+	if (vm->linf.checks == MAX_CHECKS)
 	{
-		if (vm->verbose)
-		{
-			ft_printf("Process %d hasn't lived ", proc->id);
-			ft_printf("for %d cycles ", vm->cycles - proc->last_alive - 1);
-			ft_printf("(CTD %d)\n", vm->linf.todie);
-		}
+		reduce_ctc(vm);
+		vm->linf.checks = 0;
 	}
+	vm->linf.liv_since_last = 0;
+	vm->linf.cyc_since_last = 0;
 }
 
 void		deathcheck(t_vm *vm)
@@ -89,10 +91,7 @@ void		deathcheck(t_vm *vm)
 		prev = curr;
 		curr = curr->next;
 	}
-	if (vm->linf.liv_since_last > NBR_LIVE)
-		reduce_ctc(vm);
-	vm->linf.liv_since_last = 0;
-	vm->linf.cyc_since_last = 0;
+	refresh_ctd(vm);
 	if (!vm->beginlist)
 		endofgame(vm);
 }

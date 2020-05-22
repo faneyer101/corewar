@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 20:17:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/10 12:18:29 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/22 17:45:32 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void    		lld(t_proclist *proc, t_vm *vm)
 		carryhandler(vm, proc, proc->reg[reg]);
 	}
 	print_map_part(vm, proc);
-	proc->pc += proc->tomove;
 }
 
 void    		ld(t_proclist *proc, t_vm *vm)
@@ -109,5 +108,4 @@ void    		ld(t_proclist *proc, t_vm *vm)
 		carryhandler(vm, proc, proc->reg[reg]);
 	}
 	print_map_part(vm, proc);
-	proc->pc = get_reach(proc->pc + proc->tomove);
 }

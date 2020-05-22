@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:23:03 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/10 12:50:13 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/22 19:22:03 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ static int	regcheck(t_vm *vm, t_proclist *proc, int reg)
 	reg2 = 0;
 	if (reg < 1 || reg > REG_NUMBER)
 		return (0);
+	if (proc->param[1] == REG_CODE)
+	{
+		reg2 = vm->arena[proc->pc + 3];
+		if (reg2 < 1 || reg2 > REG_NUMBER)
+			return (0);
+	}
 	if (proc->param[2] == REG_CODE)
 	{
 		proc->curs -= 1;
@@ -89,7 +95,5 @@ void		sti(t_proclist *proc, t_vm *vm)
 		if (regcheck(vm, proc, reg))
 			write_onmap(vm, proc->pc + (toput[0] + toput[1]) % IDX_MOD, proc->reg[reg]);
 	}
-	if (vm->verbose)
-		print_map_part(vm, proc);
-	proc->pc = get_reach(proc->pc + proc->tomove);
+	print_map_part(vm, proc);
 }

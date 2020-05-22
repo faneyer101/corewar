@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/09 13:28:19 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/22 22:03:07 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct      	s_live
 	uint64_t			liv_since_last;
 	short				cyc_since_last;
 	uint8_t				lastalive;
+	uint8_t				checks;
 }                   	t_live;
 
 typedef struct      	s_player
@@ -117,8 +118,10 @@ void		init_arena(t_vm *vm);
 /* active_tools.c */
 void		get_opcode(t_vm *vm);
 void		push_active(t_proclist *proc, t_vm *vm);
+void		negative_ctd(t_vm *vm);
 
 /* verbose_tools.c */
+void		death_verbose(t_vm *vm, t_proclist *proc);
 void		print_map_part(t_vm *vm, t_proclist *proc);
 void		cycle_verbose(t_vm *vm);
 void		fork_verbose(t_vm *vm, t_proclist *proc,

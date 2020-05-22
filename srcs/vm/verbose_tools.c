@@ -6,11 +6,24 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 12:39:19 by user42            #+#    #+#             */
-/*   Updated: 2020/05/09 14:16:03 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/22 22:00:53 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
+
+void		death_verbose(t_vm *vm, t_proclist *proc)
+{
+	if (vm->cycles - proc->last_alive > vm->linf.todie)
+	{
+		if (vm->verbose)
+		{
+			ft_printf("Process %d hasn't lived ", proc->id);
+			ft_printf("for %d cycles ", vm->cycles - proc->last_alive - 1);
+			ft_printf("(CTD %d)\n", vm->linf.todie);
+		}
+	}
+}
 
 void	fork_verbose(t_vm *vm, t_proclist *proc, uint8_t lfork, short target)
 {
@@ -25,7 +38,7 @@ void	fork_verbose(t_vm *vm, t_proclist *proc, uint8_t lfork, short target)
 		ft_printf("| fork %d (%d)\n", target,
 			get_reach(proc->pc + target % IDX_MOD));
 	proc->tomove = 3;
-	print_map_part(vm, proc);
+	//print_map_part(vm, proc);
 }
 
 void	cycle_verbose(t_vm *vm)
@@ -57,4 +70,5 @@ void	print_map_part(t_vm *vm, t_proclist *proc)
 			ft_printf("{END}");
 		ft_putendl("");
 	}
+	proc->pc = get_reach(proc->pc + proc->tomove);
 }
