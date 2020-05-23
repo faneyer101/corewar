@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 20:17:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/22 17:45:32 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/23 19:13:57 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void    		lld(t_proclist *proc, t_vm *vm)
 			}
 		}
 		verbose(vm, proc, reg, 1);
-		carryhandler(vm, proc, proc->reg[reg]);
+		if (reg > 0 && reg < 17)
+			carryhandler(vm, proc, proc->reg[reg]);
 	}
 	print_map_part(vm, proc);
 }
@@ -105,7 +106,8 @@ void    		ld(t_proclist *proc, t_vm *vm)
 			proc->reg[reg] = maptoi(vm, get_reach(toreach), 4);
 		}
 		verbose(vm, proc, reg, 0);
-		carryhandler(vm, proc, proc->reg[reg]);
+		if (reg > 0 && reg < 17)
+			carryhandler(vm, proc, proc->reg[reg]);
 	}
 	print_map_part(vm, proc);
 }

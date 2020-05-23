@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/22 22:07:37 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/23 19:34:16 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	check_proc(t_proclist *lst, t_vm *vm)
 	{
 		if (curs->cycle > 0)
 			curs->cycle--;
+		//if (curs->pc == 548)
+		//	ft_printf("i am P%d\n", curs->id);
 		if (curs->cycle == 0)
 			exec_proc(curs, vm);
 		curs = curs->next;

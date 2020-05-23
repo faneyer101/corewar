@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/22 18:08:17 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/23 18:54:15 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	        lldi(t_proclist *proc, t_vm *vm)
             var[1] = get_paramval(vm, proc, DIR_CODE, 2);
 		sum = var[0] + var[1];
 		var[2] = get_paramval(vm, proc, REG_CODE, 2);
-        
 		if (var[2] > 0 && var[2] < 17 && var[3] != -1)
 			proc->reg[var[2]] = maptoi(vm, get_reach(sum + proc->pc), 4);
         verbose(vm, proc, var, 0);
@@ -114,7 +113,6 @@ void            ldi(t_proclist *proc, t_vm *vm)
             var[0] = get_paramval(vm, proc, IND_CODE, 2);
         if (proc->param[1] == REG_CODE)
 			regcheck(vm, proc, var);
-            //var[1] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
         else if (proc->param[1] == DIR_CODE)
             var[1] = get_paramval(vm, proc, DIR_CODE, 2);
 		sum = var[0] % IDX_MOD + var[1] % IDX_MOD;

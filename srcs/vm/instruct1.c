@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/22 18:03:23 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/23 19:14:47 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void		fork_(t_proclist *proc, t_vm *vm, uint8_t lfork)
 	push_proc(vm, proc, get_reach(target + proc->pc),
 		vm->arena[get_reach(target + proc->pc)]);
 	print_map_part(vm, proc);
-	//proc->pc = get_reach(proc->pc + 3);
 }
 
 static void	live_verbose(t_vm *vm, t_proclist *proc, uint32_t player)
