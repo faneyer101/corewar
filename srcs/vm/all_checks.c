@@ -3,49 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   all_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:03:05 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 20:32:07 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/23 23:25:30 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 #include <stdio.h>
 
-/*
-void	check_filenames(int ac, char **av, t_vm *vm)
-{
-	int				i;
-	unsigned char	error;
-
-	error = 0;
-	i = (vm->verbose) ? 2 : 1;
-	i += (vm->booldump) ? 2 : 0;
-	printf("position index i %d | %s\n", i, av[i]);
-	while (i < ac)
-	{
-		if (av[i][0] != '-'
-			&& (ft_strcmp(".cor", av[i] + ft_strlen(av[i]) - 4)))
-		{
-			ft_printf("Wrong file %s\n", av[i]);
-			error = 1;
-		}
-		else if (av[i][0] != '-')
-		{
-			vm->players[vm->nb_player].pname = av[i];
-			vm->nb_player++;
-		}
-		i++;
-	}
-	if (error)
-	{
-		ft_printf("\nThe champions must be .cor files to be able to");
-		ft_printf(" play the game\n");
-		exit(1);
-	}
-}
-*/
 void	check_verbos(char **av, t_vm *vm)
 {
 	if (!(ft_strcmp(av[1], "-v")))
@@ -54,14 +21,12 @@ void	check_verbos(char **av, t_vm *vm)
 		vm->verbose = 2;
 }
 
-
 void	check_dump(int argc, char **av, t_vm *vm)
 {
 	int	j;
 	int	i;
 
 	i = (vm->verbose) ? 2 : 1;
-	//printf("test dump %d|%s\n", i, av[i]);
 	if (argc > i && !(ft_strcmp(av[i], "-dump")))
 	{
 		j = 0;
@@ -77,10 +42,7 @@ void	check_dump(int argc, char **av, t_vm *vm)
 			vm->booldump = 1;
 		}
 		else
-		{
-			printf("error dump\n");
 			usage();
-		}
 	}
 }
 
@@ -112,8 +74,6 @@ void	check_magic(t_vm *vm)
 	i += (vm->booldump) ? 2 : 0;
 	while (ip < vm->nb_player)
 	{
-		//if (av[i][0] == '-')
-		//	i += 2;
 		vm->players[ip].fd = open(vm->players[ip].pname, O_RDONLY);
 		read(vm->players[ip].fd, vm->players[ip].magic, 4);
 		read(vm->players[ip].fd, vm->players[ip].name, PROG_NAME_LENGTH);
@@ -129,31 +89,42 @@ void	check_magic(t_vm *vm)
 	}
 }
 
-void	check_bad_option(int ac, char **av, t_vm *vm)
+void	print_with_exit(char *msg, int i)
 {
-	int	i;
+	ft_printf("%s %d\n", msg, i);
+	exit(1);
+}
+
+void	print_with_usage(char *msg, char *av)
+{
+	ft_printf("%s %s\n", msg, av);
+	usage();
+}
+
+void	check_bad_option_n(char **av, int *i, int j, t_vm *vm)
+{
+	if (!ft_isdigit(av[*i + 1][j]))
+		usage();
+	else if ((ft_strcmp(".cor", av[*i + 2] + ft_strlen(av[*i + 2]) - 4)))
+		print_with_usage("Wrong file", av[*i]);
+	while (ft_isdigit(av[*i + 1][j]))
+		j++;
+	if (av[*i + 1][j] != '\0' && ft_isalpha(av[*i + 1][j]))
+		usage();
+	*i += 3;
+	vm->nb_player++;
+}
+
+void	check_bad_option(int ac, char **av, t_vm *vm, int i)
+{
 	int	j;
 
-	i = (vm->verbose) ? 2 : 1;
-	i += (vm->booldump) ? 2 : 0;
 	while (ac > i)
 	{
 		j = 0;
 		if (!(ft_strcmp(av[i], "-n")) && ac > i + 2)
 		{
-			if (!ft_isdigit (av[i + 1][j]))
-				usage ();
-			else if ((ft_strcmp(".cor", av[i + 2] + ft_strlen(av[i + 2]) - 4)))
-			{
-				ft_printf("Wrong file %s\n", av[i]);
-				usage ();
-			}
-			while (ft_isdigit(av[i + 1][j]))
-				j++;
-			if (av[i + 1][j] != '\0' && ft_isalpha(av[i + 1][j]))
-				usage ();
-			i += 3;
-			vm->nb_player++;
+			check_bad_option_n(av, &i, j, vm);
 			continue ;
 		}
 		else if (!(ft_strcmp(".cor", av[i] + ft_strlen(av[i]) - 4)))
@@ -163,75 +134,44 @@ void	check_bad_option(int ac, char **av, t_vm *vm)
 			continue ;
 		}
 		else if ((ft_strcmp(".cor", av[i] + ft_strlen(av[i]) - 4)))
-		{
-			ft_printf("Wrong file %s\n", av[i]);
-			usage ();
-		}
+			print_with_usage("Wrong file", av[i]);
 		else
 			usage();
 	}
 	if (vm->nb_player > MAX_PLAYERS)
-	{
-		ft_printf("Max players wait: %d\n", MAX_PLAYERS);
-		exit (1);
-	}
+		print_with_exit("Max players wait:", MAX_PLAYERS);
 }
 
 void	swap_player(char *name_player, t_vm *vm, int player)
 {
-	int 	i;
+	int		i;
 	char	*tmp;
 
 	i = 0;
 	while (i < vm->nb_player && vm->players[i].pname != NULL)
-	{
 		i++;
-	}
-//	printf ("player %d existe. On deplace en joueur %d\n", player, i);
 	tmp = vm->players[player].pname;
 	vm->players[player].pname = name_player;
 	vm->players[i].pname = tmp;
-	
-	// ft_strcpy(tmp, vm->players[player].name);
-	// ft_strcpy(vm->players[player].name, name_player);
-	// ft_strcpy(vm->players[i].name, tmp);
-	
 }
 
-void	stock_option_n(int argc, char **av, t_vm *vm)
+void	stock_option_n(int argc, char **av, t_vm *vm, int i)
 {
-	int	i;
 	int player;
 
-	i = (vm->verbose) ? 2 : 1;
-	i += (vm->booldump) ? 2 : 0;
 	while (i < argc)
 	{
 		player = 0;
 		if (!ft_strcmp(av[i], "-n"))
 		{
 			if ((player = ft_atoi(av[i + 1])) > vm->nb_player)
-			{
-				ft_printf("Max players wait: %d\n", vm->nb_player);
-				exit (1);
-			}
+				print_with_exit("Max players wait:", vm->nb_player);
 			else if (player <= 0)
-			{
-				ft_printf("Please select a num player correct: %d\n", player);
-				exit (1);
-			}
+				print_with_exit("Please select a num player correct:", player);
 			else if (vm->players[player - 1].pname != NULL)
-			{
-			//	printf ("avant swap %s ==> %s\n", vm->players[player - 1].name, av[i + 2]);
 				swap_player(av[i + 2], vm, player - 1);
-			}
 			else
-			{
-			//	while (player < MAX_PLAYERS && vm->players[player].name[0] != '\0')
-			//		player++;
 				vm->players[player - 1].pname = av[i + 2];
-				//ft_strcpy(vm->players[player - 1].name, av[i + 2]);
-			}
 			i += 2;
 		}
 		else
@@ -239,7 +179,6 @@ void	stock_option_n(int argc, char **av, t_vm *vm)
 			while (player < vm->nb_player && vm->players[player].pname != NULL)
 				player++;
 			vm->players[player].pname = av[i];
-			//ft_strcpy(vm->players[player].name, av[i]);
 		}
 		i++;
 	}
@@ -247,25 +186,29 @@ void	stock_option_n(int argc, char **av, t_vm *vm)
 
 void	all_checks(int argc, char **av, t_vm *vm)
 {
-	int i = -1;
-	
+	int i;
+
 	if (argc < 2)
 		usage();
+	i = -1;
 	while (++i < MAX_PLAYERS)
 		vm->players[i].pname = NULL;
-	i = 1;
 	vm->verbose = 0;
 	check_verbos(av, vm);
 	check_dump(argc, av, vm);
-	check_bad_option(argc, av, vm);
-	stock_option_n(argc, av, vm);
-	//check_filenames(argc, av, vm);
+	i = (vm->verbose) ? 2 : 1;
+	i += (vm->booldump) ? 2 : 0;
+	check_bad_option(argc, av, vm, i);
+	stock_option_n(argc, av, vm, i);
 	check_magic(vm);
-	printf("verbose %d | dump %d ==> %d\n", vm->verbose, vm->booldump, vm->dump);
-	while (i < vm->nb_player + 1)
+	if (vm->verbose == 2)
 	{
-		printf ("joueur numero %d ==> %s\n", i, vm->players[i - 1].pname);
-		i++;
+		printf("verbose %d | dump %d ==> %d\n", vm->verbose, vm->booldump, vm->dump);
+		i = 1;
+		while (i < vm->nb_player + 1)
+		{
+			printf("joueur numero %d ==> %s\n", i, vm->players[i - 1].pname);
+			i++;
+		}
 	}
-	//exit (0);
 }
