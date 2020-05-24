@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/22 22:03:07 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 11:01:04 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void		deathcheck(t_vm *vm);
 void		init_arena(t_vm *vm);
 
 /* active_tools.c */
-void		get_opcode(t_vm *vm);
+void		get_opcode(t_vm *vm, t_proclist *proc);
 void		push_active(t_proclist *proc, t_vm *vm);
 void		negative_ctd(t_vm *vm);
 
