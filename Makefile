@@ -1,15 +1,15 @@
 # **************************************************************************** #
-#                                                           LE - /             #
-#                                                               /              #
-#    Makefile                                         .::    .:/ .      .::    #
-#                                                  +:+:+   +:    +:  +:+:+     #
-#    By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+      #
-#                                                  #+#   #+    #+    #+#       #
-#    Created: 2019/07/27 18:49:19 by nsalle       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/18 16:05:04 by faneyer     ###    #+. /#+    ###.fr      #
-#                                                          /                   #
-#                                                         /                    #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/07/27 18:49:19 by nsalle            #+#    #+#              #
+#    Updated: 2020/05/24 16:53:57 by faneyer          ###   ########lyon.fr    #
+#                                                                              #
 # **************************************************************************** #
+
 
 NAME_ASM		= 	asm
 NAME_VM			=	corewar
@@ -62,6 +62,7 @@ $(OBJDIR_ASM)%.o: $(SRCDIR)%.c $(INCDIR)asm.h $(INCDIR)op.h $(LFTDIR)libft.a
 $(OBJDIR_VM)%.o: $(SRCDIR)%.c $(INCDIR)vm.h $(INCDIR)op.h $(LFTDIR)libft.a
 	@mkdir -p $(OBJDIR_VM)
 	@mkdir -p $(OBJDIR_VM)/vm
+	@mkdir -p $(OBJDIR_VM)/vm/Instructions
 	$(CC) $(CFLAGS) $(INCLUDE) $(INC_LFT) -o $@ -c $< && echo "${BAR} \c"
 
 all: LFTC $(NAME_ASM) $(NAME_VM)
