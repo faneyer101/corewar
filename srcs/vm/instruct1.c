@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/24 00:53:15 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 19:37:07 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void		fork_(t_proclist *proc, t_vm *vm, uint8_t lfork)
 	short	target;
 
 	target = maptoi(vm, get_reach(proc->pc + 1), 2);
-	if (vm->verbose)
-		fork_verbose(vm, proc, lfork, target);
+	fork_verbose(vm, proc, lfork, target);
 	if (!lfork)
 		target %= IDX_MOD;
 	push_proc(vm, proc, get_reach(target + proc->pc),
@@ -29,12 +28,15 @@ void		fork_(t_proclist *proc, t_vm *vm, uint8_t lfork)
 
 static void	live_verbose(t_vm *vm, t_proclist *proc, uint32_t player)
 {
-	if (vm->verbose == 2)
-		ft_printf("{CYAN}");
-	ft_printf("P%5d ", proc->id);
-	if (vm->verbose == 2)
-		ft_printf("{END}");
-	ft_printf("| live %d\n", player);
+	if (vm->verbose)
+	{
+		if (vm->verbose == 2)
+			ft_printf("{CYAN}");
+		ft_printf("P%5d ", proc->id);
+		if (vm->verbose == 2)
+			ft_printf("{END}");
+		ft_printf("| live %d\n", player);
+	}
 	proc->tomove = 5;
 }
 
@@ -46,8 +48,7 @@ void		live(t_proclist *proc, t_vm *vm)
 	proc->last_alive = vm->cycles;
 	vm->linf.liv_since_last++;
 	player = maptoi(vm, get_reach(proc->pc + 1), 4);
-	if (vm->verbose)
-		live_verbose(vm, proc, player);
+	live_verbose(vm, proc, player);
 	if (player * -1 <= vm->nb_player && player * -1 > 0)
 	{
 		if (vm->verbose)
