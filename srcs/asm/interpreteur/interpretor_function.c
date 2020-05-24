@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 15:29:10 by faneyer           #+#    #+#             */
-/*   Updated: 2020/02/28 19:17:19 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 14:44:22 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	stock_opcode(t_asm *master, t_token *token)
 	}
 }
 
-void	interpretor_function(t_asm *master, t_token *token)
+void		interpretor_function(t_asm *master, t_token *token)
 {
 	int	i;
 

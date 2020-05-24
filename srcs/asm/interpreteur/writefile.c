@@ -6,13 +6,13 @@
 /*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 09:45:22 by faneyer           #+#    #+#             */
-/*   Updated: 2020/02/28 19:52:46 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 14:44:01 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/asm.h"
 
-int	create_namefile(char *name, char namefile[0][ft_strlen(name) + 3])
+int		create_namefile(char *name, char namefile[0][ft_strlen(name) + 3])
 {
 	int i;
 
