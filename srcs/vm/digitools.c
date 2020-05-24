@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 16:32:18 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/06 12:11:23 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 15:31:20 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ void		write_onmap(t_vm *vm, int adress, uint32_t val)
 		adress += MEM_SIZE;
 	if (adress >= MEM_SIZE)
 		adress %= MEM_SIZE;
+	//ft_printf("Before: %x %x %x %x\n", vm->arena[get_reach(adress + 3)], vm->arena[get_reach(adress + 2)], vm->arena[get_reach(adress + 1)], vm->arena[get_reach(adress)]);
 	vm->arena[get_reach(adress + 3)] = val;
 	vm->arena[get_reach(adress + 2)] = val >> 8;
 	vm->arena[get_reach(adress + 1)] = val >> 16;
 	vm->arena[adress] = val >> 24;
+	//ft_printf("After: %x %x %x %x\n", vm->arena[get_reach(adress + 3)], vm->arena[get_reach(adress + 2)], vm->arena[get_reach(adress + 1)], vm->arena[get_reach(adress)]);
 	if (vm->verbose == 2)
 		ft_printf("{YELL}Writing %.4x to adress %d{END}\n", val, adress);
 }

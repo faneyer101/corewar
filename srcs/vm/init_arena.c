@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 18:01:58 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/07 12:57:11 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 15:01:50 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	dump_arena(t_vm *vm)
 
 	i = 0;
 	ft_printf("0x0000 : ");
+	//ft_printf("Je suis bien passe ici, au cycle: %d\n", vm->cycles);
 	while (i < MEM_SIZE)
 	{
 		if (!vm->arena[i])

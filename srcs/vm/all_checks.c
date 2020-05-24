@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   all_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:03:05 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/23 23:25:30 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 15:39:46 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,14 +201,14 @@ void	all_checks(int argc, char **av, t_vm *vm)
 	check_bad_option(argc, av, vm, i);
 	stock_option_n(argc, av, vm, i);
 	check_magic(vm);
-	if (vm->verbose == 2)
-	{
-		printf("verbose %d | dump %d ==> %d\n", vm->verbose, vm->booldump, vm->dump);
+	//if (vm->verbose == 2)
+	//{
+		printf("verbose %d | dump %d ==> %d | nb champion = %d\n", vm->verbose, vm->booldump, vm->dump, vm->nb_player);
 		i = 1;
 		while (i < vm->nb_player + 1)
 		{
 			printf("joueur numero %d ==> %s\n", i, vm->players[i - 1].pname);
 			i++;
 		}
-	}
+	//}
 }

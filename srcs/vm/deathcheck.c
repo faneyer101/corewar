@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 17:33:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/22 22:04:17 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 12:48:29 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void		reduce_ctc(t_vm *vm)
 			vm->linf.liv_since_last);
 	if (vm->verbose == 2)
 		ft_printf("{YELL}");
-	ft_printf("Cycle to die is now %d\n", vm->linf.todie - CYCLE_DELTA);
+	if (vm->verbose)
+		ft_printf("Cycle to die is now %d\n", vm->linf.todie - CYCLE_DELTA);
 	if (vm->verbose == 2)
 		ft_printf("{END}");
 	vm->linf.todie -= CYCLE_DELTA;

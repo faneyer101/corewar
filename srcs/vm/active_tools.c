@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 13:02:21 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/22 21:31:27 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 11:46:29 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,10 @@ void	negative_ctd(t_vm *vm)
 	deathcheck(vm);
 }
 
-void	get_opcode(t_vm *vm)
+void	get_opcode(t_vm *vm, t_proclist *proc)
 {
-	t_proclist	*proc;
-	t_proclist	*prev;
-
-	proc = vm->beginactive;
-	while (proc)
-	{
-		proc->opcode = vm->arena[proc->pc];
-		proc->cycle = get_cycle(proc->opcode);
-		prev = proc;
-		proc = proc->activenext;
-		prev->activenext = NULL;
-	}
-	vm->beginactive = NULL;
+	proc->opcode = vm->arena[proc->pc];
+	proc->cycle = get_cycle(proc->opcode);
 }
 
 void	push_active(t_proclist *proc, t_vm *vm)

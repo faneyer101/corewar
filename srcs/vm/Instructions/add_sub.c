@@ -6,11 +6,11 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 12:25:23 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/22 17:49:30 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/05/24 12:23:55 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#include "../../../includes/vm.h"
 
 static uint8_t	check_regvalue(t_proclist *proc, t_vm *vm)
 {
@@ -28,7 +28,6 @@ static uint8_t	check_regvalue(t_proclist *proc, t_vm *vm)
 	}
 	return (0);
 }
-
 
 static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 {
@@ -65,7 +64,6 @@ static void		verbose(t_vm *vm, t_proclist *proc, uint8_t val[3], int mode)
 	else
 		ft_printf("| add r%d r%d r%d\n", val[0], val[1], val[2]);
 	proc->tomove = 5;
-	//print_map_part(vm, proc);
 }
 
 void			add(t_proclist *proc, t_vm *vm)
@@ -80,7 +78,7 @@ void			add(t_proclist *proc, t_vm *vm)
 		proc->reg[reg[2]] = proc->reg[reg[0]] + proc->reg[reg[1]];
 		if (vm->verbose)
 			verbose(vm, proc, reg, 0);
-		carryhandler(vm, proc, proc->reg[reg[0]] + proc->reg[reg[1]]);
+		carryhandler(vm, proc, proc->reg[reg[2]]);
 	}
 	print_map_part(vm, proc);
 }
@@ -97,7 +95,7 @@ void			sub(t_proclist *proc, t_vm *vm)
 		proc->reg[reg[2]] = proc->reg[reg[0]] - proc->reg[reg[1]];
 		if (vm->verbose)
 			verbose(vm, proc, reg, 1);
-		carryhandler(vm, proc, proc->reg[reg[0]] + proc->reg[reg[1]]);
+		carryhandler(vm, proc, proc->reg[reg[2]]);
 	}
 	print_map_part(vm, proc);
 }
