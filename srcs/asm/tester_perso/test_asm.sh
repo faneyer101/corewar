@@ -157,7 +157,7 @@ then
             clear
             printf "\033[032m${map}\033[0m\n"
 			printf "\033[035m############# MOI  ##############\033[0m\n"
-            Valgrind ./asm error/${map}.s
+            valgrind --leak-check=full --track-origins=yes ./asm error/${map}.s
 			printf "\033[036m############# GOOD ##############\033[0m\n"
 			./zaz_asm error2/${map}.s
 			echo "Press enter key for next test or exit with [ctrl + c]"
