@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/24 19:56:21 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 12:49:42 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,9 @@ void	loop(t_vm *vm)
 			deathcheck(vm);
 		if (vm->booldump)
 		{
-			//ft_printf("Passage\n");
 			vm->dump--;
 			if (!vm->dump)
-			{
 				dump_arena(vm);
-				exit (0);
-			}
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 12:39:19 by user42            #+#    #+#             */
-/*   Updated: 2020/05/24 19:36:57 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 13:53:54 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	print_map_part(t_vm *vm, t_proclist *proc)
 	if (vm->verbose)
 	{
 		ft_printf("ADV %d (0x%.4x -> 0x%.4x) ", proc->tomove, proc->pc,
-			get_reach(proc->pc + proc->tomove));
+			proc->pc + proc->tomove);
 		if (vm->verbose == 2)
 			ft_printf("{INV}");
 		while (i < proc->tomove)

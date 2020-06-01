@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 21:45:58 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/22 22:04:40 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 12:49:03 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,7 @@ int		main(int argc, char **argv)
 	introducing(&vm);
 	init_arena(&vm);
 	load_first(&vm);
+	if (vm.booldump && !vm.dump)
+		dump_arena(&vm);
 	loop(&vm);
 }

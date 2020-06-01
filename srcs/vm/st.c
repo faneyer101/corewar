@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 20:56:23 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/22 17:48:00 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 11:54:43 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,38 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 	return (1);
 }
 
-void	st(t_proclist *proc, t_vm *vm)
+static void		verbose(t_vm *vm, t_proclist *proc, uint8_t reg, short val)
+{
+	if (vm->verbose)
+	{
+		if (vm->verbose == 2)
+			ft_printf("{CYAN}");
+		ft_printf("P%5d ", proc->id);
+		if (vm->verbose == 2)
+			ft_printf("{END}");
+		ft_printf("| st r%u %d\n", reg, val);
+	}
+}
+
+void			st(t_proclist *proc, t_vm *vm)
 {
 	uint8_t	reg;
-	int		param;
+	short	param;
 
 	if (check_ocp(proc, vm))
 	{
 		reg = vm->arena[get_reach(proc->pc + 2)];
-		if (proc->param[1] == REG_CODE)
+		if (proc->param[1] == REG_CODE && reg > 0 && reg < 17)
 		{
 			param = vm->arena[get_reach(proc->pc + 3)];
 			proc->reg[param] = proc->reg[reg];
-			ft_printf("{CYAN}P\t%d{END} Writing r%hhd in r%hhd\n", reg, param);
+			verbose(vm, proc, reg, param);
 		}
-		else
+		else if (reg > 0 && reg < 17)
 		{
 			param = maptoi(vm, get_reach(proc->pc + 3), 2);
+			verbose(vm, proc, reg, param);
 			param %= IDX_MOD;
-			ft_printf("{CYAN}P\t%d{END} Writing %d at adress %d\n", proc->reg[reg], get_reach(proc->pc + param));
 			write_onmap(vm, proc->pc + param, proc->reg[reg]);
 		}
 	}
