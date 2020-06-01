@@ -6,12 +6,11 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 13:36:39 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/01 13:37:37 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 16:51:25 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
-
 
 static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 {
@@ -31,7 +30,7 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 	return (1);
 }
 
-void	aff(t_proclist *proc, t_vm *vm)
+void			aff(t_proclist *proc, t_vm *vm)
 {
 	uint8_t		reg;
 	uint32_t	toaff;

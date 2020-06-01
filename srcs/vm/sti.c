@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:23:03 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/24 15:32:12 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 17:34:32 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 	return (1);
 }
 
-static int	regcheck(t_vm *vm, t_proclist *proc, int reg)
+static int		regcheck(t_vm *vm, t_proclist *proc, int reg)
 {
 	int	reg2;
 
@@ -57,7 +57,7 @@ static int	regcheck(t_vm *vm, t_proclist *proc, int reg)
 	return (1);
 }
 
-static void	verbose(int t[2], int reg, t_proclist *proc, t_vm *vm)
+static void		verbose(int t[2], int reg, t_proclist *proc, t_vm *vm)
 {
 	if (regcheck(vm, proc, reg))
 	{
@@ -66,12 +66,13 @@ static void	verbose(int t[2], int reg, t_proclist *proc, t_vm *vm)
 		ft_printf("P%5d | sti r%d %d %d\n", proc->id, reg, t[0], t[1]);
 		if (vm->verbose == 2)
 			ft_printf("{END}");
-		ft_printf("       | -> store to %d + %d = %d ", t[0], t[1], t[0] + t[1]);
+		ft_printf("%7c| -> store to %d + %d = %d ",
+			' ', t[0], t[1], t[0] + t[1]);
 		ft_printf("(with pc and mod %d)\n", proc->pc + (t[0] + t[1]) % IDX_MOD);
 	}
 }
 
-void		sti(t_proclist *proc, t_vm *vm)
+void			sti(t_proclist *proc, t_vm *vm)
 {
 	int		reg;
 	int		toput[2];
@@ -93,7 +94,8 @@ void		sti(t_proclist *proc, t_vm *vm)
 		if (vm->verbose)
 			verbose(toput, reg, proc, vm);
 		if (regcheck(vm, proc, reg))
-			write_onmap(vm, proc->pc + (toput[0] + toput[1]) % IDX_MOD, proc->reg[reg]);
+			write_onmap(vm, proc->pc + (toput[0] + toput[1]) %
+				IDX_MOD, proc->reg[reg]);
 	}
 	print_map_part(vm, proc);
 }

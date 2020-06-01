@@ -1,25 +1,22 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   check_tools.c                                    .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nsalle <nsalle@student.le-101.fr>          +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/02/11 14:39:38 by nsalle       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/12 18:31:10 by nsalle      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_tools.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/11 14:39:38 by nsalle            #+#    #+#             */
+/*   Updated: 2020/06/01 16:52:49 by user42           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
 void	get_code(t_vm *vm, int ip)
 {
-	//int				i;
 	int				toread;
 	unsigned char	trash[MEM_SIZE];
 
-	//i = 0;
 	close(vm->players[ip].fd);
 	vm->players[ip].fd = open(vm->players[ip].pname, O_RDONLY);
 	toread = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;

@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/24 11:48:17 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 17:26:27 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-static void regcheck(t_vm *vm, t_proclist *proc, short var[4])
+static void		regcheck(t_vm *vm, t_proclist *proc, short var[4])
 {
 	int	reg;
 
@@ -24,7 +24,7 @@ static void regcheck(t_vm *vm, t_proclist *proc, short var[4])
 		var[3] = -1;
 }
 
-static uint8_t check_ocp(t_proclist *proc, t_vm *vm)
+static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 {
 	uint8_t i;
 	uint8_t j;
@@ -46,7 +46,7 @@ static uint8_t check_ocp(t_proclist *proc, t_vm *vm)
 	return (1);
 }
 
-static void verbose(t_vm *vm, t_proclist *proc, short val[3], int ldi)
+static void		verbose(t_vm *vm, t_proclist *proc, short val[3], int ldi)
 {
 	if (vm->verbose)
 	{
@@ -61,14 +61,14 @@ static void verbose(t_vm *vm, t_proclist *proc, short val[3], int ldi)
 				ft_printf("| ldi %d %d r%d\n", val[0], val[1], val[2]);
 			else
 				ft_printf("| lldi %d %d r%d\n", val[0], val[1], val[2]);
-			ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
-					  val[0], val[1], val[0] + val[1],
-					  get_reach(proc->pc + (val[0] + val[1])));
+			ft_printf("%7c| -> load from %d + %d = %d (with pc and mod %d)\n",
+						' ', val[0], val[1], val[0] + val[1],
+						get_reach(proc->pc + (val[0] + val[1])));
 		}
 	}
 }
 
-void lldi(t_proclist *proc, t_vm *vm)
+void			lldi(t_proclist *proc, t_vm *vm)
 {
 	short var[4];
 	short sum;
@@ -96,7 +96,7 @@ void lldi(t_proclist *proc, t_vm *vm)
 	print_map_part(vm, proc);
 }
 
-void ldi(t_proclist *proc, t_vm *vm)
+void			ldi(t_proclist *proc, t_vm *vm)
 {
 	short var[4];
 	short sum;

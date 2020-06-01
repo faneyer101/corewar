@@ -6,10 +6,9 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/01 12:49:42 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 17:28:07 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../includes/vm.h"
 
@@ -31,7 +30,6 @@ void	check_proc(t_proclist *lst, t_vm *vm)
 	curs = lst;
 	while (curs)
 	{
-		//ft_printf("passage cycle: %d\n", vm->cycles);
 		if (curs->cycle == 0)
 			get_opcode(vm, curs);
 		if (curs->cycle > 0)
@@ -55,7 +53,6 @@ int		get_nbproc(t_proclist *lst)
 			count++;
 		curs = curs->next;
 	}
-	//ft_printf("There are %d processes running\n", count);
 	return (count);
 }
 

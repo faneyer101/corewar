@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 12:39:19 by user42            #+#    #+#             */
-/*   Updated: 2020/06/01 13:53:54 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 17:35:05 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-void		death_verbose(t_vm *vm, t_proclist *proc)
+void	death_verbose(t_vm *vm, t_proclist *proc)
 {
 	if (vm->cycles - proc->last_alive > vm->linf.todie)
 	{

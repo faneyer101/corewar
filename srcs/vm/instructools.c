@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalle <nsalle@student.le-101.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 10:51:26 by nsalle            #+#    #+#             */
-/*   Updated: 2020/03/09 13:01:17 by nsalle           ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 16:55:49 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ short	get_reach(int val)
 			val += MEM_SIZE;
 		return (val);
 	}
-	return (val);	
+	return (val);
 }
 
 int		get_paramval(t_vm *vm, t_proclist *proc, uint8_t code, int dsize)

@@ -6,10 +6,9 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/05/24 19:37:07 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 16:55:31 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../includes/vm.h"
 
@@ -80,8 +79,8 @@ void		exec_more(t_proclist *proc, t_vm *vm)
 
 void		exec_proc(t_proclist *proc, t_vm *vm)
 {
-    if (proc->opcode == 1)
-	 	live(proc, vm);
+	if (proc->opcode == 1)
+		live(proc, vm);
 	else if (proc->opcode == 2)
 		ld(proc, vm);
 	else if (proc->opcode == 3)

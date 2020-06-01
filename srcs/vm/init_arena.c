@@ -6,10 +6,9 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 18:01:58 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/01 12:49:33 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 16:54:51 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../includes/vm.h"
 
@@ -64,5 +63,4 @@ void	init_arena(t_vm *vm)
 		}
 		ip++;
 	}
-	//dump_arena(vm);
 }

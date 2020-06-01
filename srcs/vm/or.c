@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 13:43:02 by user42            #+#    #+#             */
-/*   Updated: 2020/05/22 17:48:11 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 17:29:13 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static uint8_t	regcheck(t_proclist *proc, t_vm *vm, int par[3])
 	return (1);
 }
 
-void	or(t_proclist *proc, t_vm *vm)
+void			or(t_proclist *proc, t_vm *vm)
 {
 	int	par[3];
 

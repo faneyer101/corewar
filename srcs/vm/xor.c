@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 13:43:31 by user42            #+#    #+#             */
-/*   Updated: 2020/05/22 17:47:42 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 17:36:09 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void		verbose(t_vm *vm, t_proclist *proc, int par[3])
 
 static uint8_t	regcheck(t_proclist *proc, t_vm *vm, int par[3])
 {
-	int	p;
+	int		p;
 	uint8_t	i;
 
 	i = 0;
@@ -68,7 +68,7 @@ static uint8_t	regcheck(t_proclist *proc, t_vm *vm, int par[3])
 	return (1);
 }
 
-void	xor(t_proclist *proc, t_vm *vm)
+void			xor(t_proclist *proc, t_vm *vm)
 {
 	int	par[3];
 
