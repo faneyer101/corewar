@@ -1,14 +1,13 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   op.c                                             .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: faneyer <faneyer@student.le-101.fr>        +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2013/10/04 11:43:01 by zaz          #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/11 11:32:09 by faneyer     ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
+/*   Updated: 2020/06/03 15:45:26 by faneyer          ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/op.h"
@@ -16,7 +15,6 @@
 
 t_op	g_op_tab[17] =
 {
-	//{name op, nb d'args, args, num d'op, temps cycle, comment, octet codage 0=false|1=true, nb d'octet direct 0=4|1=2}
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
 	{"st", 2, {T_REG, T_IND | T_REG}, 3, 5, "store", 1, 0},
