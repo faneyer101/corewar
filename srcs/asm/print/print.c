@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
+/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 18:52:42 by faneyer           #+#    #+#             */
-/*   Updated: 2020/05/24 15:45:22 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 15:53:58 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	print_usage(void)
 {
 	ft_printf("{UND}Usage:{END}\n./asm [{YELL}opion{END}][{RED}file{END}]\n");
 	ft_printf("{YELL}Option{END}:\n	l: print lexer\n");
-	ft_printf("	p: print parser\n{RED}Extension file .s{END}\n\n");
+	ft_printf("	p: print parser\n");
+	ft_printf("{YELL}{UND}Exemple option: -p or -l or -lp or -pl{END}\n");
+	ft_printf("{RED}Extension file .s{END}\n\n");
 	exit(0);
 }
 

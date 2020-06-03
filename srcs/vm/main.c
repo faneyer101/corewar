@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 21:45:58 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/03 15:31:56 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 16:06:11 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,15 @@ void	exit_corewar(t_vm *vm)
 
 void	usage(void)
 {
-	ft_printf("Usage:\n./vm [player1] ... [playerMAX_PLAYERS]\n");
-	ft_printf("-n N\t: Changes the player number of the next .cor file\n");
-	ft_printf("-dump N\t: Dumps memory after N cycles then exits\n");
+	ft_printf("Usage:\n./vm [{YELL}-v or -vc{END}] ");
+	ft_printf("[{YELL}-dump{END}] [{YELL}-n{END}]");
+	ft_printf("[player1.cor] ... [{YELL}-n{END}][playerMAX_PLAYERS.cor]\n");
+	ft_printf("{YELL}-v{END} Verbose\t\t: Display debug\n");
+	ft_printf("{YELL}-vc{END} Verbose Color\t: Display debug color\n");
+	ft_printf("{YELL}-n N{END}\t\t\t: ");
+	ft_printf("Changes the player number of the next .cor file\n");
+	ft_printf("{YELL}-dump N{END}\t\t\t: ");
+	ft_printf("Dumps memory after N cycles then exits\n");
 	exit(0);
 }
 
