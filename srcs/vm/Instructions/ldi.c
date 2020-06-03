@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/02 14:30:54 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 18:22:40 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/vm.h"
 
-static void		regcheck(t_vm *vm, t_proclist *proc, short var[4])
+static void		regcheck(t_vm *vm, t_proclist *proc, int var[4])
 {
 	int	reg;
 
@@ -46,12 +46,17 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 	return (1);
 }
 
-static void		verbose(t_vm *vm, t_proclist *proc, short val[3], int ldi)
+static void		verbose(t_vm *vm, t_proclist *proc, int val[4], int ldi)
 {
 	if (vm->verbose)
 	{
+		int	target;
+
 		if (val[2] > 0 && val[2] < 17 && val[3] != -1)
 		{
+			target = val[0] + val[1];
+			if (ldi)
+				target %= IDX_MOD;
 			if (vm->verbose == 2)
 				ft_printf("{CYAN}");
 			ft_printf("P%5d ", proc->id);
@@ -63,15 +68,15 @@ static void		verbose(t_vm *vm, t_proclist *proc, short val[3], int ldi)
 				ft_printf("| lldi %d %d r%d\n", val[0], val[1], val[2]);
 			ft_printf("%7c| -> load from %d + %d = %d (with pc and mod %d)\n",
 						' ', val[0], val[1], val[0] + val[1],
-						get_reach(proc->pc + (val[0] + val[1])));
+						get_reach(proc->pc + target));
 		}
 	}
 }
 
 void			lldi(t_proclist *proc, t_vm *vm)
 {
-	short var[4];
-	short sum;
+	int		var[4];
+	short	sum;
 
 	proc->curs = 2;
 	var[3] = 0;
@@ -80,13 +85,13 @@ void			lldi(t_proclist *proc, t_vm *vm)
 		if (proc->param[0] == REG_CODE)
 			var[0] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
 		else if (proc->param[0] == DIR_CODE)
-			var[0] = get_paramval(vm, proc, DIR_CODE, 2);
+			var[0] = (short)get_paramval(vm, proc, DIR_CODE, 2);
 		else if (proc->param[0] == IND_CODE)
-			var[0] = get_paramval(vm, proc, IND_CODE, 2);
+			var[0] = (short)get_paramval(vm, proc, IND_CODE, 2);
 		if (proc->param[1] == REG_CODE)
 			regcheck(vm, proc, var);
 		else if (proc->param[1] == DIR_CODE)
-			var[1] = get_paramval(vm, proc, DIR_CODE, 2);
+			var[1] = (short)get_paramval(vm, proc, DIR_CODE, 2);
 		sum = var[0] + var[1];
 		var[2] = get_paramval(vm, proc, REG_CODE, 2);
 		if (var[2] > 0 && var[2] < 17 && var[3] != -1)
@@ -98,8 +103,8 @@ void			lldi(t_proclist *proc, t_vm *vm)
 
 void			ldi(t_proclist *proc, t_vm *vm)
 {
-	short var[4];
-	short sum;
+	int		var[4];
+	short	sum;
 
 	proc->curs = 2;
 	var[3] = 0;
@@ -108,14 +113,14 @@ void			ldi(t_proclist *proc, t_vm *vm)
 		if (proc->param[0] == REG_CODE)
 			var[0] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
 		else if (proc->param[0] == DIR_CODE)
-			var[0] = get_paramval(vm, proc, DIR_CODE, 2);
+			var[0] = (short)get_paramval(vm, proc, DIR_CODE, 2);
 		else if (proc->param[0] == IND_CODE)
-			var[0] = get_paramval(vm, proc, IND_CODE, 2);
+			var[0] = (short)get_paramval(vm, proc, IND_CODE, 2);
 		if (proc->param[1] == REG_CODE)
 			regcheck(vm, proc, var);
 		else if (proc->param[1] == DIR_CODE)
-			var[1] = get_paramval(vm, proc, DIR_CODE, 2);
-		sum = var[0] % IDX_MOD + var[1] % IDX_MOD;
+			var[1] = (short)get_paramval(vm, proc, DIR_CODE, 2);
+		sum = (var[0] + var[1]) % IDX_MOD;
 		var[2] = get_paramval(vm, proc, REG_CODE, 2);
 		if (var[2] > 0 && var[2] < 17 && var[3] != -1)
 			proc->reg[var[2]] = maptoi(vm, get_reach(sum + proc->pc), 4);
