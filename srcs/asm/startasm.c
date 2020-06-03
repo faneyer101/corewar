@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   startasm.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
+/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:08:14 by faneyer           #+#    #+#             */
-/*   Updated: 2020/05/24 20:53:23 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 18:41:16 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	verif_option(t_asm *master, char **av)
 		i = 1;
 		while (av[1][i])
 		{
-			if (av[1][i] == 'l')
+			if (av[1][i] == 'l' && master->option.t == 0)
 				master->option.t = 1;
-			else if (av[1][i] == 'p')
+			else if (av[1][i] == 'p' && master->option.p == 0)
 				master->option.p = 1;
 			else
 			{
