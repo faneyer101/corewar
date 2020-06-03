@@ -1,0 +1,15 @@
+#!/bin/bash
+make debug -C ../
+for file in $(find .. -name "*.s")
+do
+	printf "\n"
+	echo $file
+	printf "\n"
+	filename="${file%.*}"
+	valgrind --leak-check=full ../asm/asm $filename.s 1>/dev/null 2>valgrind.txt
+	cat valgrind.txt | grep "definitely lost:"
+	cat valgrind.txt | grep "indirectly lost:"
+	cat valgrind.txt | grep "possibly lost:"
+	cat valgrind.txt | grep "still reachable:"
+	printf "\n"
+done

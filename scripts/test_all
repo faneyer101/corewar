@@ -1,0 +1,11 @@
+#!/bin/bash
+make -C ../
+for file in $(find .. -name "*.s")
+do
+	printf "\n"
+	filename="${file%.*}"
+	../asm/asm $filename.s
+	../vm/corewar $filename.cor -v 31 > out1
+	../ressources/corewar $filename.cor -v 31 > out2
+	diff -u out1 out2
+done

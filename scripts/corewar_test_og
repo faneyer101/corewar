@@ -1,0 +1,42 @@
+#!/bin/bash
+make -C ../
+touch diff.txt
+[ -s diff.txt ]
+while (($? == 1))
+do
+	declare -i nb_players; nb_players=RANDOM%4+1
+	champs=(`find .. -name "*.cor"`)
+	declare -i i; i=0
+	while (($i < $nb_players))
+	do
+		players[$i]=${champs[$((RANDOM%${#champs[@]}))]}
+		printf "${players[$i]}\n"
+		i=$((i+1))
+	done
+	if [ $i = 1 ]
+	then
+		declare -i dump; dump=RANDOM
+		printf "\ndump at $dump : \n\n"
+		../vm/corewar ${players[0]} -v 31 -d $dump > out1
+		../ressources/corewar ${players[0]} -v 31 -d $dump > out2
+	elif [ $i = 2 ]
+	then
+		declare -i dump; dump=RANDOM
+		printf "\ndump at $dump : \n\n"
+		../vm/corewar ${players[0]} ${players[1]} -v 31 -d $dump > out1
+		../ressources/corewar ${players[0]} ${players[1]} -v 31 -d $dump > out2
+	elif [ $i = 3 ]
+	then
+		declare -i dump; dump=RANDOM
+		printf "\ndump at $dump : \n\n"
+		../vm/corewar ${players[0]} ${players[1]} ${players[2]} -v 31 -d $dump > out1
+		../ressources/corewar ${players[0]} ${players[1]} ${players[2]} -v 31 -d $dump > out2
+	else
+		declare -i dump; dump=RANDOM
+		printf "\ndump at $dump : \n\n"
+		../vm/corewar ${players[0]} ${players[1]} ${players[2]} ${players[3]} -v 31 -d $dump > out1
+		../ressources/corewar ${players[0]} ${players[1]} ${players[2]} ${players[3]} -v 31 -d $dump > out2
+	fi
+		diff out1 out2 > diff.txt
+		[ -s diff.txt ]
+done

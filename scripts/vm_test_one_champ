@@ -1,0 +1,18 @@
+#!/bin/bash
+make -C ../
+printf "File name (whithout extension)\n"
+read file_name
+
+../asm/asm $(find .. -name "$file_name.s")
+
+printf "Dump level ? (high value for full game)\n"
+read dump
+
+printf "Verbose level ? (0 to 31)\n"
+read verbose
+
+../vm/corewar -v $verbose -d $dump $(find .. -name "$file_name.cor") > my_out
+../ressources/corewar -v $verbose -d $dump $(find .. -name "$file_name.cor") > orig_out
+
+printf "diff\n"
+diff -u my_out orig_out
