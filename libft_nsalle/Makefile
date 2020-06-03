@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/28 10:02:52 by faneyer           #+#    #+#              #
-#    Updated: 2020/06/03 14:49:54 by faneyer          ###   ########lyon.fr    #
+#    Updated: 2020/06/03 15:41:06 by user42           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRCFILE		=		ft_abs.c				\
 					ft_memdel.c				\
 					ft_memmove.c			\
 					ft_memset.c				\
+					ft_minmax.c				\
 					ft_print_bits.c			\
 					ft_putchar.c			\
 					ft_putchar_fd.c			\
