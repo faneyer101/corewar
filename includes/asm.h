@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
+/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:11:22 by faneyer           #+#    #+#             */
-/*   Updated: 2020/05/24 22:41:28 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 14:47:32 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # define DNEGATIF '-'
 # define FALSE	0
 # define TRUE	1
-
-/////A voir dans tools_f2.c (printf) division par 0 pas supporter avec compi clang-9
 
 typedef enum				e_lexeme
 {

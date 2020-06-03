@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
+/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 00:32:57 by jde-la-m          #+#    #+#             */
-/*   Updated: 2020/02/28 10:02:30 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 14:50:26 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# include "get_next_line.h"
 # include "ft_printf.h"
 
 typedef unsigned long t_ulong;

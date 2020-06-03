@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+         #
+#    By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/28 10:02:52 by faneyer           #+#    #+#              #
-#    Updated: 2020/02/28 10:13:03 by faneyer          ###   ########lyon.fr    #
+#    Updated: 2020/06/03 14:49:54 by faneyer          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -125,7 +125,6 @@ SRCFILE		=		ft_abs.c				\
 					ft_ullonglen.c			\
 					ft_ulonglen.c			\
 					ft_wordcount.c			\
-					get_next_line.c			\
 					ft_pow.c				\
 					Printf/ft_printf.c		\
 					Printf/handle_f.c		\
