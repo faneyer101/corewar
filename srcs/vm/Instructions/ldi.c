@@ -6,11 +6,11 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/01 17:26:27 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 14:30:54 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#include "../../../includes/vm.h"
 
 static void		regcheck(t_vm *vm, t_proclist *proc, short var[4])
 {

@@ -6,11 +6,36 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 21:45:58 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/01 12:49:03 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 15:36:41 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
+
+void	exit_corewar(t_vm *vm)
+{
+	t_proclist	*curs;
+	t_proclist	*cursnext;
+	int			i;
+
+	i = 0;
+	while (i < vm->nb_player)
+	{
+		close(vm->players[i].fd);
+		free(vm->players[i].code);
+		i++;
+	}
+	curs = vm->beginlist;
+	cursnext = vm->beginlist;
+	while (cursnext)
+	{
+		cursnext = cursnext->next;
+		ft_strdel(&curs->ocp);
+		free(curs);
+		curs = cursnext;
+	}
+	exit(0);
+}
 
 void	usage(void)
 {

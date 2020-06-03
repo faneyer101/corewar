@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 17:33:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/01 16:53:13 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 14:50:07 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		endofgame(t_vm *vm)
 	ft_printf("\"%s\", has won !\n", vm->players[vm->lastalive - 1].name);
 	if (vm->verbose == 2)
 		ft_printf("{END}");
-	exit(0);
+	exit_corewar(vm);
 }
 
 void		reduce_ctc(t_vm *vm)

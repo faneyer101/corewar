@@ -6,11 +6,11 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 11:50:04 by user42            #+#    #+#             */
-/*   Updated: 2020/06/01 17:37:24 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 14:31:19 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#include "../../../includes/vm.h"
 
 static void	verbose(t_vm *vm, t_proclist *proc, short tojump, uint8_t succes)
 {

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 17:14:27 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/01 17:28:36 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 15:34:55 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ uint16_t	get_cycle(uint8_t op)
 		return (more_opcodes(op));
 }
 
-t_proclist	*create_proc(t_proclist *proc, uint16_t pc, uint8_t op)
+t_proclist	*create_proc(t_vm *vm, t_proclist *proc, uint16_t pc, uint8_t op)
 {
 	t_proclist	*new;
 	uint8_t		i;
@@ -65,7 +65,7 @@ t_proclist	*create_proc(t_proclist *proc, uint16_t pc, uint8_t op)
 	i = 0;
 	new = NULL;
 	if (!(new = (t_proclist*)malloc(sizeof(t_proclist))))
-		exit(0);
+		exit_corewar(vm);
 	ft_bzero(new, sizeof(t_proclist));
 	while (i < REG_NUMBER)
 	{
@@ -85,7 +85,7 @@ void		push_proc(t_vm *vm, t_proclist *proc, uint16_t pc, uint8_t op)
 {
 	t_proclist *new;
 
-	new = create_proc(proc, pc, op);
+	new = create_proc(vm, proc, pc, op);
 	if (vm->beginlist)
 		new->next = vm->beginlist;
 	vm->beginlist = new;

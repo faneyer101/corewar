@@ -6,11 +6,11 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/01 16:55:31 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 14:30:46 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#include "../../../includes/vm.h"
 
 void		fork_(t_proclist *proc, t_vm *vm, uint8_t lfork)
 {

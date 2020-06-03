@@ -6,11 +6,11 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 13:42:31 by user42            #+#    #+#             */
-/*   Updated: 2020/06/01 16:52:02 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 14:30:42 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm.h"
+#include "../../../includes/vm.h"
 
 static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 {
