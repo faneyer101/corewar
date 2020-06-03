@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 21:45:58 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/02 15:36:41 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 15:31:56 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		main(int argc, char **argv)
 	t_vm	vm;
 
 	vm_init(&vm);
-	all_checks(argc, argv, &vm);
+	parsing_cmd(argc, argv, &vm);
 	introducing(&vm);
 	init_arena(&vm);
 	load_first(&vm);

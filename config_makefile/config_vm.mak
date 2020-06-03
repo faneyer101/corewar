@@ -1,5 +1,7 @@
 SRCFILE_VM		=	vm/main.c						\
-					vm/all_checks.c					\
+					vm/parsing_cmd.c				\
+					vm/print_error.c				\
+					vm/parsing_tools.c				\
 					vm/check_tools.c				\
 					vm/init_arena.c					\
 					vm/loop.c						\

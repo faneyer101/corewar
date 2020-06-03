@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/02 15:45:45 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 15:30:42 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,14 @@ typedef struct			s_vm
 }						t_vm;
 
 void					exit_corewar(t_vm *vm);
-void					all_checks(int argc, char **av, t_vm *vm);
+void					parsing_cmd(int argc, char **av, t_vm *vm);
+void					check_verbos(char **av, t_vm *vm);
+void					check_dump(int argc, char **av, t_vm *vm);
+void					check_bad_option(int ac, char **av, t_vm *vm, int i);
 void					usage(void);
+void					print_with_usage(char *msg, char *av);
+void					print_with_exit(char *msg, int i);
+void					check_magic(t_vm *vm);
 int						get_size(t_vm *vm, int ip);
 void					check_realsize(t_vm *vm, int ip);
 void					get_code(t_vm *vm, int ip);
