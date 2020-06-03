@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/03 15:30:42 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 22:07:06 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct			s_proclist
 	uint8_t				alive;
 	uint8_t				param[4];
 	long long			last_alive;
-	int					reg[REG_NUMBER];
+	int					reg[REG_NUMBER + 1];
 }						t_proclist;
 
 typedef struct			s_live
