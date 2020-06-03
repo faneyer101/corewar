@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
+/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 23:32:38 by jde-la-m          #+#    #+#             */
-/*   Updated: 2020/02/28 09:58:52 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 14:56:42 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ int	ft_strcmp(const char *s1, const char *s2)
 	{
 		s1++;
 		s2++;
-	}	
+	}
 	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
