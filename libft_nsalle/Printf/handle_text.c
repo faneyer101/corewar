@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_text.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 21:07:12 by jde-la-m          #+#    #+#             */
-/*   Updated: 2020/02/28 09:50:38 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 15:10:35 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		pf_text_handler(char const *format, va_list va, t_printf *pf)
 	else
 		pf_buffer_alloc(&pf->buff, ft_strlen(sto_print), pf);
 	if (pf->precibool)
-		ft_strncpy(pf->buff, sto_print, MIN(pf->precival,
+		ft_strncpy(pf->buff, sto_print, ft_min(pf->precival,
 		ft_strlen(sto_print)));
 	else
 		ft_strcpy(pf->buff, sto_print);

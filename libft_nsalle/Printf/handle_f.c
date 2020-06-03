@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_f.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 21:03:50 by jde-la-m          #+#    #+#             */
-/*   Updated: 2020/02/28 09:50:18 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 15:14:01 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	pf_f_helper(va_list va, t_printf *pf, size_t flen)
 {
 	pf->ftp = pf_float_sizer(pf, va);
-	pf_buffer_alloc(&pf->buff, MAX(512, MAX(pf->width, pf->precival)), pf);
+	pf_buffer_alloc(&pf->buff, ft_max(512, ft_max(pf->width,
+		pf->precival)), pf);
 	pf_flag_manager_f(pf->ftp, pf);
 	if (!pf->finf && !pf->fnan)
 	{

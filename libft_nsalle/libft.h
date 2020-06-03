@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 00:32:57 by jde-la-m          #+#    #+#             */
-/*   Updated: 2020/06/03 14:50:26 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 15:12:16 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				ft_memdel(void **ap);
 void				*ft_memmove(void *dest, const void *src, size_t n);
 void				*ft_memset(void *s, int c, size_t n);
+size_t				ft_min(size_t a, size_t b);
+size_t				ft_max(size_t a, size_t b);
 void				ft_print_bits(unsigned char bit);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putchar(char c);

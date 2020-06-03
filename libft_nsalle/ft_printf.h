@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 12:09:55 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/03 14:55:56 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 15:14:35 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
 # include "libft.h"
 # include "stdarg.h"
 # include "stdint.h"
-
-# define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-# define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
 # define SIZE 1
 # define TYPE 2
