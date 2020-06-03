@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 17:14:27 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/02 15:34:55 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 16:49:15 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_proclist	*create_proc(t_vm *vm, t_proclist *proc, uint16_t pc, uint8_t op)
 	new->opcode = op;
 	new->pc = pc;
 	new->alive = 0;
-	new->cycle = get_cycle(op);
+	new->cycle = 0;
 	new->next = NULL;
 	return (new);
 }
