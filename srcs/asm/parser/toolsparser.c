@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 18:03:31 by faneyer           #+#    #+#             */
-/*   Updated: 2020/06/04 22:45:48 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 23:37:26 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	verif_type_param(t_asm *m, t_token *list, t_op function, int i)
 			else if ((list->kind == LABEL_DIRECT || list->kind == NUM_DIRECT) &&
 			(((function.args[i] >> 1) & 1) == 1))
 				break ;
-			else if (ft_strlen(list->data) == ft_intlen(ft_atoi(list->data)) &&
+			else if (ft_strlen(list->data) < 3 &&
 				((function.args[i] >> 0) & 1) == 1 && list->kind == REGISTRE)
 				break ;
 			else if (list->kind != SEPARATOR)
