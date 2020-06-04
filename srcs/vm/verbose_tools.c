@@ -6,11 +6,37 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 12:39:19 by user42            #+#    #+#             */
-/*   Updated: 2020/06/04 23:59:43 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/05 01:17:26 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
+
+static void		verbose_lldi(t_vm *vm, t_proclist *proc, int val[4], int ldi)
+{
+	int	target;
+
+	if (vm->verbose)
+	{
+		if (val[2] > 0 && val[2] < 17 && val[3] != -1)
+		{
+			target = val[0] + val[1];
+			if (ldi)
+				target %= IDX_MOD;
+			if (vm->verbose == 2)
+				ft_printf("{CYAN}");
+			ft_printf("P %4d ", proc->id);
+			if (vm->verbose == 2)
+				ft_printf("{END}");
+			if (ldi)
+				ft_printf("| ldi %d %d r%d\n", val[0], val[1], val[2]);
+			else
+				ft_printf("| lldi %d %d r%d\n", val[0], val[1], val[2]);
+			ft_printf("%7c| -> load from %d + %d = %d (with pc %d)\n",
+						' ', val[0], val[1], val[0] + val[1],
+						proc->pc + target);
+		}
+	}
 
 void	death_verbose(t_vm *vm, t_proclist *proc)
 {

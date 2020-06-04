@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/05 01:09:12 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/05 01:19:02 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void			lldi(t_proclist *proc, t_vm *vm)
 		var[2] = get_paramval(vm, proc, REG_CODE, 2);
 		if (var[2] > 0 && var[2] < 17 && var[3] != -1)
 			proc->reg[var[2]] = maptoi(vm, get_reach(sum + proc->pc), 4);
-		verbose(vm, proc, var, 0);
+		verbose_lldi(vm, proc, var, 0);
 		carryhandler(vm, proc, proc->reg[var[2]]);
 	}
 	print_map_part(vm, proc);
