@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/04 16:13:23 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 16:45:29 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void		verbose(t_vm *vm, t_proclist *proc, int val[4], int ldi)
 				target %= IDX_MOD;
 			if (vm->verbose == 2)
 				ft_printf("{CYAN}");
-			ft_printf("P%5d ", proc->id);
+			ft_printf("P %4d ", proc->id);
 			if (vm->verbose == 2)
 				ft_printf("{END}");
 			if (ldi)

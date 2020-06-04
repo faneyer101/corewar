@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:33:20 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/02 14:30:46 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 16:44:56 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	live_verbose(t_vm *vm, t_proclist *proc, uint32_t player)
 	{
 		if (vm->verbose == 2)
 			ft_printf("{CYAN}");
-		ft_printf("P%5d ", proc->id);
+		ft_printf("P %4d ", proc->id);
 		if (vm->verbose == 2)
 			ft_printf("{END}");
 		ft_printf("| live %d\n", player);

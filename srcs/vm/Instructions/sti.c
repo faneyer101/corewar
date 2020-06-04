@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:23:03 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/04 16:11:53 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 16:46:08 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void		verbose(int t[2], int reg, t_proclist *proc, t_vm *vm)
 	{
 		if (vm->verbose == 2)
 			ft_printf("{CYAN}");
-		ft_printf("P%5d | sti r%d %d %d\n", proc->id, reg, t[0], t[1]);
+		ft_printf("P %4d | sti r%d %d %d\n", proc->id, reg, t[0], t[1]);
 		if (vm->verbose == 2)
 			ft_printf("{END}");
 		ft_printf("%7c| -> store to %d + %d = %d ",
