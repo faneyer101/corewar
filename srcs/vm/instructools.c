@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 10:51:26 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/04 00:56:34 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 15:00:41 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		get_paramval(t_vm *vm, t_proclist *proc, uint8_t code, int dsize)
 	if (code == IND_CODE)
 	{
 		toreach = maptoi(vm, get_reach(proc->pc + proc->curs), 2);
-		rep = maptoi(vm,  get_reach(proc->pc + toreach), 4);
+		rep = maptoi(vm, get_reach(proc->pc + toreach), 4);
 		proc->curs += 2;
 	}
 	if (code == DIR_CODE)

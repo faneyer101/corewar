@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 13:42:31 by user42            #+#    #+#             */
-/*   Updated: 2020/06/04 00:56:13 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 15:03:43 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 		j += 2;
 	}
 	proc->tomove += compute_params(proc, 3, 4);
+	if (proc->param[0] == 0 || proc->param[1] == 0 || proc->param[2] == 0)
+		return (0);
 	if (proc->param[2] != REG_CODE)
 		return (0);
 	return (1);

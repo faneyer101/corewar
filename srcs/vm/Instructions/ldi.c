@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/03 18:22:40 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 15:00:11 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 
 static void		verbose(t_vm *vm, t_proclist *proc, int val[4], int ldi)
 {
+	int	target;
+
 	if (vm->verbose)
 	{
-		int	target;
-
 		if (val[2] > 0 && val[2] < 17 && val[3] != -1)
 		{
 			target = val[0] + val[1];
