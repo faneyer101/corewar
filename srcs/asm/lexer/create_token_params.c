@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_token_params.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
+/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 18:03:43 by faneyer           #+#    #+#             */
-/*   Updated: 2020/05/24 14:48:34 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 22:20:55 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void		create_token_name_funtion(t_asm *master, int *i, char *str, int j)
 	{
 		if (ft_strncmp(master->tab_op[j].name, &str[*i],
 			ft_strlen(master->tab_op[j].name)) == 0 &&
-			delimiter(str[*i + ft_strlen(master->tab_op[j].name)], "sPN"))
+			delimiter(str[*i + ft_strlen(master->tab_op[j].name)], "sPN") &&
+			ft_strlen(master->tab_op[j].name) > 0)
 		{
 			push_token(master, FONCTION, i[0],
 			ft_strlen(master->tab_op[j].name));
