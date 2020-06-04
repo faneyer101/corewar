@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   toolsparser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
+/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 18:03:31 by faneyer           #+#    #+#             */
-/*   Updated: 2020/05/24 15:01:56 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 14:33:27 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ int	search_label(t_list_label *label, char *str)
 {
 	while (label)
 	{
+		if (label->defaut)
+		{
+			label = label->dnext;
+			continue ;
+		}
 		if (ft_strcmp(label->name, str) == 0 &&
 		ft_strlen(str) == ft_strlen(label->name))
 		{

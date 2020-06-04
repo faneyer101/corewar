@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   toolsparser2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
+/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 20:59:44 by faneyer           #+#    #+#             */
-/*   Updated: 2020/05/24 15:02:18 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 15:52:49 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ void	verif_declaration_label(t_asm *master, t_list_label *label)
 			print_error_parser_label(master, "label don't declared",
 			list->name, list);
 		list = list->unext;
+	}
+	list = label;
+	while (list)
+	{
+		if (list->define_parser > 1)
+			print_error_parser_label(master, "label declared once",
+			list->name, list);
+		list = list->dnext;
 	}
 }
 

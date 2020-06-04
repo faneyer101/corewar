@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
+/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 23:23:14 by faneyer           #+#    #+#             */
-/*   Updated: 2020/05/24 15:04:10 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 15:52:31 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,21 @@ void	parser_function_and_param(t_asm *master, t_token *list, int i)
 		print_error_parser(master, "error name function", list->data, list);
 }
 
-void	parser_label_or_function(t_asm *m, t_token **token)
+void	parser_label_or_function(t_asm *m, t_token **token, t_token *l)
 {
-	t_token			*l;
-
 	l = token[0];
 	while (l)
 	{
 		if (l->kind == LABEL_DECLARATION)
 		{
 			if (m->parser.curent_label && !m->parser.curent_label->defaut &&
-			m->parser.define_label->name && l->column == 1 &&
-			search_label(m->parser.define_label, l->data))
+			l->column == 1 && search_label(m->parser.define_label, l->data))
 				print_error_parser(m, "labbel already declared", l->data, l);
 			else if (l->column > 1)
+			{
 				print_error_parser(m, "just declared one labbel per line",
 				l->data, l);
+			}
 			else
 				declare_label_define(m, l);
 		}
@@ -101,7 +100,7 @@ void	main_parser(t_asm *m, t_token *list, int i)
 			}
 			else if (list->kind == LABEL_DECLARATION || list->kind == FONCTION)
 			{
-				parser_label_or_function(m, &list);
+				parser_label_or_function(m, &list, NULL);
 				break ;
 			}
 			if (list)

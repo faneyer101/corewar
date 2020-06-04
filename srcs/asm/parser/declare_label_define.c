@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   declare_label_define.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.le-101.fr>        +#+  +:+       +#+        */
+/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:39:45 by faneyer           #+#    #+#             */
-/*   Updated: 2020/02/28 17:54:06 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 15:51:09 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/asm.h"
 
-static t_list_label	*create_label_define(t_token *list)
+t_list_label		*create_label_define(t_token *list)
 {
 	t_list_label	*box;
 
@@ -24,37 +24,39 @@ static t_list_label	*create_label_define(t_token *list)
 	box->define_parser = 1;
 	box->numline = list->numline;
 	box->column = list->column;
+	box->dnext = NULL;
+	box->unext = NULL;
 	return (box);
 }
 
 static void			push_back_label_define(t_asm *master, t_token *data,
-				t_list_label *undefine)
+						t_list_label *undefine, t_list_label *define)
 {
-	t_list_label	*define;
-
-	define = master->parser.define_label;
 	if (define)
 	{
-		while (define->dnext)
+		while (define->dnext != NULL)
+		{
+			if (define->defaut == 1)
+			{
+				define = define->dnext;
+				continue;
+			}
+			if (verif_once_define(define, undefine, data, 'a'))
+				return ;
 			define = define->dnext;
+		}
 		if (undefine == NULL)
 			define->dnext = create_label_define(data);
 		else
+		{
+			if (verif_once_define(define, undefine, data, 'b'))
+				return ;
 			define->dnext = undefine;
-		define->dnext->define_parser = 1;
-		master->parser.curent_label = define->dnext;
+		}
+		define_parser(master, define);
 	}
 	else
-	{
-		if (undefine == NULL)
-			master->parser.define_label = create_label_define(data);
-		else
-		{
-			undefine->define_parser = 1;
-			master->parser.define_label = undefine;
-		}
-		master->parser.curent_label = master->parser.define_label;
-	}
+		push_back_define_first(master, undefine, data);
 }
 
 void				declare_label_define(t_asm *master, t_token *token)
@@ -70,13 +72,11 @@ void				declare_label_define(t_asm *master, t_token *token)
 		undefine = undefine->unext;
 	}
 	if (undefine)
-	{
-		push_back_label_define(master, token, undefine);
-	}
+		push_back_label_define(master, token, undefine,
+			master->parser.define_label);
 	else
-	{
-		push_back_label_define(master, token, NULL);
-	}
+		push_back_label_define(master, token, NULL,
+			master->parser.define_label);
 }
 
 t_list_label		*create_label_undefine(t_token *data)
@@ -88,6 +88,8 @@ t_list_label		*create_label_undefine(t_token *data)
 	ft_bzero(box, sizeof(t_list_label));
 	if (!(box->name = ft_strndup(data->data, ft_strlen(data->data))))
 		return (NULL);
+	box->unext = NULL;
+	box->dnext = NULL;
 	return (box);
 }
 

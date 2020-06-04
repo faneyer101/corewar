@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/01 17:28:07 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 16:14:36 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	load_first(t_vm *vm)
 		push_proc(vm, dummy, vm->players[i].start, vm->players[i].code[0]);
 		i++;
 	}
+	free(dummy);
 	curs = vm->beginlist;
 	while (curs)
 	{
