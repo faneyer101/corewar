@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:03:05 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/03 15:31:27 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 23:09:22 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
+
+void	nofile(char *pname)
+{
+	ft_printf("No such file %s\n", pname);
+	exit(0);
+}
 
 void	swap_player(char *name_player, t_vm *vm, int player)
 {

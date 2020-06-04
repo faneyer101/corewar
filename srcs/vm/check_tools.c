@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:39:38 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/03 15:38:55 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 23:08:43 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void	check_magic(t_vm *vm)
 	while (ip < vm->nb_player)
 	{
 		vm->players[ip].fd = open(vm->players[ip].pname, O_RDONLY);
+		if (vm->players[ip].fd == -1)
+			nofile(vm->players[ip].pname);
 		read(vm->players[ip].fd, vm->players[ip].magic, 4);
 		read(vm->players[ip].fd, vm->players[ip].name, PROG_NAME_LENGTH);
 		check_nullbytes(vm, ip);

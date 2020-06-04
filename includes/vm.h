@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/04 16:11:43 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 23:08:22 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void					check_magic(t_vm *vm);
 int						get_size(t_vm *vm, int ip);
 void					check_realsize(t_vm *vm, int ip);
 void					get_code(t_vm *vm, int ip);
+void					nofile(char *pname);
 
 /*
 ** init_arena.c
