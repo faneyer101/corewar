@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 23:23:14 by faneyer           #+#    #+#             */
-/*   Updated: 2020/06/04 15:52:31 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 23:19:23 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,13 @@ void	parser_label_or_function(t_asm *m, t_token **token, t_token *l)
 				print_error_parser(m, "labbel already declared", l->data, l);
 			else if (l->column > 1)
 			{
-				print_error_parser(m, "just declared one labbel per line",
-				l->data, l);
+				print_error_parser(m, "just one labbel per line", l->data, l);
 			}
 			else
 				declare_label_define(m, l);
 		}
+		else if (l->kind == HEADER_NAME || l->kind == HEADER_COMMENT)
+			parser_header(m, &l);
 		else if (l->kind != COMMENT)
 		{
 			parser_function_and_param(m, l, 0);
