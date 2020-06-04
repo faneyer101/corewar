@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 18:03:31 by faneyer           #+#    #+#             */
-/*   Updated: 2020/06/04 20:09:04 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 22:45:48 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,16 @@ int	verif_type_param(t_asm *m, t_token *list, t_op function, int i)
 		while (++i < function.nb_arg)
 		{
 			if (list->kind == SEPARATOR)
-				list = list->next;
+				if ((list = list->next) == NULL)
+					return (0);
 			if ((list->kind == LABEL_INDIRECT || list->kind == NUM_INDIRECT) &&
 			((function.args[i] >> 2) & 1) == 1)
 				break ;
 			else if ((list->kind == LABEL_DIRECT || list->kind == NUM_DIRECT) &&
 			(((function.args[i] >> 1) & 1) == 1))
 				break ;
-			else if (list->kind == REGISTRE &&
-				((function.args[i] >> 0) & 1) == 1)
+			else if (ft_strlen(list->data) == ft_intlen(ft_atoi(list->data)) &&
+				((function.args[i] >> 0) & 1) == 1 && list->kind == REGISTRE)
 				break ;
 			else if (list->kind != SEPARATOR)
 				return (print_error_parser(m, "error type of param",
