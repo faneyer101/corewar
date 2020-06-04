@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/04 16:14:36 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 22:04:05 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	load_first(t_vm *vm)
 	while (i < REG_NUMBER)
 		dummy->reg[i++] = 0;
 	dummy->carry = 0;
+	dummy->last_alive = -1;
 	i = 0;
 	while (i < vm->nb_player)
 	{

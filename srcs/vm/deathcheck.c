@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 17:33:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/04 21:46:59 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 22:01:08 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		reduce_ctc(t_vm *vm)
 
 t_proclist	*kill_this(t_vm *vm, t_proclist *curr, t_proclist *prev)
 {
-	if (vm->cycles - curr->last_alive > vm->linf.todie)
+	if (vm->cycles - curr->last_alive >= vm->linf.todie)
 	{
 		if (!prev)
 			vm->beginlist = curr->next;
@@ -80,7 +80,7 @@ void		deathcheck(t_vm *vm)
 	prev = NULL;
 	while (curr)
 	{
-		if (!curr->alive && vm->cycles - curr->last_alive > vm->linf.todie)
+		if (!curr->alive && (vm->cycles - curr->last_alive) >= vm->linf.todie)
 		{
 			death_verbose(vm, curr);
 			curr = kill_this(vm, curr, prev);
