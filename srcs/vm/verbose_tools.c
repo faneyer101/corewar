@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 12:39:19 by user42            #+#    #+#             */
-/*   Updated: 2020/06/01 17:35:05 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 20:12:27 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	fork_verbose(t_vm *vm, t_proclist *proc, uint8_t lfork, short target)
 	{
 		if (vm->verbose == 2)
 			ft_printf("{CYAN}");
-		ft_printf("P%5d ", proc->id);
+		ft_printf("P %4d ", proc->id);
 		if (vm->verbose == 2)
 			ft_printf("{END}");
 		if (lfork)
 			ft_printf("| lfork %d (%d)\n", target, proc->pc + target);
 		else
 			ft_printf("| fork %d (%d)\n", target,
-				get_reach(proc->pc + target % IDX_MOD));
+				proc->pc + target % IDX_MOD);
 	}
 	proc->tomove = 3;
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 20:17:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/04 16:45:09 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 19:46:14 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 		j += 2;
 	}
 	proc->tomove += compute_params(proc, 2, 4);
+	if (proc->param[0] == 0 || proc->param[1] == 0)
+		return (0);
 	if (proc->param[0] != DIR_CODE && proc->param[0] != IND_CODE)
 		return (0);
 	if (proc->param[1] != REG_CODE)
@@ -55,7 +57,7 @@ static void		verbose(t_vm *vm, t_proclist *proc, uint8_t val, int mode)
 
 void			lld(t_proclist *proc, t_vm *vm)
 {
-	uint8_t toreach;
+	short	toreach;
 	uint8_t	reg;
 
 	reg = 0;
@@ -69,10 +71,11 @@ void			lld(t_proclist *proc, t_vm *vm)
 		}
 		else if (proc->param[0] == IND_CODE)
 		{
-			reg = vm->arena[proc->pc] + 4;
+			reg = vm->arena[proc->pc + 4];
 			toreach = maptoi(vm, get_reach(proc->pc + 2), 2);
 			if (reg > 0 && reg < 17)
-				proc->reg[reg] = maptoi(vm, toreach + proc->pc, 4);
+				proc->reg[reg] =
+				(short)maptoi(vm, get_reach(toreach + proc->pc), 2);
 		}
 		verbose(vm, proc, reg, 1);
 		if (reg > 0 && reg < 17)
