@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 17:33:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/04 20:36:37 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 21:46:59 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void		reduce_ctc(t_vm *vm)
 		ft_printf("{END}");
 	vm->linf.todie -= CYCLE_DELTA;
 	vm->linf.liv_since_last = 0;
+	vm->linf.checks = 0;
 }
 
 t_proclist	*kill_this(t_vm *vm, t_proclist *curr, t_proclist *prev)
