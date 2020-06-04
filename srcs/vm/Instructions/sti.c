@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:23:03 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/04 16:46:08 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 20:52:43 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int		regcheck(t_vm *vm, t_proclist *proc, int reg)
 		return (0);
 	if (proc->param[1] == REG_CODE)
 	{
-		reg2 = vm->arena[proc->pc + 3];
+		reg2 = vm->arena[get_reach(proc->pc + 3)];
 		if (reg2 < 1 || reg2 > REG_NUMBER)
 			return (0);
 	}

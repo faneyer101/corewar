@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 20:56:23 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/04 16:43:56 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 20:59:06 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,11 @@ void			st(t_proclist *proc, t_vm *vm)
 		if (proc->param[1] == REG_CODE && reg > 0 && reg < 17)
 		{
 			param = vm->arena[get_reach(proc->pc + 3)];
-			proc->reg[param] = proc->reg[reg];
-			verbose(vm, proc, reg, param);
+			if (param > 0 && param < 17)
+			{
+				proc->reg[param] = proc->reg[reg];
+				verbose(vm, proc, reg, param);
+			}
 		}
 		else if (reg > 0 && reg < 17)
 		{
