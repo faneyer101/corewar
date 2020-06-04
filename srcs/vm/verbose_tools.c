@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 12:39:19 by user42            #+#    #+#             */
-/*   Updated: 2020/06/04 22:00:31 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 23:59:43 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	death_verbose(t_vm *vm, t_proclist *proc)
 {
-	if (vm->cycles - proc->last_alive >= vm->linf.todie)
+	if (vm->cycles - proc->last_alive > vm->linf.todie)
 	{
 		if (vm->verbose)
 		{
