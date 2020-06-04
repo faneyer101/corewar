@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/05 01:18:52 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/05 01:53:03 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct			s_proclist
 	uint8_t				alive;
 	uint8_t				param[4];
 	long long			last_alive;
-	int					reg[REG_NUMBER + 1];
+	int					reg[100];
 }						t_proclist;
 
 typedef struct			s_live
