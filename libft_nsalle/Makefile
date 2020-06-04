@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/28 10:02:52 by faneyer           #+#    #+#              #
-#    Updated: 2020/06/03 15:41:06 by user42           ###   ########lyon.fr    #
+#    Updated: 2020/06/04 16:23:49 by faneyer          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -149,7 +149,7 @@ RM			=		/bin/rm
 
 BAR			=		\033[32;7m
 
-$(OBJDIR)%.o: $(SRCDIR)%.c $(INCDIR)libft.h
+$(OBJDIR)%.o: $(SRCDIR)%.c $(INCDIR)libft.h $(INCDIR)ft_printf.h
 	@mkdir -p $(OBJDIR)
 	@mkdir -p $(OBJDIR)/Printf
 	@$(CC) $(CFLAGS) $(INC) -o $@ -c $< && echo "${BAR} \c"

@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 14:30:56 by faneyer           #+#    #+#             */
-/*   Updated: 2020/06/04 15:11:59 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 20:06:57 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_token *token)
 void	num_four_octets(t_asm *master, long long int *calcul,
 t_token *token)
 {
-	if ((calcul[0] = ft_atoi(token->data)) > UINT_MAX ||
-	(token->data[0] == '-' && ft_atoi(&token->data[1]) > UINT_MAX))
+	if ((calcul[0] = ft_atoll(token->data)) > UINT_MAX ||
+	(token->data[0] == '-' && ft_atoll(&token->data[1]) > UINT_MAX))
 		print_error_overflow(master, 4, token,
 		"Value max: 4294967295. Size max on the param");
 	else
