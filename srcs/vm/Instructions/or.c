@@ -6,11 +6,21 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 13:43:02 by user42            #+#    #+#             */
-/*   Updated: 2020/06/02 14:30:58 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 14:33:45 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/vm.h"
+
+static int		index_or(t_vm *vm, t_proclist *proc)
+{
+	short	toreach;
+
+	toreach = maptoi(vm, get_reach(proc->pc + proc->curs), 2);
+	toreach %= IDX_MOD;
+	proc->curs += 2;
+	return (maptoi(vm, get_reach(proc->pc + toreach), 4));
+}
 
 static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 {
@@ -80,13 +90,13 @@ void			or(t_proclist *proc, t_vm *vm)
 		else if (proc->param[0] == DIR_CODE)
 			par[0] = get_paramval(vm, proc, DIR_CODE, 4);
 		else
-			par[0] = get_paramval(vm, proc, IND_CODE, 4);
+			par[0] = index_or(vm, proc);
 		if (proc->param[1] == REG_CODE)
 			par[1] = proc->reg[get_paramval(vm, proc, REG_CODE, 4)];
 		else if (proc->param[1] == DIR_CODE)
 			par[1] = get_paramval(vm, proc, DIR_CODE, 4);
 		else
-			par[1] = get_paramval(vm, proc, IND_CODE, 4);
+			par[1] = index_or(vm, proc);
 		par[2] = get_paramval(vm, proc, REG_CODE, 4);
 		regcheck(proc, vm, par);
 	}
