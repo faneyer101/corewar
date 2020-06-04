@@ -6,11 +6,21 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:23:03 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/04 20:52:43 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/05 00:24:04 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/vm.h"
+
+static int		index_sti(t_vm *vm, t_proclist *proc)
+{
+	short	toreach;
+
+	toreach = maptoi(vm, get_reach(proc->pc + proc->curs), 2);
+	toreach %= IDX_MOD;
+	proc->curs += 2;
+	return (maptoi(vm, get_reach(proc->pc + toreach), 4));
+}
 
 static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 {
@@ -86,7 +96,7 @@ void			sti(t_proclist *proc, t_vm *vm)
 		if (proc->param[1] == DIR_CODE)
 			toput[0] = (short)get_paramval(vm, proc, DIR_CODE, 2);
 		else if (proc->param[1] == IND_CODE)
-			toput[0] = get_paramval(vm, proc, IND_CODE, 2);
+			toput[0] = index_sti(vm, proc);
 		else if (proc->param[1] == REG_CODE)
 			toput[0] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
 		if (proc->param[2] == DIR_CODE)
