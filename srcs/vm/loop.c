@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:44:59 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/05 00:10:47 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/05 01:00:32 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	load_first(t_vm *vm)
 	i = 0;
 	if (!(dummy = (t_proclist*)malloc(sizeof(t_proclist))))
 		exit(0);
-	while (i < REG_NUMBER)
+	while (i < REG_NUMBER + 1)
 		dummy->reg[i++] = 0;
 	dummy->carry = 0;
 	dummy->last_alive = -10;
