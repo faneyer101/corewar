@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/04 21:12:42 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/05 01:09:12 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void		verbose(t_vm *vm, t_proclist *proc, int val[4], int ldi)
 				ft_printf("| lldi %d %d r%d\n", val[0], val[1], val[2]);
 			ft_printf("%7c| -> load from %d + %d = %d (with pc and mod %d)\n",
 						' ', val[0], val[1], val[0] + val[1],
-						get_reach(proc->pc + target));
+						proc->pc + target);
 		}
 	}
 }
