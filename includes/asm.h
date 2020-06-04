@@ -6,7 +6,7 @@
 /*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 12:11:22 by faneyer           #+#    #+#             */
-/*   Updated: 2020/06/04 15:49:51 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 16:19:46 by faneyer          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,11 +211,10 @@ void						search_define_label(t_asm *master, t_token *token,
 int							init_write_file(t_asm *master, char *name);
 void						push_back_define_first(t_asm *master,
 								t_list_label *undefine, t_token *data);
-int							verif_once_define(t_list_label *define, 
-								t_list_label *undefine, t_token *data, char type);
+int							verif_once_define(t_list_label *define,
+								t_list_label *undefine, t_token *data,
+								char type);
 void						define_parser(t_asm *master, t_list_label *define);
-
-
 
 /*
 **  		Fonction de debugs // d'affichages
