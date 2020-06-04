@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 17:33:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/04 16:14:16 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 20:36:37 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_proclist	*kill_this(t_vm *vm, t_proclist *curr, t_proclist *prev)
 
 void		refresh_ctd(t_vm *vm)
 {
-	if (vm->linf.liv_since_last > NBR_LIVE)
+	if (vm->linf.liv_since_last >= NBR_LIVE)
 		reduce_ctc(vm);
 	else
 		vm->linf.checks++;
