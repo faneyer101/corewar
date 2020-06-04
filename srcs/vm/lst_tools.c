@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 17:14:27 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/03 16:49:15 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 21:38:52 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_proclist	*create_proc(t_vm *vm, t_proclist *proc, uint16_t pc, uint8_t op)
 	if (!(new = (t_proclist*)malloc(sizeof(t_proclist))))
 		exit_corewar(vm);
 	ft_bzero(new, sizeof(t_proclist));
-	while (i < REG_NUMBER)
+	while (i < REG_NUMBER + 1)
 	{
 		new->reg[i] = proc->reg[i];
 		i++;
