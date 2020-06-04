@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 13:43:02 by user42            #+#    #+#             */
-/*   Updated: 2020/06/04 15:03:27 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 16:13:34 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static uint8_t	check_ocp(t_proclist *proc, t_vm *vm)
 	uint8_t	i;
 	uint8_t	j;
 
-	proc->ocp = binstring(vm->arena[proc->pc + 1]);
+	binstring(proc, vm->arena[get_reach(proc->pc + 1)]);
 	proc->tomove = 2;
 	i = 0;
 	j = 0;

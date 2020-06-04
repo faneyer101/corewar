@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 12:13:30 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/03 22:07:06 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 16:11:43 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct			s_proclist
 {
 	struct s_proclist	*next;
 	struct s_proclist	*activenext;
-	char				*ocp;
+	char				ocp[8];
 	uint32_t			id;
 	uint8_t				tomove;
 	uint8_t				curs;
@@ -130,7 +130,7 @@ short					get_reach(int val);
 /*
 ** digitools.c
 */
-char					*binstring(uint8_t toparse);
+void					binstring(t_proclist *proc, uint8_t toparse);
 uint32_t				maptoi(t_vm *vm, int i, uint8_t size);
 void					write_onmap(t_vm *vm, int adress, uint32_t val);
 

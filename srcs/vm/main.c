@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 21:45:58 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/03 16:06:11 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 16:14:34 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	exit_corewar(t_vm *vm)
 	while (cursnext)
 	{
 		cursnext = cursnext->next;
-		ft_strdel(&curs->ocp);
 		free(curs);
 		curs = cursnext;
 	}

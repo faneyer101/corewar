@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 17:33:42 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/02 14:50:07 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 16:14:16 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ t_proclist	*kill_this(t_vm *vm, t_proclist *curr, t_proclist *prev)
 			vm->beginlist = curr->next;
 		else
 			prev->next = curr->next;
-		ft_strdel(&curr->ocp);
 		free(curr);
 		if (!prev)
 			return (vm->beginlist);

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 16:32:18 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/01 16:53:55 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 16:12:20 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,17 @@ uint32_t	maptoi(t_vm *vm, int i, uint8_t size)
 	return (rep);
 }
 
-char		*binstring(uint8_t toparse)
+void		binstring(t_proclist *proc, uint8_t toparse)
 {
-	char	*binary;
 	int		j;
 
-	binary = (char*)malloc(sizeof(char) * 8);
 	j = 0;
 	while (j < 8)
-		binary[j++] = 0;
+		proc->ocp[j++] = 0;
 	j = 7;
 	while (j > -1)
 	{
-		binary[j--] = toparse % 2;
+		proc->ocp[j--] = toparse % 2;
 		toparse /= 2;
 	}
-	return (binary);
 }
