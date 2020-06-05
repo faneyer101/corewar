@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   verbose_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 12:39:19 by user42            #+#    #+#             */
-/*   Updated: 2020/06/05 01:20:12 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/05 14:15:06 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/vm.h"
 
-void		verbose_lldi(t_vm *vm, t_proclist *proc, int val[4], int ldi)
+void	verbose_lldi(t_vm *vm, t_proclist *proc, int val[4], int ldi)
 {
 	int	target;
 
