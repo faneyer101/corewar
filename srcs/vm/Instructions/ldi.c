@@ -6,18 +6,18 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 15:38:02 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/05 01:19:02 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/05 13:10:13 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/vm.h"
 
-static void		regcheck(t_vm *vm, t_proclist *proc, int var[4])
+static void		regcheck(t_vm *vm, t_proclist *proc, int var[4], int index)
 {
 	int	reg;
 
 	reg = get_paramval(vm, proc, REG_CODE, 2);
-	var[1] = proc->reg[reg];
+	var[index] = proc->reg[reg];
 	if (reg > 0 && reg < 17)
 		var[3] = 1;
 	else
@@ -83,13 +83,13 @@ void			lldi(t_proclist *proc, t_vm *vm)
 	if (check_ocp(proc, vm))
 	{
 		if (proc->param[0] == REG_CODE)
-			var[0] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
+			regcheck(vm, proc, var, 0);
 		else if (proc->param[0] == DIR_CODE)
 			var[0] = (short)get_paramval(vm, proc, DIR_CODE, 2);
 		else if (proc->param[0] == IND_CODE)
-			var[0] = (short)get_paramval(vm, proc, IND_CODE, 2);
+			var[0] = get_paramval(vm, proc, IND_CODE, 2);
 		if (proc->param[1] == REG_CODE)
-			regcheck(vm, proc, var);
+			regcheck(vm, proc, var, 1);
 		else if (proc->param[1] == DIR_CODE)
 			var[1] = (short)get_paramval(vm, proc, DIR_CODE, 2);
 		sum = var[0] + var[1];
@@ -112,13 +112,13 @@ void			ldi(t_proclist *proc, t_vm *vm)
 	if (check_ocp(proc, vm))
 	{
 		if (proc->param[0] == REG_CODE)
-			var[0] = proc->reg[get_paramval(vm, proc, REG_CODE, 2)];
+			regcheck(vm, proc, var, 0);
 		else if (proc->param[0] == DIR_CODE)
 			var[0] = (short)get_paramval(vm, proc, DIR_CODE, 2);
 		else if (proc->param[0] == IND_CODE)
 			var[0] = (short)get_paramval(vm, proc, IND_CODE, 2);
 		if (proc->param[1] == REG_CODE)
-			regcheck(vm, proc, var);
+			regcheck(vm, proc, var, 1);
 		else if (proc->param[1] == DIR_CODE)
 			var[1] = (short)get_paramval(vm, proc, DIR_CODE, 2);
 		sum = (var[0] + var[1]) % IDX_MOD;
