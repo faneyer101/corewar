@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 18:01:58 by nsalle            #+#    #+#             */
-/*   Updated: 2020/06/04 16:54:53 by user42           ###   ########lyon.fr   */
+/*   Updated: 2020/06/05 11:10:24 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	dump_arena(t_vm *vm)
 				ft_printf("{END}");
 		}
 		i++;
-		if (i % 64 == 0 && i < MEM_SIZE)
+		if (i % DUMP_SIZE == 0 && i < MEM_SIZE)
 			ft_printf("\n0x%.4x : ", i);
 	}
 	ft_putendl("");

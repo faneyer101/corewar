@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faneyer <faneyer@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/06/03 15:44:29 by faneyer          ###   ########lyon.fr   */
+/*   Updated: 2020/06/05 11:09:28 by user42           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define CYCLE_DELTA			50
 # define NBR_LIVE				21
 # define MAX_CHECKS				10
+# define DUMP_SIZE				64
 
 typedef char	t_arg_type;
 
